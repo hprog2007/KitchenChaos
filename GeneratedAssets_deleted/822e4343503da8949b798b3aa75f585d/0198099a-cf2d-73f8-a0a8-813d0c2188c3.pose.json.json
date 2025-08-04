@@ -1,0 +1,10 @@
+{
+    "asset": "822e4343503da8949b798b3aa75f585d",
+    "fileName": "0198099a-cf2d-73f8-a0a8-813d0c2188c3.pose.json",
+    "prompt": "An animation for rotating an item in four directions: up, down, left, and right.",
+    "negativePrompt": "",
+    "model": "a9c27ca4-3ec9-43e8-96cd-ee891aba64c5",
+    "modelName": "Text to Motion",
+    "customSeed": 1619043602,
+    "w3CTraceId": "8d568b82580c8c617e37c78c5ec561cd"
+}

@@ -1,0 +1,20 @@
+{
+    "asset": "e514898729c2ace47a0bcb582afc5cee",
+    "fileName": "019841a9-9a05-7784-9982-6ab323845eea.png",
+    "prompt": "checkboard texture",
+    "negativePrompt": "",
+    "model": "5fa78152-02ea-492b-b8ea-777b31a8a2f8",
+    "modelName": "GPT Image 1 - Low",
+    "customSeed": -1,
+    "w3CTraceId": "042ada22a46985891f1c4f1c411009be",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

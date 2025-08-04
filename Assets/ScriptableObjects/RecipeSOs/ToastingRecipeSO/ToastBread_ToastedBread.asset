@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8e6b39d8d43a5418c9c98b0b3d1464, type: 3}
+  m_Name: ToastBread_ToastedBread
+  m_EditorClassIdentifier: Assembly-CSharp::ToastingRecipeSO
+  input: {fileID: 11400000, guid: 37aa0cbdb467aea46a228099d798ee5b, type: 2}
+  output: {fileID: 11400000, guid: 37aa0cbdb467aea46a228099d798ee5b, type: 2}
+  toastingTimerMax: 3

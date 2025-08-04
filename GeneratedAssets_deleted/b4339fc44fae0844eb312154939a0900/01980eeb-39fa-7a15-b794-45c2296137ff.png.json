@@ -1,0 +1,20 @@
+{
+    "asset": "b4339fc44fae0844eb312154939a0900",
+    "fileName": "01980eeb-39fa-7a15-b794-45c2296137ff.png",
+    "prompt": "generate invalid grid cell texture in red",
+    "negativePrompt": "",
+    "model": "5fa78152-02ea-492b-b8ea-777b31a8a2f8",
+    "modelName": "GPT Image 1 - Low",
+    "customSeed": -1,
+    "w3CTraceId": "8eeb7f9d4ebe03fb9c9e86f402e1a581",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

@@ -1,0 +1,11 @@
+{
+    "asset": "7b70e263760c84d4084a27e3ed6e6ffb",
+    "fileName": "019841de-5f17-7f88-90f6-dd59bb42b51a_Preview.png",
+    "prompt": "generate a cool material for the fryer2",
+    "negativePrompt": "",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "modelName": "Unity Texture2D",
+    "customSeed": 1339522391,
+    "w3CTraceId": "f6661463d691f6753289750d768f42ca",
+    "refinementMode": "Generation"
+}

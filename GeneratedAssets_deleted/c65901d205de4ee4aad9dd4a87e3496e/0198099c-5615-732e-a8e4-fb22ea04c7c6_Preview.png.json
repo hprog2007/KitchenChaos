@@ -1,0 +1,11 @@
+{
+    "asset": "c65901d205de4ee4aad9dd4a87e3496e",
+    "fileName": "0198099c-5615-732e-a8e4-fb22ea04c7c6_Preview.png",
+    "prompt": "A material for highlighting valid grid cells for item placement or upgrade in a game.",
+    "negativePrompt": "",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "modelName": "Unity Texture2D",
+    "customSeed": 1372788960,
+    "w3CTraceId": "d832fad38f73cd29e494bd0ad326ba58",
+    "refinementMode": "Generation"
+}

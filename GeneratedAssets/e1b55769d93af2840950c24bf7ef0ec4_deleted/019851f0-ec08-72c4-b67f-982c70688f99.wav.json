@@ -1,0 +1,13 @@
+{
+    "asset": "e1b55769d93af2840950c24bf7ef0ec4",
+    "fileName": "019851f0-ec08-72c4-b67f-982c70688f99.wav",
+    "prompt": "toaster bread poped",
+    "negativePrompt": "",
+    "model": "0ee39b33-2893-4e0f-8c46-0e0bdd4eda85",
+    "modelName": "Text to Sound",
+    "customSeed": -1,
+    "w3CTraceId": "b91124fc13ebdba1d0b596406c639920",
+    "duration": 2.0,
+    "autoTrim": true,
+    "hasReference": false
+}

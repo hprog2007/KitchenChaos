@@ -1,0 +1,20 @@
+{
+    "asset": "9ed5f945bd98e244681fe234857a2ee0",
+    "fileName": "01984199-e23d-7321-bec0-b9e41e626032.png",
+    "prompt": "Stylized cartoon PBR texture of a deep fryer, smooth brushed steel body with slight warm hue tint for a cheerful kitchen vibe, darker gray handles, soft cartoon edge shadows for readability, subtle oil stain marks but overall clean and bright appearance, visible hand-painted brush strokes, diffuse + normal + roughness + metallic maps, resolution 1024x1024, Unity URP ready, seamless texture, saturated and colorful stylized metal finish. negative prompt: photorealistic, realistic photo texture, harsh reflections, strong metallic shine, procedural material, high frequency noise, gritty realism, dark or gloomy color palette, overly detailed scratches, grunge, dirt-heavy, HDR render, cinematic lighting, realistic shading, unstylized, blurry texture, low resolution, poorly aligned UV, warped textures, realistic PBR, scan-based texture",
+    "negativePrompt": "",
+    "model": "e0b26c28-c771-454f-ae97-3be78d8b0159",
+    "modelName": "GPT Image 1 - Medium",
+    "customSeed": -1,
+    "w3CTraceId": "63a5faf2ff87e2d9fe9341589a642f9b",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

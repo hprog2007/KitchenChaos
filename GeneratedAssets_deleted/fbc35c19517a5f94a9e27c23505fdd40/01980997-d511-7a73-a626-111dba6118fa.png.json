@@ -1,0 +1,20 @@
+{
+    "asset": "fbc35c19517a5f94a9e27c23505fdd40",
+    "fileName": "01980997-d511-7a73-a626-111dba6118fa.png",
+    "prompt": "A sprite for a coin pack that can be purchased in a game shop.",
+    "negativePrompt": "",
+    "model": "5fa78152-02ea-492b-b8ea-777b31a8a2f8",
+    "modelName": "GPT Image 1 - Low",
+    "customSeed": -1,
+    "w3CTraceId": "348937d52cdd32022015e56571f1850c",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

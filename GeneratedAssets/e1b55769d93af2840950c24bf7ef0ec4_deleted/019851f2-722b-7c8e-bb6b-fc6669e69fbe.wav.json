@@ -1,0 +1,13 @@
+{
+    "asset": "e1b55769d93af2840950c24bf7ef0ec4",
+    "fileName": "019851f2-722b-7c8e-bb6b-fc6669e69fbe.wav",
+    "prompt": "Create a short, satisfying toaster pop sound effect that plays when a piece of bread is finished toasting and pops up. The sound should be:\n\nClean and snappy, lasting around 0.3 to 0.7 seconds.\n\nContain a mechanical spring or metallic release click, resembling the release of a toaster’s spring-loaded tray.\n\nInclude a light pop or whoosh at the end to indicate the bread lifting up or launching.\n\nThe tone should feel cheerful and positive, suggesting successful toasting (not harsh or alarming).\n\nAvoid harsh buzzes, alarms, or deep mechanical sounds.\n\nShould work well in a cartoony or stylized cooking game, similar to Overcooked.\n\nStereo or mono, .wav format, sample rate 44.1kHz or higher.\n\nOptional: Add a subtle spring coil recoil fading out for extra character.",
+    "negativePrompt": "",
+    "model": "0ee39b33-2893-4e0f-8c46-0e0bdd4eda85",
+    "modelName": "Text to Sound",
+    "customSeed": -1,
+    "w3CTraceId": "3e7f0501aa9b2f82d0c601a54dc557d4",
+    "duration": 2.0,
+    "autoTrim": true,
+    "hasReference": false
+}

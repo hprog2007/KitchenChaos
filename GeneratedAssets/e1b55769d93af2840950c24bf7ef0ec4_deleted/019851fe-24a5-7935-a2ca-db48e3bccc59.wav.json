@@ -1,0 +1,13 @@
+{
+    "asset": "e1b55769d93af2840950c24bf7ef0ec4",
+    "fileName": "019851fe-24a5-7935-a2ca-db48e3bccc59.wav",
+    "prompt": "Cartoon-style toaster pop sound effect, bouncy spring launch, light metallic clink, soft whoosh and pop, playful tone, no harshness, clean and short",
+    "negativePrompt": "No loud bangs, no harsh metallic clangs, no deep bass or thuds, no distortion, no aggressive popping, no realistic fire sounds, no long duration, no electrical buzzing, no dramatic tension, no horror or suspense elements, no echo or reverb",
+    "model": "0ee39b33-2893-4e0f-8c46-0e0bdd4eda85",
+    "modelName": "Text to Sound",
+    "customSeed": -1,
+    "w3CTraceId": "4c0f456e83265d62e8c841f6b15fa764",
+    "duration": 2.0,
+    "autoTrim": true,
+    "hasReference": false
+}

@@ -1,0 +1,11 @@
+{
+    "asset": "53156eea3ac67dd469aad07a830c6a57",
+    "fileName": "01980ee9-3c69-7b2c-b128-f2c4d0c71e7c_Preview.png",
+    "prompt": "generate invalid material for grid cells",
+    "negativePrompt": "",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "modelName": "Unity Texture2D",
+    "customSeed": 639536237,
+    "w3CTraceId": "b7e7535da800a5cb64407818432cc478",
+    "refinementMode": "Generation"
+}

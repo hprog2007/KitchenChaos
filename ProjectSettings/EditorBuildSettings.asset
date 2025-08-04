@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenuScene.unity
+    guid: e60d4112d0f3a1e47b9627372939e8e1
+  - enabled: 1
+    path: Assets/Scenes/Level_Selection_Map.unity
+    guid: 5a13ffe13135882448e44f332a518ddb
+  - enabled: 1
+    path: Assets/Scenes/KitchenLevels/L1_Classic_City_Scene.unity
+    guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/KitchenLevels/L2_Rooftop_Garden_Scene.unity
+    guid: 562e4694ac11da54092b8e7d52a40628
+  - enabled: 1
+    path: Assets/Scenes/KitchenLevels/L3_Food_Truck_Scene.unity
+    guid: 70704c51f9cf54a448f8b66c83d8ea0a
+  - enabled: 1
+    path: Assets/Scenes/KitchenLevels/L4_Seaside_Fish_Scene.unity
+    guid: c585d041a7cf47f459bba524e2d16799
+  - enabled: 1
+    path: Assets/Scenes/KitchenLevels/L5_Luxury_Modern_Scene.unity
+    guid: f71935d768b20634b91ab9c55b5bafb4
+  - enabled: 1
+    path: Assets/Scenes/KitchenLevels/L6_Underground_Chef_Scene.unity
+    guid: 2b416f2a89388d44294c4ffbce8d4ca8
+  - enabled: 1
+    path: Assets/Scenes/KitchenLevels/L7_Village_Bakery_Scene.unity
+    guid: 7f0e572759956964e90556514a3ba1b2
+  - enabled: 1
+    path: Assets/Scenes/KitchenLevels/L8_Mountain_Cabin_Scene.unity
+    guid: 53a7be08f73306e4383e745013c88bb4
+  - enabled: 1
+    path: Assets/Scenes/LoadingScene.unity
+    guid: 02dbdd9c3a63a5f47a1e30a3985f6ce8
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_UseUCBPForAssetBundles: 0

@@ -1,0 +1,11 @@
+{
+    "asset": "f33fb9c84a41d274ab1e0255057b4bd2",
+    "fileName": "01984180-2adf-77fd-8cc9-07cdc07e74f6_Preview.png",
+    "prompt": "Stylized cartoon PBR texture of a deep fryer, smooth brushed steel body with slight warm hue tint for a cheerful kitchen vibe, darker gray handles, soft cartoon edge shadows for readability, subtle oil stain marks but overall clean and bright appearance, visible hand-painted brush strokes, diffuse + normal + roughness + metallic maps, resolution 1024x1024, Unity URP ready, seamless texture, saturated and colorful stylized metal finish.\n\n",
+    "negativePrompt": "photorealistic, realistic photo texture, harsh reflections, strong metallic shine, procedural material, high frequency noise, gritty realism, dark or gloomy color palette, overly detailed scratches, grunge, dirt-heavy, HDR render, cinematic lighting, realistic shading, unstylized, blurry texture, low resolution",
+    "model": "575ecf67-4425-4939-97b9-5e138b8ee234",
+    "modelName": "Unity Texture2D",
+    "customSeed": 531290377,
+    "w3CTraceId": "4215587a14236fa155579e30af9f46d5",
+    "refinementMode": "Generation"
+}

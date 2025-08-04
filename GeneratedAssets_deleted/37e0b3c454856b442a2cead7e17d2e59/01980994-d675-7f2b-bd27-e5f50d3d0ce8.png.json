@@ -1,0 +1,20 @@
+{
+    "asset": "37e0b3c454856b442a2cead7e17d2e59",
+    "fileName": "01980994-d675-7f2b-bd27-e5f50d3d0ce8.png",
+    "prompt": "A texture for a grid system to show valid cells for item placement in a game.",
+    "negativePrompt": "",
+    "model": "5fa78152-02ea-492b-b8ea-777b31a8a2f8",
+    "modelName": "GPT Image 1 - Low",
+    "customSeed": -1,
+    "w3CTraceId": "463960ffcf7ec9adad4d5446c344c257",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

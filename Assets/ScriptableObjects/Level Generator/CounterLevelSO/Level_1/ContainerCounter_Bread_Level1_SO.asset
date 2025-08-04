@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8e7919d0889b1942aedfa4310a3c602, type: 3}
+  m_Name: ContainerCounter_Bread_Level1_SO
+  m_EditorClassIdentifier: Assembly-CSharp::CounterLevelSO
+  counterType: 2
+  level: 1
+  upgradePrice: 50
+  cuttingSpeed: 0
+  fryingTimeMax: 0
+  capacity: 1
+  counterPrefab: {fileID: 3645865608551925047, guid: 743b91e2251912d45b20a864a65f6a24, type: 3}

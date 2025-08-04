@@ -1,0 +1,13 @@
+{
+    "asset": "e1b55769d93af2840950c24bf7ef0ec4",
+    "fileName": "019851ff-a5cb-7801-8da7-162d7aef7188.wav",
+    "prompt": "Short, clean toaster pop sound — soft mechanical click followed by light spring action and a subtle 'pop' as bread lifts, no harshness, dry recording, realistic kitchen environment",
+    "negativePrompt": "",
+    "model": "0ee39b33-2893-4e0f-8c46-0e0bdd4eda85",
+    "modelName": "Text to Sound",
+    "customSeed": -1,
+    "w3CTraceId": "094c0394b90add66044f374d151f4636",
+    "duration": 2.0,
+    "autoTrim": true,
+    "hasReference": false
+}
