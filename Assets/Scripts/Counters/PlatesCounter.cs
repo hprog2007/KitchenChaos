@@ -15,6 +15,7 @@ public class PlatesCounter : BaseCounter {
 
     void Update()
     {
+        //////////////////////////////////////////////////////// Generate Plates
         spawnPlateTimer += Time.deltaTime;
         if (spawnPlateTimer > spawnPlateTimerMax) {
             spawnPlateTimer = 0f;
@@ -35,7 +36,9 @@ public class PlatesCounter : BaseCounter {
                 //There's at least on plate here
                 platesSpawnedAmount--;
 
-                KitchenObject.SpawnKitchenObject(plateKitchenObjectSO, player);
+                
+                //spawn a plate and parent it to player
+                PlateKitchenObject plateKitchenObject = KitchenObject.SpawnKitchenObject(plateKitchenObjectSO, player) as PlateKitchenObject;
 
                 OnPlateRemoved?.Invoke(this, EventArgs.Empty);
             }

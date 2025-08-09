@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a9fc68cb31a6b64cb87463a8f3c1b87, type: 3}
+  m_Name: ToastedBread
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1695648227763101248, guid: ca57d489278fa434f90eb5e9df43b49b, type: 3}
+  sprite: {fileID: 21300000, guid: e3cb5b5822bc46643a9762c9c2e5b057, type: 3}
+  objectName: Toasted Bread

@@ -1,0 +1,20 @@
+{
+    "asset": "5ed082c019c029f4786b9701423bef47",
+    "fileName": "019884fc-c594-7bf5-a3bc-0b2417b609e0.png",
+    "prompt": "a 256*256 lettuce sprite cartoon stylized",
+    "negativePrompt": "",
+    "model": "e0b26c28-c771-454f-ae97-3be78d8b0159",
+    "modelName": "GPT Image 1 - Medium",
+    "customSeed": -1,
+    "w3CTraceId": "2dbb3c8ff09e4ad3f61ecd0492087d20",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

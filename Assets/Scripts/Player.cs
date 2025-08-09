@@ -50,7 +50,6 @@ public class Player : MonoBehaviour, IKitchenObjectParent {
     private void GameInput_OnInteraction(object sender, System.EventArgs e) {
         if (!KitchenGameManager.Instance.IsGamePlaying()) return;
 
-        Debug.Log("GameInput_OnInteraction" + selectedCounter);
         if (selectedCounter != null) {
             selectedCounter.Interact(this);
         }

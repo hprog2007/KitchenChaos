@@ -1,9 +1,10 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class ClearCounter : BaseCounter {
 
-    [SerializeField] private KitchenObjectSO kitchenObjectSO;
+    //[SerializeField] private KitchenObjectSO[] kitchenObjectSO;
 
     public override void Interact(Player player) {
         if (!HasKitchenObject()) {
@@ -30,6 +31,12 @@ public class ClearCounter : BaseCounter {
                         if (plateKitchenObject.TryAddIngredient(player.GetKitchenObject().GetKitchenObjectSO())) {
                             player.GetKitchenObject().DestroySelf();
                         }
+                    } 
+                    else {
+                        // counter has a kitchen object (ingredients) and player also has some ingredients in his hand
+                        // maybe trying to mix cheese with bread for Grilled Cheese Sandwitch
+                        
+
                     }
 
                 }
@@ -43,5 +50,34 @@ public class ClearCounter : BaseCounter {
         
     }
 
-    
+    public override void InteractAlternate(Player player)
+    {
+        //if (HasKitchenObject() && HasRecipeWithInput(GetKitchenObject().GetKitchenObjectSO()))
+        //{
+        //    //There is a kitchen object here and it can be cut 
+        //    cuttingProgress++;
+
+        //    OnCut?.Invoke(this, EventArgs.Empty);
+        //    OnAnyCut?.Invoke(this, EventArgs.Empty);
+
+        //    CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOWithInput(GetKitchenObject().GetKitchenObjectSO());
+
+        //    OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
+        //    {
+        //        progressNormalized = (float)cuttingProgress / cuttingRecipeSO.cuttingProgressMax
+        //    });
+
+        //    if (cuttingProgress >= cuttingRecipeSO.cuttingProgressMax)
+        //    {
+        //        //spawn sliced kitchen object 
+        //        KitchenObjectSO outputKitchenObjectSO = GetOutputForInput(GetKitchenObject().GetKitchenObjectSO());
+
+        //        GetKitchenObject().DestroySelf();
+
+        //        KitchenObject.SpawnKitchenObject(outputKitchenObjectSO, this);
+        //    }
+        //}
+    }
+
+
 }

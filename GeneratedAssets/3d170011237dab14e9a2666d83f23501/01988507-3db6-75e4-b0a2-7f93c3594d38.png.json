@@ -1,0 +1,20 @@
+{
+    "asset": "3d170011237dab14e9a2666d83f23501",
+    "fileName": "01988507-3db6-75e4-b0a2-7f93c3594d38.png",
+    "prompt": "Top-down view of 2D green lettuce slices, cartoon-style, fresh and slightly curled edges, sliced and laid flat, bright green with subtle shading, isolated on transparent background, ideal for cooking game UI, no background, high contrast edges for clean sprite extraction",
+    "negativePrompt": "",
+    "model": "5fa78152-02ea-492b-b8ea-777b31a8a2f8",
+    "modelName": "GPT Image 1 - Low",
+    "customSeed": -1,
+    "w3CTraceId": "01d66bac888edfd87a216d9d278da915",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

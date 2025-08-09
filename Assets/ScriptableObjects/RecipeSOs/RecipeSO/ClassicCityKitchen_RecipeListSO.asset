@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ddc86581dffd2446997bb0ce8a72db5, type: 3}
-  m_Name: Salad
+  m_Script: {fileID: 11500000, guid: ae64facd1725f5043b49c0dd94e2db06, type: 3}
+  m_Name: ClassicCityKitchen_RecipeListSO
   m_EditorClassIdentifier: 
-  kitchenObjectSOList:
-  - {fileID: 11400000, guid: 3b2b0385de754364e86193fd082b0447, type: 2}
-  - {fileID: 11400000, guid: f43fb7c41912a754a8afb1598f300ae0, type: 2}
-  recipeName: Salad
+  recipeSOList:
+  - {fileID: 11400000, guid: b735c5ff79f4e8e49a12bf6cdbfe9e5f, type: 2}
+  - {fileID: 11400000, guid: bb0961a8b3488c0459b10264fb1e2cf6, type: 2}

@@ -21,10 +21,16 @@ public class ToasterCounterVisual : MonoBehaviour
         {
             Debug.Log("Anim PushDown");
             animator.SetTrigger("PushDown");
-        } else if (e.state == ToasterCounter.State.Poped)
+        }
+        else if (e.state == ToasterCounter.State.Poped)
         {
             Debug.Log("Anim PopUp");
             animator.SetTrigger("PopUp");
+        }
+        else if (e.state == ToasterCounter.State.Idle)
+        {
+            Debug.Log("Anim Idle");
+            animator.SetTrigger("Idle");
         }
     }
 }

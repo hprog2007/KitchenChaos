@@ -9,16 +9,36 @@ public class PlateKitchenObject : KitchenObject {
         public KitchenObjectSO kitchenObjectSO;
     }
 
-    [SerializeField] private List<KitchenObjectSO> validKitchenObjectSOList;
-    
     private List<KitchenObjectSO> kitchenObjectSOList;
 
+    private RecipeSO targetRecipe;
+
+    [SerializeField] private Transform plateContent;
+
     private void Awake() {
-        kitchenObjectSOList = new List<KitchenObjectSO>();
+        kitchenObjectSOList = new List<KitchenObjectSO>();         
     }
 
+    public void SetTargetRecipe(RecipeSO recipe)
+    {
+        targetRecipe = recipe;
+    }
+
+    public RecipeSO GetTargetRecipeSO()
+    {
+        return targetRecipe;
+    }
+    
     public bool TryAddIngredient(KitchenObjectSO kitchenObjectSO) {
-        if (!validKitchenObjectSOList.Contains(kitchenObjectSO)) {
+        //set target recipe of plate
+        if (targetRecipe == null || targetRecipe != DeliveryManager.instance.GetFirstOrder())
+        {
+            SetTargetRecipe(DeliveryManager.instance.GetFirstOrder());
+            AddPlateCompleteVisual();
+        }
+
+        if (!targetRecipe.kitchenObjectSOList.Contains(kitchenObjectSO))
+        {
             //Not a valid ingredient
             return false;
         }
@@ -39,5 +59,16 @@ public class PlateKitchenObject : KitchenObject {
 
     public List<KitchenObjectSO> GetKitchenObjectSOList() {
         return kitchenObjectSOList;
+    }
+
+    private void AddPlateCompleteVisual()
+    {
+        //clear PlateContent children 
+        foreach(Transform t in plateContent)
+        {
+            Destroy(t.gameObject);
+        }
+
+        Instantiate(targetRecipe.plateCompleteVisual, plateContent);
     }
 }

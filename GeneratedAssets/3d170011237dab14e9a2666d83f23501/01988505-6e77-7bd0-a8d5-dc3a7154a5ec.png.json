@@ -1,0 +1,20 @@
+{
+    "asset": "3d170011237dab14e9a2666d83f23501",
+    "fileName": "01988505-6e77-7bd0-a8d5-dc3a7154a5ec.png",
+    "prompt": "three lettuce slices 256*256  cartoon stylized beside each other",
+    "negativePrompt": "",
+    "model": "5fa78152-02ea-492b-b8ea-777b31a8a2f8",
+    "modelName": "GPT Image 1 - Low",
+    "customSeed": -1,
+    "w3CTraceId": "34b3770f926d6a829e6c87eb1155408f",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

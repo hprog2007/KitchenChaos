@@ -1,0 +1,20 @@
+{
+    "asset": "3d170011237dab14e9a2666d83f23501",
+    "fileName": "019884ff-6743-7e30-8445-b7002ca71922.png",
+    "prompt": "256*256 lettuce slices cartoon stylized",
+    "negativePrompt": "",
+    "model": "e0b26c28-c771-454f-ae97-3be78d8b0159",
+    "modelName": "GPT Image 1 - Medium",
+    "customSeed": -1,
+    "w3CTraceId": "ae05d91d7031f79453ec2b5cbc4db598",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

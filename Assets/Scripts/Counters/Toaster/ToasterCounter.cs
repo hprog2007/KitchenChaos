@@ -94,6 +94,7 @@ public class ToasterCounter : BaseCounter, IHasProgress {
     }
 
     public override void Interact(Player player) {
+        //if player hasn't put breads on ToasterCounter 
         if (!HasKitchenObject()) {
             //There is no kitchen object here
             if (player.HasKitchenObject()) {

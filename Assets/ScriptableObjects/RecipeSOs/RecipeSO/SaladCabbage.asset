@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ddc86581dffd2446997bb0ce8a72db5, type: 3}
+  m_Name: SaladCabbage
+  m_EditorClassIdentifier: 
+  plateCompleteVisual: {fileID: 5377655339562625276, guid: 10e39c981f2de6441b54efde32ced8f0, type: 3}
+  recipeName: Salad Cabbage
+  kitchenObjectSOList:
+  - {fileID: 11400000, guid: 3b2b0385de754364e86193fd082b0447, type: 2}
+  - {fileID: 11400000, guid: f43fb7c41912a754a8afb1598f300ae0, type: 2}

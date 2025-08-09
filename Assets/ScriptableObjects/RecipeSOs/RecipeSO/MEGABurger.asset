@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ddc86581dffd2446997bb0ce8a72db5, type: 3}
   m_Name: MEGABurger
   m_EditorClassIdentifier: 
+  plateCompleteVisual: {fileID: 5377655339562625276, guid: 10e39c981f2de6441b54efde32ced8f0, type: 3}
+  recipeName: MEGABurger
   kitchenObjectSOList:
   - {fileID: 11400000, guid: f86eefa1ba89ad141ae424a7dc0b1473, type: 2}
   - {fileID: 11400000, guid: d071fa948cf85a44f97f9d69889ccf70, type: 2}
   - {fileID: 11400000, guid: b68d0c049e2cc914184c15375bf725c2, type: 2}
   - {fileID: 11400000, guid: 3b2b0385de754364e86193fd082b0447, type: 2}
   - {fileID: 11400000, guid: f43fb7c41912a754a8afb1598f300ae0, type: 2}
-  recipeName: MEGABurger

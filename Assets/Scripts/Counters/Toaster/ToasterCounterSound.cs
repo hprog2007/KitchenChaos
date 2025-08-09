@@ -18,13 +18,13 @@ public class ToasterCounterSound : MonoBehaviour
     }
 
     private void ToasterCounter_OnProgressChanged(object sender, IHasProgress.OnProgressChangedEventArgs e) {
-        float burnShowProgressAmount = .5f;
-        playWarningSound = toasterCounter.IsPoped() && e.progressNormalized >= burnShowProgressAmount;
+        //float burnShowProgressAmount = .5f;
+        //playWarningSound = toasterCounter.IsPoped() && e.progressNormalized >= burnShowProgressAmount;
 
     }
 
     private void ToasterCounter_OnStateChanged(object sender, ToasterCounter.OnStateChangedEventArgs e) {
-        bool playSound = e.state == ToasterCounter.State.Toasting || e.state == ToasterCounter.State.Poped;
+        bool playSound = e.state == ToasterCounter.State.Toasting;
         if (playSound) {
             audioSource.Play();
         } else {
@@ -33,13 +33,15 @@ public class ToasterCounterSound : MonoBehaviour
     }
 
     private void Update() {
-        if (playWarningSound) {
-            warningSoundTimer -= Time.deltaTime;
-            if (warningSoundTimer <= 0) {
-                float warningSoundTimerMax = .2f;
-                warningSoundTimer = warningSoundTimerMax;
-                SoundManager.Instance.PlayWarningSound(toasterCounter.transform.position);
-            }
-        }
+        //if (playWarningSound)
+        //{
+        //    warningSoundTimer -= Time.deltaTime;
+        //    if (warningSoundTimer <= 0)
+        //    {
+        //        float warningSoundTimerMax = .2f;
+        //        warningSoundTimer = warningSoundTimerMax;
+        //        SoundManager.Instance.PlayWarningSound(toasterCounter.transform.position);
+        //    }
+        //}
     }
 }
