@@ -14,6 +14,7 @@ public class ClearCounter : BaseCounter {
                 player.GetKitchenObject().SetKitchenObjectParent(this);
             } else {
                 //The player not carrying anything
+                RaiseInvalid(InvalidInteractionReason.PlayerHandsEmpty);
             }
         } else {
             //There is a kitchen object here
@@ -32,17 +33,12 @@ public class ClearCounter : BaseCounter {
                             player.GetKitchenObject().DestroySelf();
                         }
                     } 
-                    else {
-                        // counter has a kitchen object (ingredients) and player also has some ingredients in his hand
-                        // maybe trying to mix cheese with bread for Grilled Cheese Sandwitch
-                        
-
-                    }
 
                 }
 
             } else {
                 //The player not carrying anything
+                //give kitchenObject to player
                 GetKitchenObject().SetKitchenObjectParent(player);
             }
 

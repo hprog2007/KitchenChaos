@@ -3,6 +3,11 @@ using UnityEngine;
 
 public class BaseCounter : MonoBehaviour, IKitchenObjectParent {
 
+    public event Action<InvalidInteractionReason, KitchenObjectSO> OnInvalidInteraction;
+
+    protected void RaiseInvalid(InvalidInteractionReason reason, KitchenObjectSO so = null)
+        => OnInvalidInteraction?.Invoke(reason, so);
+
     public static event EventHandler OnAnyObjectPlacedHere;
 
     public static void ResetStaticData() {

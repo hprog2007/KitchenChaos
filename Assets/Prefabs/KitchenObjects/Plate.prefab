@@ -347,6 +347,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1695648227763101248}
   - component: {fileID: 2489286291269670397}
+  - component: {fileID: 6401115787998027911}
   m_Layer: 0
   m_Name: Plate
   m_TagString: Untagged
@@ -386,6 +387,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlateKitchenObject
   kitchenObjectSO: {fileID: 11400000, guid: 404d546299a522c42973814158b11d2a, type: 2}
   plateContent: {fileID: 8582568759119274937}
+--- !u!114 &6401115787998027911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7025124314566924335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ad3dbba90050c548b8661c48f2973a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlateInvalidFeedback
+  shakeTarget: {fileID: 0}
+  shakeDuration: 0.18
+  shakeStrength: 0.06
+  flashRenderers:
+  - {fileID: 7045612033230401113}
+  flashColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  flashTime: 0.35
+  invalidSfx: {fileID: 8300000, guid: b90d8099bdbf09a40ab1163556d5b5f4, type: 3}
+  minInterval: 0.08
 --- !u!1 &8258515197552377766
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,6 +516,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0c9afd619b40914a8f625c0535e2284, type: 3}
+--- !u!23 &7045612033230401113 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4413137033166335766, guid: c0c9afd619b40914a8f625c0535e2284, type: 3}
+  m_PrefabInstance: {fileID: 6699551325634052431}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7499506460705085391 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3812876574508226176, guid: c0c9afd619b40914a8f625c0535e2284, type: 3}

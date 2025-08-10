@@ -13,41 +13,65 @@ public class PlateCompleteVisual : MonoBehaviour
     }
 
     private PlateKitchenObject plateKitchenObject;
-    [SerializeField] private List<KitchenObjectSO_GameObject> kitchenObjectSO_GameObjectList;
+    [SerializeField] private List<KitchenObjectSO_GameObject> kitchenObjectSO_GameObjectList;    
 
     public void Awake()
     {
         plateKitchenObject = GetComponentInParent<PlateKitchenObject>();
+        if (plateKitchenObject == null)
+        {
+            Debug.LogError($"{nameof(PlateCompleteVisual)}: No {nameof(PlateKitchenObject)} found in parents.", this);
+        }
+    }
 
+    void OnEnable()
+    {
+        if (plateKitchenObject == null) return;
         plateKitchenObject.OnIngredientsAdded += PlateKitchenObject_OnIngredientsAdded;
+    }
 
+    void OnDisable()
+    {
+        if (plateKitchenObject == null) return;
+        plateKitchenObject.OnIngredientsAdded -= PlateKitchenObject_OnIngredientsAdded;
+
+        // Optional: if you start longer-running coroutines, cancel them here
+        StopAllCoroutines();
     }
 
     private void Start() {
-        foreach (KitchenObjectSO_GameObject kitchenObjectSO_GameObject in kitchenObjectSO_GameObjectList) {
-            kitchenObjectSO_GameObject.gameObject.SetActive(false);
-        }
+        foreach (var pair in kitchenObjectSO_GameObjectList)
+        {
+            if (pair.gameObject != null)
+                pair.gameObject.SetActive(false);
+        }       
     }
 
     private void PlateKitchenObject_OnIngredientsAdded(object sender, PlateKitchenObject.OnIngredientsAddedEventArgs e) {
+        // Guard against being destroyed or disabled between event fire and handler run
+        if (!this || !isActiveAndEnabled) return;
+        if (e == null || e.kitchenObjectSO == null) return;
+
         StartCoroutine(ActivateIngredientNextFrame(e.kitchenObjectSO));
-        //foreach (KitchenObjectSO_GameObject kitchenObjectSO_GameObject in kitchenObjectSO_GameObjectList) {
-        //    if(kitchenObjectSO_GameObject.kitchenObjectSO == e.kitchenObjectSO) {
-        //        kitchenObjectSO_GameObject.gameObject.SetActive(true);
-        //    }
-        //}
     }
+
+    
 
     private IEnumerator ActivateIngredientNextFrame(KitchenObjectSO targetSO)
     {
-        yield return null; // wait one frame
+        // If we get disabled/destroyed before the next frame, Unity will stop this coroutine automatically.
+        yield return null;
 
-        foreach (KitchenObjectSO_GameObject kitchenObjectSO_GameObject in kitchenObjectSO_GameObjectList)
+        // Double-check we’re still alive/enabled after the frame
+        if (!this || !isActiveAndEnabled) yield break;
+
+        foreach (var pair in kitchenObjectSO_GameObjectList)
         {
-            if (kitchenObjectSO_GameObject.kitchenObjectSO == targetSO)
+            if (pair.kitchenObjectSO == targetSO && pair.gameObject != null)
             {
-                kitchenObjectSO_GameObject.gameObject.SetActive(true);
+                pair.gameObject.SetActive(true);
             }
         }
     }
+
 }

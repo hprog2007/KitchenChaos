@@ -9,6 +9,9 @@ public class PlateKitchenObject : KitchenObject {
         public KitchenObjectSO kitchenObjectSO;
     }
 
+    public event System.Action<IngredientFailReason, KitchenObjectSO> OnInvalidIngredientAttempt;
+
+
     private List<KitchenObjectSO> kitchenObjectSOList;
 
     private RecipeSO targetRecipe;
@@ -31,7 +34,7 @@ public class PlateKitchenObject : KitchenObject {
     
     public bool TryAddIngredient(KitchenObjectSO kitchenObjectSO) {
         //set target recipe of plate
-        if (targetRecipe == null || targetRecipe != DeliveryManager.instance.GetFirstOrder())
+        if (targetRecipe == null || kitchenObjectSOList.Count == 0)
         {
             SetTargetRecipe(DeliveryManager.instance.GetFirstOrder());
             AddPlateCompleteVisual();
@@ -39,12 +42,14 @@ public class PlateKitchenObject : KitchenObject {
 
         if (!targetRecipe.kitchenObjectSOList.Contains(kitchenObjectSO))
         {
-            //Not a valid ingredient
+            // Not a valid ingredient => notify listeners (UI/FX) then bail
+            OnInvalidIngredientAttempt?.Invoke( IngredientFailReason.InvalidIngredient, kitchenObjectSO);
             return false;
         }
 
         if (kitchenObjectSOList.Contains(kitchenObjectSO)) {
             //Already has this type
+            OnInvalidIngredientAttempt?.Invoke(IngredientFailReason.AlreadyOnPlate, kitchenObjectSO);
             return false;
         } else {
             kitchenObjectSOList.Add(kitchenObjectSO);
