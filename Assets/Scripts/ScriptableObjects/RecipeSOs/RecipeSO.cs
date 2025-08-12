@@ -6,4 +6,5 @@ public class RecipeSO : ScriptableObject {
     public PlateCompleteVisual plateCompleteVisual;
     public string recipeName;
     public List<KitchenObjectSO> kitchenObjectSOList;
+    public int Complexity = 1;
 }

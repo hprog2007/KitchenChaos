@@ -1,39 +1,56 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DeliveryManagerUI : MonoBehaviour
 {
     [SerializeField] private Transform container;
-    [SerializeField] private Transform recipeTemplate;
+    [SerializeField] private DeliveryManagerSingleUI recipeTemplate;
 
-    private void Awake() {
+    private readonly Dictionary<string, DeliveryManagerSingleUI> cards = new();
+
+    private void Awake()
+    {
         recipeTemplate.gameObject.SetActive(false);
     }
 
-    private void Start() {
-        OrderManager.instance.OnRecipeSpawned += DeliveryManager_OnRecipeSpawned;
-        DeliveryManager.instance.OnRecipeCompleted += DeliveryManager_OnRecipeCompleted;
-
-        UpdateVisual();
+    private void OnEnable()
+    {
+        DeliveryManager.instance.OnOrderSpawned += AddCard;
+        DeliveryManager.instance.OnOrderRemoved += RemoveCard;
+        DeliveryManager.instance.OnOrderTick += TickCard;
     }
 
-    private void DeliveryManager_OnRecipeCompleted(object sender, System.EventArgs e) {
-        UpdateVisual();
+    private void OnDisable()
+    {
+        var dm = DeliveryManager.instance;
+        if (dm == null) return;
+        dm.OnOrderSpawned -= AddCard;
+        dm.OnOrderRemoved -= RemoveCard;
+        dm.OnOrderTick -= TickCard;
     }
 
-    private void DeliveryManager_OnRecipeSpawned(object sender, System.EventArgs e) {
-        UpdateVisual();
+    private void Start()
+    {
+        foreach (var t in DeliveryManager.instance.GetWaitingOrders()) AddCard(t);
     }
 
-    private void UpdateVisual() {
-        foreach(Transform child in container) {
-            if (child == recipeTemplate) continue;
-            Destroy(child.gameObject);
-        }
+    private void AddCard(OrderTicket t)
+    {
+        var ui = Instantiate(recipeTemplate, container);
+        ui.gameObject.SetActive(true);
+        ui.Bind(t); // implement in your SingleUI
+        cards[t.Id] = ui;
+    }
 
-        foreach (RecipeSO recipeSO in DeliveryManager.instance.GetWaitingRecipeSOList()) {
-            Transform recipeTransform = Instantiate(recipeTemplate, container);
-            recipeTransform.gameObject.SetActive(true);
-            recipeTransform.GetComponent<DeliveryManagerSingleUI>().SetRecipeSO(recipeSO);
-        }
-}
+    private void RemoveCard(OrderTicket t)
+    {
+        if (!cards.TryGetValue(t.Id, out var ui)) return;
+        Destroy(ui.gameObject);
+        cards.Remove(t.Id);
+    }
+
+    private void TickCard(OrderTicket t)
+    {
+        if (cards.TryGetValue(t.Id, out var ui)) ui.OnTick(t);
+    }
 }
