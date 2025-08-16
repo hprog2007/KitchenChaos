@@ -1,13 +1,13 @@
 using System;
-using UnityEngine;
 
 [Serializable]
 public class OrderTicket
 {
     public string Id;
     public RecipeSO Recipe;
-    public float Duration;     // total seconds
-    public float Remaining;    // seconds left
+    public float Duration;       // total seconds
+    public float CumulativeDuration { get; private set; } 
+    public float RemainingTime { get; private set;}  // seconds left
 
     public event Action<OrderTicket> OnTick;
     public event Action<OrderTicket> OnExpired;
@@ -16,16 +16,27 @@ public class OrderTicket
     {
         Id = id;
         Recipe = recipe;
-        Duration = Mathf.Max(0.01f, duration);
-        Remaining = Duration;
+        Duration = MathF.Max(0.01f, duration);
+        RemainingTime = duration;
+        CumulativeDuration = duration;
     }
 
-    public bool Update(float dt)
+    public bool Update(float deltaTime)
     {
-        if (Remaining <= 0f) return false;
-        Remaining = Mathf.Max(0f, Remaining - dt);
+        if (RemainingTime <= 0f) return false;
+        //RemainingTime = MathF.Max(0f, RemainingTime - dt);
+        RemainingTime = CumulativeDuration = MathF.Max(0f, CumulativeDuration - deltaTime);
         OnTick?.Invoke(this);
-        if (Remaining <= 0f) { OnExpired?.Invoke(this); return true; }
+        if (RemainingTime <= 0f)
+        {
+            OnExpired?.Invoke(this);
+            return true;
+        }
         return false;
+    }
+
+    public void UpdateCumulativeDuration(float cumulativeDuration)
+    {
+        this.CumulativeDuration = cumulativeDuration;  // Update total duration for this ticket
     }
 }

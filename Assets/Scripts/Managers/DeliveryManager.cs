@@ -25,7 +25,7 @@ public class DeliveryManager : MonoBehaviour
 
     // --- Tunables (expose in inspector)
     [Header("Time Config")]
-    [SerializeField] private float baseSeconds = 20f;
+    [SerializeField] private float baseSeconds = 320f;
     [SerializeField] private float secondsPerIngredient = 6f;
     [SerializeField]
     private AnimationCurve complexityMultiplier =
@@ -45,15 +45,15 @@ public class DeliveryManager : MonoBehaviour
         // (Iterate backwards so we can remove safely)
         for (int i = waitingOrderTickets.Count - 1; i >= 0; i--)
         {
-            var t = waitingOrderTickets[i];
-            bool justExpired = t.Update(Time.deltaTime);
-            OnOrderTick?.Invoke(t); // UI can update its ring/text
+            var ticket = waitingOrderTickets[i];
+            bool justExpired = ticket.Update(Time.deltaTime);
+            OnOrderTick?.Invoke(ticket); // UI can update its ring/text
             if (justExpired)
             {
                 OnRecipeFailed?.Invoke(this, EventArgs.Empty);
-                OnOrderExpired?.Invoke(t); // Expired order event
+                OnOrderExpired?.Invoke(ticket); // Expired order event
                 waitingOrderTickets.RemoveAt(i);
-                OnOrderRemoved?.Invoke(t); // Removed after expiration
+                OnOrderRemoved?.Invoke(ticket); // Removed after expiration
             }
         }
     }
@@ -63,7 +63,7 @@ public class DeliveryManager : MonoBehaviour
         float totalDuration = 0f;
         foreach (var ticket in waitingOrderTickets)
         {
-            totalDuration += ticket.Duration;
+            totalDuration += ticket.RemainingTime;
         }
         return totalDuration;
     }
@@ -94,14 +94,37 @@ public class DeliveryManager : MonoBehaviour
     public void AddWaitingRecipe(RecipeSO recipeSO)
     {
         string id = Guid.NewGuid().ToString("N");
-        float cumulativeDuration = CalculateCumulativeDuration();  // Cumulative time logic because of FIFO order serving
-        float durationForCurrentOrder = CalcDuration(recipeSO);
-        float totalDuration = cumulativeDuration + durationForCurrentOrder; // Total duration for FIFO
 
-        var ticket = new OrderTicket(id, recipeSO, totalDuration);
+        // Calculate duration for current order
+        float durationForCurrentOrder = CalcDuration(recipeSO);
+
+        // Create and add the new ticket with the calculated duration
+        var ticket = new OrderTicket(id, recipeSO, durationForCurrentOrder);
         waitingOrderTickets.Add(ticket);
+
+        // Recalculate the total duration after removing expired/completed tickets
+        float cumulativeDuration = RecalculateTicketDurations();
+
         OnOrderSpawned?.Invoke(ticket);
     }
+
+    private float RecalculateTicketDurations()
+    {
+        if (waitingOrderTickets.Count == 0) return 0f;
+
+        // Recalculate the duration for all remaining tickets
+        float cumulativeDuration = waitingOrderTickets[0].RemainingTime;
+        // Iterate from the first to the last item in the list
+        for (int i = 1; i < waitingOrderTickets.Count; i++)
+        {
+            cumulativeDuration += waitingOrderTickets[i].Duration;
+            waitingOrderTickets[i].UpdateCumulativeDuration(cumulativeDuration);
+        }
+        return cumulativeDuration;
+    }
+
+    
+
 
     public RecipeSO GetFirstOrderRecipe() => waitingOrderTickets.Count > 0 ? waitingOrderTickets[0].Recipe : null;
     public OrderTicket GetFirstTicket() => waitingOrderTickets.Count > 0 ? waitingOrderTickets[0] : null;
