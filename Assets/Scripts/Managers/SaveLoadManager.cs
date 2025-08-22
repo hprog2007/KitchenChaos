@@ -57,7 +57,7 @@ public static class SaveLoadManager
         data.countersOwned = countersOwned;
         data.counterLevels = CounterUpgradeManager.GetAllLevels();
         data.helpersOwned = helpersOwned;
-        data.helperLevels = HelperManager.GetAllLevels();
+        data.helperLevels = HelperBotsManager.GetAllLevels();
 
         string json = JsonUtility.ToJson(data);
         PlayerPrefs.SetString(saveKey, json);
@@ -80,7 +80,7 @@ public static class SaveLoadManager
 
         // Restore helper levels
         foreach (var pair in data.helperLevels)
-            HelperManager.SetLevel(pair.Key, pair.Value);
+            HelperBotsManager.SetLevel(pair.Key, pair.Value);
 
         Debug.Log("Game loaded");
         return data;

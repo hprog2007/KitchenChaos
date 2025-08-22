@@ -150,7 +150,7 @@ public class DeliveryManager : MonoBehaviour
     {
         if (waitingOrderTickets.Count == 0) { OnRecipeFailed?.Invoke(this, EventArgs.Empty); return; }
 
-        var ticket = waitingOrderTickets[0];
+        var ticket = GetFirstTicket();
         if (MatchesPlate(ticket.Recipe, plateKitchenObject))
         {
             CompleteAndRemoveAt(0, ticket);
@@ -165,6 +165,8 @@ public class DeliveryManager : MonoBehaviour
     {
         successfulRecipesAmount++;
         waitingOrderTickets.RemoveAt(index);
+
+        CalcAndAddReward(ticket);
 
         OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
         OnRecipeSuccess?.Invoke(this, EventArgs.Empty);
@@ -188,5 +190,18 @@ public class DeliveryManager : MonoBehaviour
             if (!found) return false;
         }
         return true;
+    }
+
+    private void CalcAndAddReward(OrderTicket ticket)
+    {
+        ///// reward coins
+
+        int baseReward = ticket.Recipe != null ? ticket.Recipe.rewardCoins : 10; // fallback fixed value
+                                                                                 // Optional tip based on time remaining (0..1)
+        int tip = Mathf.RoundToInt(baseReward * 0.5f * Mathf.Clamp01(ticket.RemainingTime));
+        int total = baseReward + tip;
+
+        CurrencyManager.Instance.Add(total);
+        ////// end of reward coins
     }
 }

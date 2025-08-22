@@ -10,7 +10,7 @@ public class OrderManager : MonoBehaviour
         
     private float spawnRecipeTimer;
     private float spawnRecipeTimerMax = 4f;
-    private int waitingRecipeMax = 2;
+    public int waitingRecipeMax = 4;
 
     
     [SerializeField] private RecipeListSO recipeListSO; //list of all availlable recipes for this level

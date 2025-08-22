@@ -7,4 +7,5 @@ public class RecipeSO : ScriptableObject {
     public string recipeName;
     public List<KitchenObjectSO> kitchenObjectSOList;
     public int Complexity = 1;
+    public int rewardCoins = 10;  // per-recipe base reward
 }

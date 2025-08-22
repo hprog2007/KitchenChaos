@@ -72,7 +72,7 @@ public class ShopManager : MonoBehaviour
 
     public void ConfirmPurchase(int cost)
     {
-        if (CurrencyManager.Instance.SpendCoins(cost))
+        if (CurrencyManager.Instance.Spend(cost))
         {
             Debug.Log("Purchase successful!");
             // Finalize purchase logic

@@ -1,50 +1,62 @@
-// 7/14/2025 AI-Tag
-// This was created with the help of Assistant, a Unity Artificial Intelligence product.
-
 using UnityEngine;
+using System;
 
 public class CurrencyManager : MonoBehaviour
 {
     public static CurrencyManager Instance { get; private set; }
+    public event Action<int> OnCoinsChanged;
+    public event Action<int> OnCoinsAdded;
 
-    private int coins;
+    [SerializeField] private int startingCoins = 0;
+    [SerializeField] private bool autoSave = true;
+
+    const string PP_COINS = "coins";
+    int coins;
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        coins = PlayerPrefs.HasKey(PP_COINS) ? PlayerPrefs.GetInt(PP_COINS) : startingCoins;
+        OnCoinsChanged?.Invoke(coins);
+    }
 
     public int Coins => coins;
 
-    private void Awake()
+    public void Add(int amount)
     {
-        // Ensure there's only one instance of CurrencyManager
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-
-        // Optionally, make this object persist across scenes
-        DontDestroyOnLoad(gameObject);
-    }
-
-    public void AddCoins(int amount)
-    {
+        if (amount <= 0) return;
         coins += amount;
-        UpdateUI();
+        OnCoinsChanged?.Invoke(coins);
+        OnCoinsAdded?.Invoke(coins);
+        if (autoSave) Save();
     }
 
-    public bool SpendCoins(int amount)
+    public bool CanAfford(int cost) => coins >= cost;
+
+    public bool Spend(int cost)
     {
-        if (coins >= amount)
-        {
-            coins -= amount;
-            UpdateUI();
-            return true;
-        }
-        return false; // Not enough coins
+        if (!CanAfford(cost)) return false;
+        coins -= cost;
+        OnCoinsChanged?.Invoke(coins);
+        if (autoSave) Save();
+        return true;
     }
 
-    private void UpdateUI()
+    public void Save()
     {
-        // Update the coin display in the UI
-        ShopUIManager.Instance?.UpdateCoinDisplay(coins);
+        PlayerPrefs.SetInt(PP_COINS, coins);
+        PlayerPrefs.Save();
+    }
+
+    // Optional: for debugging in Editor
+    [ContextMenu("Reset Coins")]
+    void ResetCoinsCtx()
+    {
+        coins = 0;
+        OnCoinsChanged?.Invoke(coins);
+        Save();
     }
 }
