@@ -11,11 +11,14 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClipRefsSO audioClipRefsSO;
 
     private float volume = 1f;
+    private Vector3 mainCameraPoition;
 
     private void Awake() {
         Instance = this;
 
         volume = PlayerPrefs.GetFloat(PLAYER_PREFS_SOUND_EFFECTS_VOLUME, 1f);
+
+        mainCameraPoition = Camera.main.transform.position;
     }
 
     private void Start() {
@@ -25,6 +28,12 @@ public class SoundManager : MonoBehaviour
         Player.Instance.OnPickedSomething += Player_OnPickedSomething;
         BaseCounter.OnAnyObjectPlacedHere += BaseCounter_OnAnyObjectPlacedHere;
         TrashCounter.OnAnyObjectTrashed += TrashCounter_OnAnyObjectTrashed;
+        Upgrade.OnAnyUpgradeApplied += Upgrade_OnAnyUpgradeApplied;
+    }
+
+    private void Upgrade_OnAnyUpgradeApplied(Upgrade obj)
+    {
+        PlaySound(audioClipRefsSO.upgrade, mainCameraPoition);
     }
 
     private void TrashCounter_OnAnyObjectTrashed(object sender, System.EventArgs e) {

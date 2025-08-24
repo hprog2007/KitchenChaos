@@ -42,3 +42,12 @@ MonoBehaviour:
   warning:
   - {fileID: 8300000, guid: b90d8099bdbf09a40ab1163556d5b5f4, type: 3}
   - {fileID: 8300000, guid: b59c98e0066c41f42b8100f5cb180f5b, type: 3}
+  Buy:
+  - {fileID: 8300000, guid: 36d42685cb4280d4f8ce284ef85dc047, type: 3}
+  - {fileID: 8300000, guid: 06720581e66c3a940afbe7c12665beb5, type: 3}
+  - {fileID: 8300000, guid: b2ffff15a44e71742a5d60bd0ba6437b, type: 3}
+  upgrade:
+  - {fileID: 8300000, guid: 52d5f015b3b36ab419d332dc73fbd27f, type: 3}
+  - {fileID: 8300000, guid: 75c70fda3ab8d2d408cca2356c59c918, type: 3}
+  - {fileID: 8300000, guid: 95f6dd0a3eb373c429ab2f6b3436f903, type: 3}
+  - {fileID: 8300000, guid: 134b16a1fa4f4e34795956c070a4e8bd, type: 3}

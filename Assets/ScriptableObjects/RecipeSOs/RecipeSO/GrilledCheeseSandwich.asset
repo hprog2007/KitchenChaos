@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ddc86581dffd2446997bb0ce8a72db5, type: 3}
   m_Name: GrilledCheeseSandwich
   m_EditorClassIdentifier: 
-  plateCompleteVisual: {fileID: 5377655339562625276, guid: 10e39c981f2de6441b54efde32ced8f0, type: 3}
-  recipeName: Burger
+  plateCompleteVisual: {fileID: 85995802100838688, guid: f9f5472221c0ff142a221f12046383c2, type: 3}
+  recipeName: Grilled Cheese Sandwitch
   kitchenObjectSOList:
   - {fileID: 11400000, guid: ee5b9a10d02f6ec42a48397b9110685d, type: 2}
   - {fileID: 11400000, guid: b68d0c049e2cc914184c15375bf725c2, type: 2}
   Complexity: 2
+  rewardCoins: 10000

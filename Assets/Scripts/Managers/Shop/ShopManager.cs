@@ -39,6 +39,7 @@ public class ShopManager : MonoBehaviour
         SceneManager.LoadScene(SceneType.Level_Selection_Map.ToString());
     }
 
+    #region Set Shop Mode
     public void SetToBuyMode()
     {
         CurrentMode = ShopMode.Buy;
@@ -68,6 +69,7 @@ public class ShopManager : MonoBehaviour
     {
         return CurrentMode == mode;
     }
+    #endregion
 
 
     public void ConfirmPurchase(int cost)
@@ -80,6 +82,15 @@ public class ShopManager : MonoBehaviour
         else
         {
             Debug.Log("Not enough coins!");
+        }
+    }
+
+    public void TryUpgradeCounter(Upgrade counterUpgrade)
+    {
+        if (counterUpgrade.CanUpgrade && CurrencyManager.Instance.CanAfford(counterUpgrade.CurrentUpgradeCost))
+        {
+            CurrencyManager.Instance.Spend(counterUpgrade.CurrentUpgradeCost);
+            counterUpgrade.ApplyNextUpgrade();
         }
     }
 }

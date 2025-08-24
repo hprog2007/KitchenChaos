@@ -17,3 +17,5 @@ MonoBehaviour:
   kitchenObjectSOList:
   - {fileID: 11400000, guid: d9a1ed1d783ee2742b0324530837fdc5, type: 2}
   - {fileID: 11400000, guid: f43fb7c41912a754a8afb1598f300ae0, type: 2}
+  Complexity: 1
+  rewardCoins: 10000
