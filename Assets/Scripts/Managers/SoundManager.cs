@@ -62,7 +62,8 @@ public class SoundManager : MonoBehaviour
 
     private void DeliveryManager_OnRecipeSuccess(object sender, System.EventArgs e) {
         DeliveryCounter deliveryCounter = DeliveryCounter.Instance;
-        PlaySound(audioClipRefsSO.deliverySuccess, deliveryCounter.transform.position);
+        //PlaySound(audioClipRefsSO.deliverySuccess, deliveryCounter.transform.position);
+        PlaySound(audioClipRefsSO.deliverySuccess, mainCameraPoition, .5f);
     }
 
     private void PlaySound(AudioClip[] audioClipArray, Vector3 position, float volume = 1f) {
