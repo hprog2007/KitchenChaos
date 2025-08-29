@@ -595,34 +595,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851637bc39ea34a4a8a4f1b039f25ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSeconds: 20
-  secondsPerIngredient: 6
-  complexityMultiplier:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0.15
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 5
-      value: 1.6
-      inSlope: 0.15
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  minSeconds: 10
-  maxSeconds: 120
 --- !u!4 &40529720
 Transform:
   m_ObjectHideFlags: 0
@@ -4137,6 +4109,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b34dd77bea54249ba7903581ad2b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  baseSeconds: 1
+  secondsPerIngredient: 6
+  complexityMultiplier:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0.15
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 5
+      value: 1.6
+      inSlope: 0.15
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minSeconds: 10
+  maxSeconds: 120
   waitingRecipeMax: 4
   recipeListSO: {fileID: 11400000, guid: 9c88c79d4d765d34f96f3f9f1a1e5ebd, type: 2}
 --- !u!1 &361839383
@@ -4506,7 +4506,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -118.00012, y: -101}
+  m_AnchoredPosition: {x: -118.000244, y: -101}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &396946288
@@ -12314,7 +12314,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.00012207031, y: 34.169983}
+  m_AnchoredPosition: {x: -0.00024414062, y: 34.16992}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &675737320
@@ -14211,7 +14211,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 66.00012, y: -190.70001}
+  m_AnchoredPosition: {x: 66.000244, y: -190.70001}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &892181001
@@ -14640,6 +14640,10 @@ PrefabInstance:
     - target: {fileID: 2035676284526546372, guid: bf5c66e5c66a84448bac9e83e46d8f65, type: 3}
       propertyPath: m_Name
       value: CuttingCounter (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2035676284526546372, guid: bf5c66e5c66a84448bac9e83e46d8f65, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4930556127596760170, guid: bf5c66e5c66a84448bac9e83e46d8f65, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22988,7 +22992,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 172.00012, y: -157.22}
+  m_AnchoredPosition: {x: 172.00012, y: -157.21997}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1234199288
@@ -23262,7 +23266,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.00018310547, y: 0}
+  m_AnchoredPosition: {x: -0.00024414062, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1238041559
@@ -24965,7 +24969,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1457968293
@@ -26610,7 +26614,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 116.72998, y: -37.600006}
+  m_AnchoredPosition: {x: 116.72998, y: -37.600098}
   m_SizeDelta: {x: 246.73, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1682350630
@@ -28351,7 +28355,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4930556127596760170, guid: bf5c66e5c66a84448bac9e83e46d8f65, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4930556127596760170, guid: bf5c66e5c66a84448bac9e83e46d8f65, type: 3}
       propertyPath: m_LocalRotation.y
@@ -28359,7 +28363,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4930556127596760170, guid: bf5c66e5c66a84448bac9e83e46d8f65, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4930556127596760170, guid: bf5c66e5c66a84448bac9e83e46d8f65, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -31195,7 +31199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   container: {fileID: 892181000}
-  recipeTemplate: {fileID: 5992395702088126106, guid: 45e0fa463293481468fd6587b2f42dce, type: 3}
+  recipeTemplate: {fileID: 6694946188077507998, guid: 3dda629ee00658a45a19adde840a6f12, type: 3}
 --- !u!1001 &5482466244782144101
 PrefabInstance:
   m_ObjectHideFlags: 0

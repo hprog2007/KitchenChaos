@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 public class CuttingCounter : BaseCounter, IHasProgress {
 
+    [SerializeField] private ParticleSystem upgradeParticleEffect;
+    [SerializeField] private CounterUpgradeFXObject counterUpgradeFXObject;
+
     public static event EventHandler OnAnyCut;
 
     new public static void ResetStaticData() {
@@ -13,55 +16,51 @@ public class CuttingCounter : BaseCounter, IHasProgress {
 
 
     [SerializeField] private CuttingRecipeSO[] cutKitchenObjectSOArray;
-    [SerializeField] private ParticleSystem upgradeParticleEffect;
+    
 
     private int cuttingProgress;
 
-    private Upgrade upgrade;
-                
+    private Upgrade upgradeComponent;
 
     private void Start()
     {
-        upgrade = GetComponent<Upgrade>();
-        upgrade.LoadUpgradeState("CuttingCounter");
-        if (upgrade == null)
+        upgradeComponent = GetComponent<Upgrade>();
+        upgradeComponent.LoadUpgradeState("CuttingCounter");
+        if (upgradeComponent == null)
         {
             Debug.LogError("Upgrade component not found on " + gameObject.name);
         }
-        // Subscribe to the upgrade event
-        Upgrade.OnAnyUpgradeApplied += OnUpgradeApplied;
     }
 
-    private void OnDestroy()
+    private void OnEnable()
     {
-        // Unsubscribe to prevent memory leaks
-        Upgrade.OnAnyUpgradeApplied -= OnUpgradeApplied;
+        Upgrade.OnAnyUpgradeApplied += Upgrade_OnAnyUpgradeApplied;
+    }
+
+    private void Upgrade_OnAnyUpgradeApplied(Upgrade obj)
+    {
+        // Play particle effect
+        if (upgradeParticleEffect != null)
+        {
+            // Spawn particle effect slightly above the counter
+            Vector3 spawnPosition = transform.position + Vector3.up * 2f; // Adjust height as needed
+            ParticleSystem effect = Instantiate(upgradeParticleEffect, spawnPosition, Quaternion.identity);
+            effect.Play();
+            // Destroy the particle system after it finishes (optional)
+            Destroy(effect.gameObject, effect.main.duration);
+        }
+
+        // visual effect for counter or ...
+        counterUpgradeFXObject.Upgrade();
     }
 
     public void UpgradeCuttingCounter()
     {
-        if (upgrade != null && upgrade.CanUpgrade && CurrencyManager.Instance.Coins >= upgrade.CurrentUpgradeCost)
+        if (upgradeComponent != null && 
+            upgradeComponent.UpgradeLevelExist && 
+            CurrencyManager.Instance.CanAfford(upgradeComponent.CurrentUpgradeCost) )
         {
-            CurrencyManager.Instance.Spend(upgrade.CurrentUpgradeCost);
-            upgrade.ApplyNextUpgrade(); // This triggers OnAnyUpgradeApplied
-        }
-    }
-
-    private void OnUpgradeApplied(Upgrade upgraded)
-    {
-        if (upgrade != null)
-        {
-            upgrade.SaveUpgradeState("CuttingCounter");
-            // Play particle effect
-            if (upgradeParticleEffect != null)
-            {
-                // Spawn particle effect slightly above the counter
-                Vector3 spawnPosition = transform.position + Vector3.up * 2f; // Adjust height as needed
-                ParticleSystem effect = Instantiate(upgradeParticleEffect, spawnPosition, Quaternion.identity);
-                effect.Play();
-                // Destroy the particle system after it finishes (optional)
-                Destroy(effect.gameObject, effect.main.duration);
-            }
+            upgradeComponent.ApplyNextUpgrade(); // This triggers OnAnyUpgradeApplied            
         }
     }
 
@@ -108,9 +107,9 @@ public class CuttingCounter : BaseCounter, IHasProgress {
         if (HasKitchenObject() && HasRecipeWithInput(GetKitchenObject().GetKitchenObjectSO()) ) {             
             // There is a kitchen object that can be cut
             // Use speed from Upgrade to scale progress
-            if (upgrade != null)
+            if (upgradeComponent != null)
             {
-                float speed = upgrade.CurrentSpeed;
+                float speed = upgradeComponent.CurrentSpeed;
                 if (speed <= 0f)
                 {
                     Debug.LogWarning($"Upgrade speed is {speed} on {gameObject.name}. Using default speed of 1.");

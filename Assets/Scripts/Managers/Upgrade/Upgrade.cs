@@ -5,18 +5,20 @@ using UnityEngine;
 public class Upgrade : MonoBehaviour
 {
     [SerializeField] private UpgradeLevels upgradeData; // Reference to ScriptableObject
-    
+   
+
     private static int currentLevel = 0; // Current upgrade level (0 = base level)
     private BaseCounter counter; // Reference to the counter's logic (modify as per your counter's script)
 
     // Static event to notify when any upgrade is applied
+    public static event System.Action<Upgrade> OnAnyUpgradeStarted;
     public static event System.Action<Upgrade> OnAnyUpgradeApplied;
 
     // Properties to access current upgrade stats
     public float CurrentSpeed => upgradeData.levels[currentLevel].speed;
     public int CurrentCapacity => upgradeData.levels[currentLevel].capacity;
     public int CurrentUpgradeCost => currentLevel < upgradeData.levels.Length - 1 ? upgradeData.levels[currentLevel + 1].upgradeCost : 0;
-    public bool CanUpgrade => currentLevel < upgradeData.levels.Length - 1;
+    public bool UpgradeLevelExist => currentLevel < upgradeData.levels.Length - 1;
 
     
 
@@ -38,11 +40,23 @@ public class Upgrade : MonoBehaviour
 
     public void ApplyNextUpgrade()
     {
-        if (CanUpgrade)
+        if (UpgradeLevelExist &&
+            CurrencyManager.Instance.CanAfford(CurrentUpgradeCost))
         {
+            OnAnyUpgradeStarted?.Invoke(this);
+
             currentLevel++;
             ApplyUpgrade();
             Debug.Log($"Upgraded {gameObject.name} to level {currentLevel}");
+
+            
+
+            // Spend money
+            CurrencyManager.Instance.Spend(CurrentUpgradeCost);
+
+            // Save upgrade state
+            SaveUpgradeState("CuttingCounter");
+
             // Notify all listeners (e.g., CuttingCounter, UI) about the upgrade
             OnAnyUpgradeApplied?.Invoke(this);
         }

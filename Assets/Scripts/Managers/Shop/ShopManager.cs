@@ -87,7 +87,7 @@ public class ShopManager : MonoBehaviour
 
     public void TryUpgradeCounter(Upgrade counterUpgrade)
     {
-        if (counterUpgrade.CanUpgrade && CurrencyManager.Instance.CanAfford(counterUpgrade.CurrentUpgradeCost))
+        if (counterUpgrade.UpgradeLevelExist && CurrencyManager.Instance.CanAfford(counterUpgrade.CurrentUpgradeCost))
         {
             CurrencyManager.Instance.Spend(counterUpgrade.CurrentUpgradeCost);
             counterUpgrade.ApplyNextUpgrade();

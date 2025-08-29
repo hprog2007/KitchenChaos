@@ -167,6 +167,18 @@ PrefabInstance:
       value: CuttingCounter
       objectReference: {fileID: 0}
     - target: {fileID: 8315177753893716402, guid: 8e0bf65effcbff843b6cf06759e12bea, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0367293
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315177753893716402, guid: 8e0bf65effcbff843b6cf06759e12bea, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.0367293
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315177753893716402, guid: 8e0bf65effcbff843b6cf06759e12bea, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.0367293
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315177753893716402, guid: 8e0bf65effcbff843b6cf06759e12bea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3
       objectReference: {fileID: 0}
@@ -184,7 +196,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8315177753893716402, guid: 8e0bf65effcbff843b6cf06759e12bea, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8315177753893716402, guid: 8e0bf65effcbff843b6cf06759e12bea, type: 3}
       propertyPath: m_LocalRotation.y
@@ -192,7 +204,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8315177753893716402, guid: 8e0bf65effcbff843b6cf06759e12bea, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8315177753893716402, guid: 8e0bf65effcbff843b6cf06759e12bea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -226,6 +238,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3119169884294168604, guid: 8e0bf65effcbff843b6cf06759e12bea, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8790555899270976154}
+    - targetCorrespondingSourceObject: {fileID: 3119169884294168604, guid: 8e0bf65effcbff843b6cf06759e12bea, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3943423571436024049}
   m_SourcePrefab: {fileID: 100100000, guid: 8e0bf65effcbff843b6cf06759e12bea, type: 3}
 --- !u!1 &2035676284526546372 stripped
 GameObject:
@@ -245,12 +260,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counterTopPoint: {fileID: 2443086941832359166}
+  upgradeParticleEffect: {fileID: 4718145502144409607, guid: 7b9572088b8a0ac4d8e06a26e83f4839, type: 3}
+  counterUpgradeFXObject: {fileID: 3943423571436024049}
   cutKitchenObjectSOArray:
   - {fileID: 11400000, guid: c916daec84df6ba42a41c139b41b8501, type: 2}
   - {fileID: 11400000, guid: 34cafbd9dda3a92448ef479c3423ea35, type: 2}
   - {fileID: 11400000, guid: e15d363bc598245409c61c2b3339291f, type: 2}
   - {fileID: 11400000, guid: e2e12fa1a3ea12c408d9801a6d430eeb, type: 2}
-  upgradeParticleEffect: {fileID: 4718145502144409607, guid: 7b9572088b8a0ac4d8e06a26e83f4839, type: 3}
 --- !u!114 &8790555899270976154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,6 +280,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Upgrade
   upgradeData: {fileID: 11400000, guid: f08798d6942893d48a80fcdb069461fb, type: 2}
+--- !u!114 &3943423571436024049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035676284526546372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ee71245612184abc757a51cb60eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CounterUpgradeFXObject
+  animationTarget: {fileID: 4930556127596760170}
+  renderersToFlash:
+  - {fileID: 3025229954487991083}
+  counterValue: 41
+  popScaleMultiplier: 2
+  popRotateZDegrees: 12
+  popRiseDuration: 0.5
+  settleDuration: 0.49
+  shakeMagnitudeUnits: 0.3
+  flashColor: {r: 1, g: 0.85, b: 0.3, a: 1}
+  flashFadeDuration: 0.82
+  affectEmission: 1
+  emissionBoost: 2
+  sparkCount: 50
+  sparkTravelRadius: 2
+  sparkLifetimeSeconds: 2.73
+  sparkScaleRange: {x: 0.06, y: 0.12}
 --- !u!4 &2443086941832359166 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1652326357650579750, guid: 8e0bf65effcbff843b6cf06759e12bea, type: 3}
@@ -444,6 +489,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 398810197476602793}
   m_SourcePrefab: {fileID: 100100000, guid: d72bee846803d074784ffb8f64e993ca, type: 3}
+--- !u!23 &3025229954487991083 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7398771634956237162, guid: d72bee846803d074784ffb8f64e993ca, type: 3}
+  m_PrefabInstance: {fileID: 5716881054068752961}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8135614189847750378 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4589716710238282923, guid: d72bee846803d074784ffb8f64e993ca, type: 3}

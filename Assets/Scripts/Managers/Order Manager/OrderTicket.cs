@@ -9,9 +9,6 @@ public class OrderTicket
     public float CumulativeDuration { get; private set; } 
     public float RemainingTime { get; private set;}  // seconds left
 
-    public event Action<OrderTicket> OnTick;
-    public event Action<OrderTicket> OnExpired;
-
     public OrderTicket(string id, RecipeSO recipe, float duration)
     {
         Id = id;
@@ -21,15 +18,15 @@ public class OrderTicket
         CumulativeDuration = duration;
     }
 
-    public bool Update(float deltaTime)
+    public bool Update()
     {
-        if (RemainingTime <= 0f) return false;
-        //RemainingTime = MathF.Max(0f, RemainingTime - dt);
-        RemainingTime = CumulativeDuration = MathF.Max(0f, CumulativeDuration - deltaTime);
-        OnTick?.Invoke(this);
+        if (RemainingTime <= 0f) 
+            return false;
+        
+        RemainingTime = CumulativeDuration = MathF.Max(0f, CumulativeDuration - 1f);
+
         if (RemainingTime <= 0f)
         {
-            OnExpired?.Invoke(this);
             return true;
         }
         return false;

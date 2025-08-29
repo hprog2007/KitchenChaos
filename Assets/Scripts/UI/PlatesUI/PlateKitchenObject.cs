@@ -36,7 +36,7 @@ public class PlateKitchenObject : KitchenObject {
         //set target recipe of plate
         if (targetRecipe == null || kitchenObjectSOList.Count == 0)
         {
-            SetTargetRecipe(DeliveryManager.instance.GetFirstOrderRecipe());
+            SetTargetRecipe(OrderManager.instance.GetFirstOrderRecipe());
             AddPlateCompleteVisual();
         }
 
