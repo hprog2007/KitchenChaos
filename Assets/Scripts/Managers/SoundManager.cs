@@ -29,6 +29,12 @@ public class SoundManager : MonoBehaviour
         BaseCounter.OnAnyObjectPlacedHere += BaseCounter_OnAnyObjectPlacedHere;
         TrashCounter.OnAnyObjectTrashed += TrashCounter_OnAnyObjectTrashed;
         Upgrade.OnAnyUpgradeApplied += Upgrade_OnAnyUpgradeApplied;
+        OrderManager.instance.OnOrderExpired += OrderManager_OnOrderExpired;
+    }
+
+    private void OrderManager_OnOrderExpired(OrderTicket obj)
+    {
+        PlaySound(audioClipRefsSO.explosion, mainCameraPoition, .4f);
     }
 
     private void Upgrade_OnAnyUpgradeApplied(Upgrade obj)

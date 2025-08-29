@@ -11,6 +11,7 @@ public class DeliveryManagerUI : MonoBehaviour
 
     [SerializeField] private Transform container;
     [SerializeField] private DeliveryManagerSingleUI recipeTemplate;
+    [SerializeField] private ParticleSystem OrderCardExplosion;
 
     private readonly Dictionary<string, DeliveryManagerSingleUI> cards = new();
 
@@ -71,10 +72,10 @@ public class DeliveryManagerUI : MonoBehaviour
 
         if (t.RemainingTime <= 0)
         {
-            ui.GetComponent<UIExplosionParticles>().Explode();
+            OrderCardExplosion.Play();
         }
 
-        Destroy(ui.gameObject, 3f);
+        Destroy(ui.gameObject, 1f);
         cards.Remove(t.Id);
     }
 

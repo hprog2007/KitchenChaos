@@ -13,5 +13,6 @@ public class AudioClipRefsSO : ScriptableObject {
     public AudioClip[] warning;
     public AudioClip[] Buy;
     public AudioClip[] upgrade;
+    public AudioClip[] explosion;
 
 }
