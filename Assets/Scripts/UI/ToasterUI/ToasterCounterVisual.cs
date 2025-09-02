@@ -19,12 +19,10 @@ public class ToasterCounterVisual : MonoBehaviour
         bool showVisual = e.state == ToasterCounter.State.Toasting || e.state == ToasterCounter.State.Poped;
         if (e.state == ToasterCounter.State.Toasting)
         {
-            Debug.Log("Anim PushDown");
             animator.SetTrigger("PushDown");
         }
         else if (e.state == ToasterCounter.State.Poped)
         {
-            Debug.Log("Anim PopUp");
             animator.SetTrigger("PopUp");
         }
         else if (e.state == ToasterCounter.State.Idle)

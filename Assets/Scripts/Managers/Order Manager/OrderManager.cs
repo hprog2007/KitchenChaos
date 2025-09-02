@@ -78,8 +78,7 @@ public class OrderManager : MonoBehaviour
                 {
                     //order time expired => the recipe failed
                     OnOrderExpired?.Invoke(ticket); // Expired order event
-                    waitingOrderTickets.RemoveAt(i);
-                    OnOrderRemoved?.Invoke(ticket); // Removed after expiration
+                    RemoveOrderTicket(ticket);
                 }
             }
         }
@@ -96,21 +95,21 @@ public class OrderManager : MonoBehaviour
         string id = Guid.NewGuid().ToString("N");
 
         // Calculate duration for current order
-        float durationForCurrentOrder = CalcDuration(recipeSO);
-
+        float durationForCurrentOrder = CalcTicketDuration(recipeSO);
         // Create and add the new ticket with the calculated duration
         var ticket = new OrderTicket(id, recipeSO, durationForCurrentOrder);
         waitingOrderTickets.Add(ticket);
+        
+        if(GetWaitingCount() > 1)
+        {
+            ticket.SetRemainingTime(CalcTotalWaitingTime());
+        }
 
-        // Recalculate the total duration after removing expired/completed tickets
-        float cumulativeDuration = RecalculateTicketDurations();
-
-        Debug.Log("Order added to waiting with manager " + GetInstanceID());
         OnOrderSpawned?.Invoke(ticket);
 
     }
 
-    private float CalcDuration(RecipeSO recipe)
+    private float CalcTicketDuration(RecipeSO recipe)
     {
         // If RecipeSO has a Complexity int, use it; else assume 1
         int complexity = recipe.Complexity <= 0 ? 1 : recipe.Complexity;
@@ -131,29 +130,35 @@ public class OrderManager : MonoBehaviour
         return list;
     }
 
-    private float CalculateCumulativeDuration()
+    //Calc sum of all tickets remaining time
+    private float CalcTotalWaitingTime()
     {
-        float totalDuration = 0f;
-        foreach (var ticket in waitingOrderTickets)
+        float totalDuration = waitingOrderTickets[0].RemainingTime;
+
+        // Iterate from the second to the last item in the list
+        for (int i = 1; i < waitingOrderTickets.Count; i++)
         {
-            totalDuration += ticket.RemainingTime;
+            totalDuration += waitingOrderTickets[i].Duration;
         }
         return totalDuration;
     }
 
-    private float RecalculateTicketDurations()
+    private void ResetTicketsRemainingTime()
     {
-        if (waitingOrderTickets.Count == 0) return 0f;
+        if (waitingOrderTickets.Count == 0) 
+            return;
 
-        // Recalculate the duration for all remaining tickets
-        float cumulativeDuration = waitingOrderTickets[0].RemainingTime;
-        // Iterate from the first to the last item in the list
+        if (waitingOrderTickets[0].RemainingTime > waitingOrderTickets[0].Duration)
+            waitingOrderTickets[0].SetRemainingTime(waitingOrderTickets[0].Duration);
+
+        // Recalculate the remaining time for all tickets
+        float totalDuration = waitingOrderTickets[0].RemainingTime;
+        // Iterate from the second to the last item in the list
         for (int i = 1; i < waitingOrderTickets.Count; i++)
         {
-            cumulativeDuration += waitingOrderTickets[i].Duration;
-            waitingOrderTickets[i].UpdateCumulativeDuration(cumulativeDuration);
+            totalDuration += waitingOrderTickets[i].Duration;
+            waitingOrderTickets[i].SetRemainingTime(totalDuration);
         }
-        return cumulativeDuration;
     }
 
     public RecipeSO GetFirstOrderRecipe() => waitingOrderTickets.Count > 0 ? waitingOrderTickets[0].Recipe : null;
@@ -163,13 +168,13 @@ public class OrderManager : MonoBehaviour
 
     public void RemoveOrderTicket(OrderTicket ticket)
     {
-        foreach (var t in waitingOrderTickets)
+        if (waitingOrderTickets.Contains(ticket))
         {
-            if (ticket.Id == t.Id)
-            {
-                OnOrderRemoved?.Invoke(ticket);
-                waitingOrderTickets.Remove(t);
-            }
-        }
+            waitingOrderTickets.Remove(ticket);
+            OnOrderRemoved?.Invoke(ticket);
+
+            // Recalculate the total duration after removing expired/completed tickets
+            ResetTicketsRemainingTime();
+        }     
     }
 }

@@ -40,7 +40,7 @@ public class DeliveryManagerSingleUI : MonoBehaviour
         //bind to OrderTicket
         ticket = orderTicket;
         //init fuse points
-        line.Points = GeneratePoints(line, (int)ticket.CumulativeDuration);
+        line.Points = GeneratePoints(line, (int)ticket.RemainingTime);
         //set recipe
         SetRecipeSO(orderTicket.Recipe);        
 

@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1de7cb21909cb7544ba85e46b39a2328, type: 3}
-  m_Name: OvenCounterLevel1SO
+  m_Name: 001_ClearCounter_ShopCardSO
   m_EditorClassIdentifier: Assembly-CSharp::ShopSelectCardSO
-  CardBadge: {fileID: 21300000, guid: e9b59b01a90bbd94088460c7783bc33f, type: 3}
-  CardTitle: Oven Counter Lv1
-  CardImage: {fileID: 21300000, guid: 8f772aad1918f4c4dab954ef2158de61, type: 3}
-  CardPriceInCoins: 700
+  IsUpgrade: 0
+  CardTitle: Clear Counter
+  CardImage: {fileID: 21300000, guid: f4ebc9a208fe65446ba30a7b2e107b26, type: 3}
+  CardDescription: Clear Counter Description
+  CardPriceInCoins: 100

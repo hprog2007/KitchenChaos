@@ -15,6 +15,7 @@ public class KitchenGameManager : MonoBehaviour
         CountdownToStart,
         GamePlaying,
         GameOver,
+        Shopping
     }
 
     private State state;

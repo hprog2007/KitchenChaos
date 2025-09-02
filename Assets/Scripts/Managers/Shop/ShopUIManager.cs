@@ -12,6 +12,13 @@ public class ShopUIManager : MonoBehaviour
 {
     public static ShopUIManager Instance { get; private set; }
 
+    [SerializeField] private Transform shopCardsParent;
+
+    [SerializeField] private ShopAvailableCardList shopAvailableCardList;
+
+    [SerializeField] private Transform shopCardPrefab;
+
+
     [SerializeField] private TextMeshProUGUI coinText; // Reference to the UI Text element for coins
 
     public UnityEvent OnBuyButtonClicked;
@@ -45,9 +52,31 @@ public class ShopUIManager : MonoBehaviour
         
     }
 
+    private void ClearContent()
+    {
+        foreach (Transform child in shopCardsParent)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+    private void FillBuyContent()
+    {
+        foreach (ShopSelectCardSO cardSO in shopAvailableCardList.shopCardList)
+        {
+            Transform shopCard = Instantiate(shopCardPrefab, shopCardsParent);
+            ShopCardUI shopCardUI = shopCard.GetComponent<ShopCardUI>();
+            shopCardUI.Setup(cardSO);
+        }
+    }
+
     public void BuyButtonClick()
     {
-        OnBuyButtonClicked?.Invoke();        
+        ClearContent();
+        FillBuyContent();
+
+        OnBuyButtonClicked?.Invoke();    
+        
     }
 
     public void UpgradeButtonClick()

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53920f67905c6b543b50d0c95be27c6f, type: 3}
+  m_Name: ShopCardList_Buy_L1_Classic_City
+  m_EditorClassIdentifier: Assembly-CSharp::ShopAvailableCardList
+  sceneType: 2
+  shopMode: 1
+  shopCardList:
+  - {fileID: 11400000, guid: d665ab01b47cd3a41bf56849fa981aa6, type: 2}
+  - {fileID: 11400000, guid: de0c0082efd9e374e94841812f0ac08f, type: 2}
+  - {fileID: 11400000, guid: b8a8b4515c945c5419aae4ea900b88a9, type: 2}
+  - {fileID: 11400000, guid: ae48d44a4ccdefe499bb8fef00272f9d, type: 2}
+  - {fileID: 11400000, guid: 7ececde521989cc4da7fe6f606264e02, type: 2}
+  - {fileID: 11400000, guid: 5cde3a7254e31a848add8ad2dd26477d, type: 2}
+  - {fileID: 11400000, guid: fb5505b4f7285ec42b434680ea234eb0, type: 2}
+  - {fileID: 11400000, guid: 861cc9924dcaf3e44b455aa8413f5fe2, type: 2}
+  - {fileID: 11400000, guid: b531ddf24b995114c828a3994df468e2, type: 2}
+  - {fileID: 11400000, guid: 36068883ec777ab4097a345091723c1e, type: 2}
