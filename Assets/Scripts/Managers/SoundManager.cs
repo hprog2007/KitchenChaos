@@ -28,7 +28,7 @@ public class SoundManager : MonoBehaviour
         Player.Instance.OnPickedSomething += Player_OnPickedSomething;
         BaseCounter.OnAnyObjectPlacedHere += BaseCounter_OnAnyObjectPlacedHere;
         TrashCounter.OnAnyObjectTrashed += TrashCounter_OnAnyObjectTrashed;
-        Upgrade.OnAnyUpgradeApplied += Upgrade_OnAnyUpgradeApplied;
+        UpgradeManager.OnAnyUpgradeApplied += Upgrade_OnAnyUpgradeApplied;
         OrderManager.instance.OnOrderExpired += OrderManager_OnOrderExpired;
     }
 
@@ -37,7 +37,7 @@ public class SoundManager : MonoBehaviour
         PlaySound(audioClipRefsSO.explosion, mainCameraPoition, .4f);
     }
 
-    private void Upgrade_OnAnyUpgradeApplied(Upgrade obj)
+    private void Upgrade_OnAnyUpgradeApplied(CounterType counterType)
     {
         PlaySound(audioClipRefsSO.upgrade, mainCameraPoition);
     }

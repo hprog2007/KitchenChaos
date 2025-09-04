@@ -3,9 +3,10 @@ using UnityEngine;
 [System.Serializable]
 public class CounterSlotData
 {
-    public CounterType counterType;
-    public Vector3 position;
-    public Quaternion rotation;
+    public CounterType CounterType;
+    public Transform ParentTransform;
+    public Transform CounterTransform;
+    
 }
 
 [CreateAssetMenu(fileName = "New Scene Config", menuName = "Scenes/Scene Config")]

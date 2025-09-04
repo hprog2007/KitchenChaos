@@ -55,7 +55,7 @@ public static class SaveLoadManager
         SaveData data = new SaveData();
         data.coins = coins;
         data.countersOwned = countersOwned;
-        data.counterLevels = CounterUpgradeManager.GetAllLevels();
+        data.counterLevels = new Dictionary<CounterType, int>(); // UpgradeManager.Instance.GetAllLevels();
         data.helpersOwned = helpersOwned;
         data.helperLevels = HelperBotsManager.GetAllLevels();
 
@@ -75,8 +75,8 @@ public static class SaveLoadManager
         SaveData data = JsonUtility.FromJson<SaveData>(json);
 
         // Restore counter levels
-        foreach (var pair in data.counterLevels)
-            CounterUpgradeManager.SetLevel(pair.Key, pair.Value);
+        //foreach (var pair in data.counterLevels)
+        //    UpgradeManager.Instance.SetLevel(pair.Key, pair.Value);
 
         // Restore helper levels
         foreach (var pair in data.helperLevels)

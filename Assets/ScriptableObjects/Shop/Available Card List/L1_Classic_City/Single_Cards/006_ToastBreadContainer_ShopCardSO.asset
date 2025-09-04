@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1de7cb21909cb7544ba85e46b39a2328, type: 3}
-  m_Name: 007_PlateCounter_ShopCardSO
+  m_Name: 006_ToastBreadContainer_ShopCardSO
   m_EditorClassIdentifier: Assembly-CSharp::ShopSelectCardSO
-  IsUpgrade: 0
-  CardTitle: Plate Counter
-  CardImage: {fileID: 21300000, guid: 658143380fe582746994c4f0f907f166, type: 3}
-  CardDescription: Plate Counter Description
-  CardPriceInCoins: 300
+  counterType: 7
+  CardTitle: Toast Bread Container
+  CardImage: {fileID: 21300000, guid: 98fdaf5c0323c1e41a5b70ec7bf5905f, type: 3}
+  CardDescription: Toast Bread Container Description
+  CardPriceInCoins: 200
+  prefab: {fileID: 3645865608551925047, guid: 3f441a5baed14ec4c8eb8270ca18be0c, type: 3}

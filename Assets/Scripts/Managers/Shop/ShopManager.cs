@@ -2,6 +2,8 @@
 // This was created with the help of Assistant, a Unity Artificial Intelligence product.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,16 +12,19 @@ public enum ShopMode
 {
     None,
     Buy,
-    Upgrade,
+    Upgrades,
     Helpers,
     Cosmetics,
-    CoinPacks
+    Coins
 }
 
 public class ShopManager : MonoBehaviour
 {
+    
     public static ShopManager Instance { get; private set; }
-    public ShopMode CurrentMode { get; private set; } = ShopMode.None;    
+    public ShopMode CurrentMode { get; private set; } = ShopMode.None;
+
+    [SerializeField] private List<ShopAvailableCardList> shopAvailableCardList;
 
 
     private void Awake()
@@ -33,6 +38,31 @@ public class ShopManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        ShopUIManager.Instance.OnShopCardClicked += ShopUIManager_OnShopCardClicked;
+    }
+
+    private void ShopUIManager_OnShopCardClicked(ShopCardUI card)
+    {
+        switch (CurrentMode)
+        {
+            case ShopMode.Buy:
+                break;
+            case ShopMode.Upgrades: 
+                UpgradeManager.Instance.ApplyNextUpgrade(card.CounterType);
+                ShopUIManager.Instance.UpgradeButtonClick(); //reset upgrade card list
+                break;
+            case ShopMode.Helpers: 
+                break;
+            case ShopMode.Cosmetics:
+                break;
+            case ShopMode.Coins: 
+                break;
+        }
+    }
+
+    // Load level selection map
     public void ExitToSelectionMap()
     {
         CurrentMode = ShopMode.None;
@@ -47,7 +77,7 @@ public class ShopManager : MonoBehaviour
 
     public void SetToUpgradeMode()
     {
-        CurrentMode = ShopMode.Upgrade;
+        CurrentMode = ShopMode.Upgrades;
     }
 
     public void SetToHelperMode()
@@ -62,7 +92,7 @@ public class ShopManager : MonoBehaviour
 
     public void SetToCoinPackMode()
     {
-        CurrentMode = ShopMode.CoinPacks;
+        CurrentMode = ShopMode.Coins;
     }
 
     public bool IsInMode(ShopMode mode)
@@ -71,6 +101,43 @@ public class ShopManager : MonoBehaviour
     }
     #endregion
 
+
+    public ShopAvailableCardList GetShopCardsList(ShopMode shopModeParam)
+    {
+        switch(shopModeParam)
+        {
+            case ShopMode.Buy:
+                return shopAvailableCardList.FirstOrDefault(a => a.shopMode == shopModeParam);
+                break;
+            case ShopMode.Upgrades:
+                var buyList = shopAvailableCardList.FirstOrDefault(a => a.shopMode == ShopMode.Buy);
+                var upgradeCardList = shopAvailableCardList.FirstOrDefault(a => a.shopMode == ShopMode.Upgrades);
+                upgradeCardList.shopCardList = new List<ShopSelectCardSO>();
+
+                foreach (var card in buyList.shopCardList)
+                {
+                    if (UpgradeManager.Instance.UpgradeLevelExist(card.counterType))
+                    {
+                        upgradeCardList.shopCardList.Add(card);
+                    }
+                }
+                return upgradeCardList;
+                break;
+            case ShopMode.Helpers:
+                return shopAvailableCardList.FirstOrDefault(a => a.shopMode == shopModeParam);
+                break;
+            case ShopMode.Cosmetics:
+                return shopAvailableCardList.FirstOrDefault(a => a.shopMode == shopModeParam);
+                break;
+            case ShopMode.Coins:
+                return shopAvailableCardList.FirstOrDefault(a => a.shopMode == shopModeParam);
+                break;
+            default:
+                return shopAvailableCardList.FirstOrDefault(a => a.shopMode == ShopMode.Buy); //default
+        }
+
+        
+    }
 
     public void ConfirmPurchase(int cost)
     {
@@ -85,12 +152,8 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    public void TryUpgradeCounter(Upgrade counterUpgrade)
+    public void TryUpgradeCounter(CounterType counterType)
     {
-        if (counterUpgrade.UpgradeLevelExist && CurrencyManager.Instance.CanAfford(counterUpgrade.CurrentUpgradeCost))
-        {
-            CurrencyManager.Instance.Spend(counterUpgrade.CurrentUpgradeCost);
-            counterUpgrade.ApplyNextUpgrade();
-        }
+        UpgradeManager.Instance.ApplyNextUpgrade(counterType);
     }
 }

@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1de7cb21909cb7544ba85e46b39a2328, type: 3}
-  m_Name: 001_ClearCounter_ShopCardSO
+  m_Name: 005_CheeseContainer_ShopCardSO
   m_EditorClassIdentifier: Assembly-CSharp::ShopSelectCardSO
-  IsUpgrade: 0
-  CardTitle: Clear Counter
-  CardImage: {fileID: 21300000, guid: f4ebc9a208fe65446ba30a7b2e107b26, type: 3}
-  CardDescription: Clear Counter Description
-  CardPriceInCoins: 100
+  counterType: 4
+  CardTitle: Cheese Container
+  CardImage: {fileID: 21300000, guid: 43ebc180767a4e04096599c107a2e5b1, type: 3}
+  CardDescription: Cheese Container Description
+  CardPriceInCoins: 200
+  prefab: {fileID: 4989755169840311877, guid: a3a91721b35d6f243a204dc824e2d06f, type: 3}

@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1de7cb21909cb7544ba85e46b39a2328, type: 3}
-  m_Name: 006_ToastBreadContainer_ShopCardSO
+  m_Name: 010_TrashCounter_ShopCardSO
   m_EditorClassIdentifier: Assembly-CSharp::ShopSelectCardSO
-  IsUpgrade: 0
-  CardTitle: Toast Bread Container
-  CardImage: {fileID: 21300000, guid: 98fdaf5c0323c1e41a5b70ec7bf5905f, type: 3}
-  CardDescription: Toast Bread Container Description
-  CardPriceInCoins: 200
+  counterType: 13
+  CardTitle: Trash Counter
+  CardImage: {fileID: 21300000, guid: 2b965860d75052d4abf6d811412d3d01, type: 3}
+  CardDescription: Trash Counter Description
+  CardPriceInCoins: 100
+  prefab: {fileID: 6963389003646024757, guid: 7ac026ce11d03e4498e8fbe983e9cd31, type: 3}

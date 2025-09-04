@@ -2,8 +2,10 @@ using System;
 using UnityEngine;
 public class CuttingCounter : BaseCounter, IHasProgress {
 
+    public CounterType CurrentCounterType { get { return CounterType.CuttingCounter; } }
+
     [SerializeField] private ParticleSystem upgradeParticleEffect;
-    [SerializeField] private CounterUpgradeFXObject counterUpgradeFXObject;
+    [SerializeField] private CounterUpgradeFXObject counterUpgradeFXObject; //scale and rotation animation
 
     public static event EventHandler OnAnyCut;
 
@@ -20,25 +22,21 @@ public class CuttingCounter : BaseCounter, IHasProgress {
 
     private int cuttingProgress;
 
-    private Upgrade upgradeComponent;
-
-    private void Start()
-    {
-        upgradeComponent = GetComponent<Upgrade>();
-        upgradeComponent.LoadUpgradeState("CuttingCounter");
-        if (upgradeComponent == null)
-        {
-            Debug.LogError("Upgrade component not found on " + gameObject.name);
-        }
-    }
 
     private void OnEnable()
     {
-        Upgrade.OnAnyUpgradeApplied += Upgrade_OnAnyUpgradeApplied;
+        UpgradeManager.OnAnyUpgradeApplied += Upgrade_OnAnyUpgradeApplied;
     }
 
-    private void Upgrade_OnAnyUpgradeApplied(Upgrade obj)
+    private void Upgrade_OnAnyUpgradeApplied(CounterType counterType)
     {
+        if (counterType != CounterType.CuttingCounter)
+            return;
+
+        // set speed and capacity
+        //SetSpeed(UpgradeManager.Instance.GetCurrentSpeed(counterType));
+        //SetCapacity(UpgradeManager.Instance.GetCurrentCapacity(counterType));
+
         // Play particle effect
         if (upgradeParticleEffect != null)
         {
@@ -56,12 +54,7 @@ public class CuttingCounter : BaseCounter, IHasProgress {
 
     public void UpgradeCuttingCounter()
     {
-        if (upgradeComponent != null && 
-            upgradeComponent.UpgradeLevelExist && 
-            CurrencyManager.Instance.CanAfford(upgradeComponent.CurrentUpgradeCost) )
-        {
-            upgradeComponent.ApplyNextUpgrade(); // This triggers OnAnyUpgradeApplied            
-        }
+        UpgradeManager.Instance.ApplyNextUpgrade(CounterType.CuttingCounter);        
     }
 
     //player puts something like tomato on cutting counter or pick up it
@@ -104,23 +97,9 @@ public class CuttingCounter : BaseCounter, IHasProgress {
 
     //player cut something like cabbage into multiple slice
     public override void InteractAlternate(Player player) {
-        if (HasKitchenObject() && HasRecipeWithInput(GetKitchenObject().GetKitchenObjectSO()) ) {             
-            // There is a kitchen object that can be cut
-            // Use speed from Upgrade to scale progress
-            if (upgradeComponent != null)
-            {
-                float speed = upgradeComponent.CurrentSpeed;
-                if (speed <= 0f)
-                {
-                    Debug.LogWarning($"Upgrade speed is {speed} on {gameObject.name}. Using default speed of 1.");
-                    speed = 1f; // Fallback to prevent issues
-                }
-                cuttingProgress += Mathf.RoundToInt(speed); // Scale progress by speed
-            }
-            else
-            {
-                cuttingProgress++; // Fallback if no Upgrade component
-            }
+        if (HasKitchenObject() && HasRecipeWithInput(GetKitchenObject().GetKitchenObjectSO()) ) {
+            // There is a kitchen object that can be cut            
+            cuttingProgress += Mathf.RoundToInt(GetSpeed()); // Scale progress by speed
 
             OnCut?.Invoke(this, EventArgs.Empty);
             OnAnyCut?.Invoke(this, EventArgs.Empty);

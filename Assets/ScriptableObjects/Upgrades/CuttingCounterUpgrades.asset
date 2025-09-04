@@ -12,24 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95b241e703047184eac86a6b2693e374, type: 3}
   m_Name: CuttingCounterUpgrades
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeLevels
+  Counter: {fileID: 15202044967549090, guid: bf5c66e5c66a84448bac9e83e46d8f65, type: 3}
+  CounterType: 9
+  CounterTitle: Cutting Counter
+  CurrentLevel: 0
   levels:
   - speed: 1
     capacity: 1
     upgradeCost: 100
-    description: Level1
+    description: Level0
   - speed: 1.5
     capacity: 1
     upgradeCost: 200
-    description: Level2
+    description: Level1
   - speed: 2
     capacity: 1
     upgradeCost: 500
-    description: Level3
+    description: Level2
   - speed: 2.5
     capacity: 1
     upgradeCost: 800
-    description: Level4
+    description: Level3
   - speed: 3
     capacity: 1
     upgradeCost: 1200
-    description: Level5
+    description: Level4

@@ -330,10 +330,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a56948b7717dae942b2329b7e1bdc13d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopCardUI
-  Title: {fileID: 8473480014994558665}
+  NewBadge: {fileID: 2976677261113337367}
+  UpgradeBadge: {fileID: 2353080411996525362}
+  CardTitle: {fileID: 8473480014994558665}
   CardImage: {fileID: 3256035018743375008}
-  Description: {fileID: 3256633353268300925}
-  Price: {fileID: 7774368422598651537}
+  CardDescription: {fileID: 3256633353268300925}
+  CardPrice: {fileID: 7774368422598651537}
 --- !u!114 &2922895829844205458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,7 +369,7 @@ GameObject:
   - component: {fileID: 3256633353268300925}
   - component: {fileID: 4678997634681418511}
   m_Layer: 5
-  m_Name: Description
+  m_Name: CardDescription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -448,7 +450,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15.3
+  m_fontSize: 15.7
   m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -525,7 +527,7 @@ GameObject:
   - component: {fileID: 8473480014994558665}
   - component: {fileID: 2961293402413095820}
   m_Layer: 5
-  m_Name: Title
+  m_Name: CardTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -682,7 +684,7 @@ GameObject:
   - component: {fileID: 7774368422598651537}
   - component: {fileID: 9101531198834167833}
   m_Layer: 5
-  m_Name: Price
+  m_Name: CardPrice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

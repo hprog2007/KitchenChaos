@@ -2,6 +2,8 @@
 // This was created with the help of Assistant, a Unity Artificial Intelligence product.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -12,14 +14,13 @@ public class ShopUIManager : MonoBehaviour
 {
     public static ShopUIManager Instance { get; private set; }
 
-    [SerializeField] private Transform shopCardsParent;
+    public event Action<ShopCardUI> OnShopCardClicked;
 
-    [SerializeField] private ShopAvailableCardList shopAvailableCardList;
+    [SerializeField] private TextMeshProUGUI headerTitle;
+
+    [SerializeField] private Transform shopCardsParent;    
 
     [SerializeField] private Transform shopCardPrefab;
-
-
-    [SerializeField] private TextMeshProUGUI coinText; // Reference to the UI Text element for coins
 
     public UnityEvent OnBuyButtonClicked;
     public UnityEvent OnUpgradeButtonClicked;
@@ -60,20 +61,41 @@ public class ShopUIManager : MonoBehaviour
         }
     }
 
-    private void FillBuyContent()
+    private bool FillShopCardsPanel(ShopMode shopModeParam)
     {
-        foreach (ShopSelectCardSO cardSO in shopAvailableCardList.shopCardList)
+        var currentShopCardList = ShopManager.Instance.GetShopCardsList(shopModeParam);
+        if (currentShopCardList == null)
+        {
+            Debug.Log("shopAvailableCardList for "+ shopModeParam.ToString() + " isn't defined! Or all upgrade levels are done");
+            return false;
+        }
+
+        //Instaniate cards
+        foreach (ShopSelectCardSO cardSO in currentShopCardList.shopCardList)
         {
             Transform shopCard = Instantiate(shopCardPrefab, shopCardsParent);
             ShopCardUI shopCardUI = shopCard.GetComponent<ShopCardUI>();
-            shopCardUI.Setup(cardSO);
+
+            if (shopModeParam == ShopMode.Upgrades)
+            {
+                shopCardUI.SetupUpgrade(cardSO, cardSO.counterType);
+            } else
+            {
+                shopCardUI.SetupNew(cardSO, shopModeParam);
+            }
+
         }
+        return true;
     }
 
     public void BuyButtonClick()
     {
+        headerTitle.text = "Buy";
         ClearContent();
-        FillBuyContent();
+        if (!FillShopCardsPanel(ShopMode.Buy))
+        {
+            return;
+        }
 
         OnBuyButtonClicked?.Invoke();    
         
@@ -81,38 +103,59 @@ public class ShopUIManager : MonoBehaviour
 
     public void UpgradeButtonClick()
     {
+        headerTitle.text = "Upgrades";
+        ClearContent();
+        if (!FillShopCardsPanel(ShopMode.Upgrades))
+        {
+            return;
+        }
+
         OnUpgradeButtonClicked?.Invoke();
     }
 
     public void HelpersButtonClick()
     {
+        headerTitle.text = "Helpers";
+        ClearContent();
+        if (!FillShopCardsPanel(ShopMode.Helpers))
+        {
+            return;
+        }
+
         OnHelpersButtonClicked?.Invoke();
     }
 
-    public void OnCosmeticButtonClicked()
+    public void CosmeticsButtonClicked()
     {
+        headerTitle.text = "Cosmetics";
+        ClearContent();
+        if (!FillShopCardsPanel(ShopMode.Cosmetics))
+        {
+            return;
+        }
+
         OnCosmeticsButtonClicked?.Invoke();
     }
 
     public void CoinsButtonClick()
     {
+        headerTitle.text = "Coins";
+        ClearContent();
+        if (!FillShopCardsPanel(ShopMode.Coins))
+        {
+            return;
+        }
+
         OnCoinsButtonClicked?.Invoke();
+    }
+
+    public void ShopCardClick(ShopCardUI card)
+    {
+        OnShopCardClicked?.Invoke(card);
     }
 
     public void EnterPlacementMode(GameObject selectedItem)
     {
         PlacementManager.Instance.StartPlacement(selectedItem);
-    }
-
-    public void UpdateCoinDisplay(int coins)
-    {
-        if (coinText != null)
-        {
-            coinText.text = $"Coins: {coins}";
-        }
-        else
-        {
-            Debug.LogWarning("Coin Text UI element is not assigned in the UIManager.");
-        }
-    }
+    }    
 }

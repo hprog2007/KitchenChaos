@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1de7cb21909cb7544ba85e46b39a2328, type: 3}
-  m_Name: 009_DeliveryCounter_ShopCardSO
+  m_Name: 002_TomatoContainer_ShopCardSO
   m_EditorClassIdentifier: Assembly-CSharp::ShopSelectCardSO
-  IsUpgrade: 0
-  CardTitle: Delivery Counter
-  CardImage: {fileID: 21300000, guid: 571bb7226371e4441b5f43bb8b065fa7, type: 3}
-  CardDescription: Delivery Counter Description
-  CardPriceInCoins: 500
+  counterType: 8
+  CardTitle: Tomato Container
+  CardImage: {fileID: 21300000, guid: 51a4db7689f89564cab34569faf9ed44, type: 3}
+  CardDescription: Tomato Container Description
+  CardPriceInCoins: 200
+  prefab: {fileID: 5771350687519931413, guid: b5637bc1ad35d404584d662520d93b56, type: 3}

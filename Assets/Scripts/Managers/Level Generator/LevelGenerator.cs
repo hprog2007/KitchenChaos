@@ -27,19 +27,19 @@ public class LevelGenerator : MonoBehaviour
             // For now, assume all slots are populated
 
             // Get current global level for this counter type
-            int level = CounterUpgradeManager.GetLevel(slot.counterType);
+            int level = 1;// UpgradeManager.Instance.GetLevel(slot.CounterType);
 
             // Get prefab for this counter type and level
-            GameObject prefab = counterLevelDatabase.GetPrefab(slot.counterType, level);
+            GameObject prefab = counterLevelDatabase.GetPrefab(slot.CounterType, level);
 
             if (prefab == null)
             {
-                Debug.LogWarning($"Prefab not found for {slot.counterType} at level {level}");
+                Debug.LogWarning($"Prefab not found for {slot.CounterType} at level {level}");
                 continue;
             }
 
             // Instantiate counter at defined position and rotation
-            Instantiate(prefab, slot.position, slot.rotation);
+            Instantiate(prefab, slot.CounterTransform.position, slot.CounterTransform.rotation, slot.ParentTransform);
         }
 
         Debug.Log("Level generation complete.");
