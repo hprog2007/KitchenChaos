@@ -1,44 +1,11 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BaseCounter : MonoBehaviour, IKitchenObjectParent {
     
     protected float speed = 1.0f; // Default speed (multiplier)
-    protected int capacity = 1;    // Default capacity (e.g., items held)
-
-    // Virtual method for setting speed
-    public virtual void SetSpeed(float newSpeed)
-    {
-        if (newSpeed >= 0)
-        {
-            speed = newSpeed;
-            // Default: No behavior (suitable for container/utility counters)
-            // Functional counters will override this
-        }
-        else
-        {
-            Debug.LogWarning($"Invalid speed value {newSpeed} for {gameObject.name}");
-        }
-    }
-
-    // Virtual method for setting capacity
-    public virtual void SetCapacity(int newCapacity)
-    {
-        if (newCapacity >= 0)
-        {
-            capacity = newCapacity;
-            // Default: No behavior (suitable for counters that don’t use capacity)
-            // Functional counters will override this
-        }
-        else
-        {
-            Debug.LogWarning($"Invalid capacity value {newCapacity} for {gameObject.name}");
-        }
-    }
-
-    // Expose speed and capacity for other systems
-    public float GetSpeed() => speed;
-    public int GetCapacity() => capacity;
+    protected int capacity = 1;    // Default capacity (e.g., items held)    
 
     public event Action<InvalidInteractionReason, KitchenObjectSO> OnInvalidInteraction;
 
@@ -86,4 +53,40 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent {
     public bool HasKitchenObject() {
         return kitchenObject != null;
     }
+
+    //***********************************************************
+
+    // Virtual method for setting speed
+    public virtual void SetSpeed(float newSpeed)
+    {
+        if (newSpeed >= 0)
+        {
+            speed = newSpeed;
+            // Default: No behavior (suitable for container/utility counters)
+            // Functional counters will override this
+        }
+        else
+        {
+            Debug.LogWarning($"Invalid speed value {newSpeed} for {gameObject.name}");
+        }
+    }
+
+    // Virtual method for setting capacity
+    public virtual void SetCapacity(int newCapacity)
+    {
+        if (newCapacity >= 0)
+        {
+            capacity = newCapacity;
+            // Default: No behavior (suitable for counters that don’t use capacity)
+            // Functional counters will override this
+        }
+        else
+        {
+            Debug.LogWarning($"Invalid capacity value {newCapacity} for {gameObject.name}");
+        }
+    }
+
+    // Expose speed and capacity for other systems
+    public float GetSpeed() => speed;
+    public int GetCapacity() => capacity;
 }

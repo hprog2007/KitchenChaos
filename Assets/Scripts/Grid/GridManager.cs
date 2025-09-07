@@ -35,13 +35,20 @@ public class GridManager : MonoBehaviour
 
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
+        InitializeGrid(gridSize, cellSize);
+        PlaceExistingCounters();
+
     }
 
     private void Start()
     {
-        InitializeGrid(gridSize, cellSize);
-        PlaceExistingCounters();
+        
     }
 
     public void InitializeGrid(Vector2Int size, float cellSize)

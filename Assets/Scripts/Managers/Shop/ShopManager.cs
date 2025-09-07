@@ -47,7 +47,7 @@ public class ShopManager : MonoBehaviour
     {
         switch (CurrentMode)
         {
-            case ShopMode.Buy:
+            case ShopMode.Buy: ShopUIManager.Instance.EnterPlacementMode(null);
                 break;
             case ShopMode.Upgrades: 
                 UpgradeManager.Instance.ApplyNextUpgrade(card.CounterType);
@@ -70,35 +70,21 @@ public class ShopManager : MonoBehaviour
     }
 
     #region Set Shop Mode
-    public void SetToBuyMode()
-    {
-        CurrentMode = ShopMode.Buy;
-    }
+    public void SetToNoneMode() => CurrentMode = ShopMode.None;
 
-    public void SetToUpgradeMode()
-    {
-        CurrentMode = ShopMode.Upgrades;
-    }
+    public void SetToBuyMode() => CurrentMode = ShopMode.Buy;
 
-    public void SetToHelperMode()
-    {
-        CurrentMode = ShopMode.Helpers;
-    }
+    public void SetToUpgradeMode() => CurrentMode = ShopMode.Upgrades;
 
-    public void SetToCosmeticsMode()
-    {
-        CurrentMode = ShopMode.Cosmetics;
-    }
+    public void SetToHelperMode() => CurrentMode = ShopMode.Helpers;
 
-    public void SetToCoinPackMode()
-    {
-        CurrentMode = ShopMode.Coins;
-    }
+    public void SetToCosmeticsMode() => CurrentMode = ShopMode.Cosmetics;
 
-    public bool IsInMode(ShopMode mode)
-    {
-        return CurrentMode == mode;
-    }
+    public void SetToCoinPackMode() => CurrentMode = ShopMode.Coins;
+
+    public bool IsInMode(ShopMode mode) => CurrentMode == mode;
+
+    public bool IsShopOpen() => CurrentMode != ShopMode.None;
     #endregion
 
 
@@ -139,21 +125,5 @@ public class ShopManager : MonoBehaviour
         
     }
 
-    public void ConfirmPurchase(int cost)
-    {
-        if (CurrencyManager.Instance.Spend(cost))
-        {
-            Debug.Log("Purchase successful!");
-            // Finalize purchase logic
-        }
-        else
-        {
-            Debug.Log("Not enough coins!");
-        }
-    }
 
-    public void TryUpgradeCounter(CounterType counterType)
-    {
-        UpgradeManager.Instance.ApplyNextUpgrade(counterType);
-    }
 }

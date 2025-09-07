@@ -56,6 +56,9 @@ public class Player : MonoBehaviour, IKitchenObjectParent {
     }
 
     private void Update() {
+        if (!ShopManager.Instance.IsInMode(ShopMode.None))
+            return;
+
         HandleMovement();
         HandleInteractions();
         

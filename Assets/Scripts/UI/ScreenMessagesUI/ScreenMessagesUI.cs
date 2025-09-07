@@ -3,6 +3,7 @@ using System.Collections;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScreenMessagesUI : MonoBehaviour
 {
@@ -24,14 +25,26 @@ public class ScreenMessagesUI : MonoBehaviour
         messagePanel.SetActive(false);
     }
 
-    public void ShowMessage(string message, int duration)
+    public void ShowMessage(string message, int duration, bool HideOnClick = false, float fontSize = 50)
     {
        
         textMesh.text = message;
+        textMesh.fontSizeMax = fontSize;
         messagePanel.SetActive(true);
 
-        StartCoroutine(DisplayMessageForDuration(duration));
-    }
+        if (!HideOnClick)
+        {
+            StartCoroutine(DisplayMessageForDuration(duration));
+        } else
+        {
+            var button = messagePanel.GetComponent<Button>();
+            if (button.onClick != null)
+            {
+                button.onClick.RemoveAllListeners();
+            }
+            button.onClick.AddListener(HideMessage);
+        }
+    }   
 
     private IEnumerator DisplayMessageForDuration(int duration)
     {
@@ -43,6 +56,11 @@ public class ScreenMessagesUI : MonoBehaviour
 
     public void HideMessage()
     {
-        messagePanel.SetActive(false);
+        transform.DOScale(0f, .5f).SetEase(Ease.Flash).onComplete = 
+            () => {
+                    messagePanel.SetActive(false);
+                    transform.localScale = Vector3.one;
+                  };
+        
     }
 }

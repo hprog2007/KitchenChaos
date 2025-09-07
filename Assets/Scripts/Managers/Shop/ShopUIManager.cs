@@ -14,23 +14,40 @@ public class ShopUIManager : MonoBehaviour
 {
     public static ShopUIManager Instance { get; private set; }
 
+    [SerializeField] private Transform shopOverlayBackground;
+    [SerializeField] private LayerMask counterLayerMask; // assign "Counter" layer in Inspector
+
+    [Header("Shop Panel")]
+    [SerializeField] private TextMeshProUGUI headerTitle;
+    [SerializeField] private Transform shopCardsParent; //scrollview content   
+    [SerializeField] private Transform shopCardPrefab;
+    [SerializeField] private Transform itemsPanel;
+
+    [Header("Cursors")]
+    [SerializeField] private Texture2D normalCursor;
+    [SerializeField] private Texture2D selectCursor;
+    [SerializeField] private Vector2 normalHotspot = new Vector2(0, 0);
+    [SerializeField] private Vector2 selectHotspot = new Vector2(6, 2);
+
+    //****************************** Events
     public event Action<ShopCardUI> OnShopCardClicked;
 
-    [SerializeField] private TextMeshProUGUI headerTitle;
-
-    [SerializeField] private Transform shopCardsParent;    
-
-    [SerializeField] private Transform shopCardPrefab;
-
+    [Header("Shop Modes")]
     public UnityEvent OnBuyButtonClicked;
     public UnityEvent OnUpgradeButtonClicked;
     public UnityEvent OnHelpersButtonClicked;
     public UnityEvent OnCosmeticsButtonClicked;
     public UnityEvent OnCoinsButtonClicked;
     public UnityEvent OnOpenShop;
-    
+
+    // Cursor
+    private enum CursorState { Normal, Select }
+    private CursorState currentCursor;
+
     private void Awake()
     {
+        ApplyCursor(CursorState.Normal);
+
         // Ensure there's only one instance of UIManager
         if (Instance != null && Instance != this)
         {
@@ -40,26 +57,63 @@ public class ShopUIManager : MonoBehaviour
         Instance = this;
 
         // Optionally, make this object persist across scenes
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);        
+    }
+
+    private void Update()
+    {
+        if (!ShopManager.Instance.IsShopOpen()) 
+            return;
+
+        if (Input.GetMouseButtonDown(0)) // left click
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, 100f, counterLayerMask))
+            {
+                if (hit.transform.TryGetComponent(out BaseCounter counter))
+                {
+                    Debug.Log("Clicked counter: " + counter.name);
+                    // do your replacement/selection
+                    CountersClick(counter);
+                }
+            }
+        }
     }
 
     public void OpenShop()
     {
+        ApplyCursor(CursorState.Select);
+
+        ShopManager.Instance.SetToBuyMode();
+
         OnOpenShop?.Invoke();
     }
 
     public void CloseShop()
     {
-        
+        ApplyCursor(CursorState.Normal);
+
+        ShopManager.Instance.SetToNoneMode();
     }
 
+    private void CountersClick(BaseCounter baseCounter)
+    {
+        // Set selected counter
+        Player.Instance.SetSelectedCounter(baseCounter);
+
+        // set pointer position
+        var gridCell = GridManager.Instance.GetCellFromWorldPosition(baseCounter.transform.position);
+        AnimationManager.Instance.PlayCounterPointer(gridCell.coordinates.x, gridCell.coordinates.y);
+    }
+
+    // Clear shop panel cards
     private void ClearContent()
     {
         foreach (Transform child in shopCardsParent)
         {
             Destroy(child.gameObject);
         }
-    }
+    }    
 
     private bool FillShopCardsPanel(ShopMode shopModeParam)
     {
@@ -154,8 +208,39 @@ public class ShopUIManager : MonoBehaviour
         OnShopCardClicked?.Invoke(card);
     }
 
+    //When player buys a counter he goes to Placement Mode
     public void EnterPlacementMode(GameObject selectedItem)
+    {        
+
+        shopOverlayBackground.gameObject.SetActive(false);
+
+       itemsPanel.gameObject.SetActive(false);
+
+        ScreenMessagesUI.Instance.ShowMessage("Select a counter to replace. \\n click on the selected counter to confirm replacement. ", 3, false, 40f);
+
+        // Set selected counter
+        var gridCell = GridManager.Instance.GetCellAt(1, 6);
+        var d = gridCell.placedObject.GetComponent<BaseCounter>();
+        Player.Instance.SetSelectedCounter(d);
+
+        AnimationManager.Instance.PlayCounterPointer(1, 6);
+
+        //PlacementManager.Instance.StartPlacement(selectedItem);
+    }
+
+    private void ApplyCursor(CursorState state)
     {
-        PlacementManager.Instance.StartPlacement(selectedItem);
-    }    
+        currentCursor = state;
+        switch (state)
+        {
+            case CursorState.Normal:
+                Cursor.SetCursor(normalCursor, normalHotspot, CursorMode.Auto);
+                break;
+            case CursorState.Select:
+                Cursor.SetCursor(selectCursor, selectHotspot, CursorMode.Auto);
+                break;
+        }
+        Cursor.lockState = CursorLockMode.None; // ensure visible & free
+        Cursor.visible = true;
+    }
 }
