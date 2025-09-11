@@ -15,6 +15,7 @@ public class ShopCardUI : MonoBehaviour
     public TMP_Text CardDescription;
     public TMP_Text CardPrice;
     public CounterType CounterType;
+    private ShopSelectCardSO shopSelectCardSO;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class ShopCardUI : MonoBehaviour
 
     public void SetupNew(ShopSelectCardSO cardSO, ShopMode shopModeParam)
     {
+        shopSelectCardSO = cardSO;
         CounterType = cardSO.counterType;
         CardTitle.text = cardSO.CardTitle;
         CardImage.sprite = cardSO.CardImage;
@@ -40,6 +42,7 @@ public class ShopCardUI : MonoBehaviour
 
     public void SetupUpgrade(ShopSelectCardSO cardSO, CounterType counterType)
     {
+        shopSelectCardSO = cardSO;
         CounterType = counterType;
         NewBadge.enabled = false;
         UpgradeBadge.enabled = true;
@@ -49,4 +52,7 @@ public class ShopCardUI : MonoBehaviour
         this.CardDescription.text = UpgradeManager.Instance.GetNextUpgradeDescription(counterType);
         CardPrice.text = UpgradeManager.Instance.GetNextUpgradePrice(counterType).ToString();
     }
+
+    public ShopSelectCardSO GetShopSelectCardSO() => shopSelectCardSO;
+
 }

@@ -12,7 +12,7 @@ public class CounterSlotData
 [CreateAssetMenu(fileName = "New Scene Config", menuName = "Scenes/Scene Config")]
 public class SceneConfigSO : ScriptableObject
 {
-    public string sceneName;
+    public SceneType sceneType;
     public Sprite sceneDisplayImage;
     public Material shopUITheme;
 

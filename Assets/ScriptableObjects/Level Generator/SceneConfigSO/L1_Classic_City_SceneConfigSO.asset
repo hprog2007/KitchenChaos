@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b006a791487e3cb4fa754a222846c24b, type: 3}
   m_Name: L1_Classic_City_SceneConfigSO
   m_EditorClassIdentifier: Assembly-CSharp::SceneConfigSO
-  sceneName: L1_Classic_City_Scene
+  sceneType: 2
   sceneDisplayImage: {fileID: 21300000, guid: d7a4fa1cd1186df4faab6347973c9a34, type: 3}
   shopUITheme: {fileID: 2100000, guid: c65901d205de4ee4aad9dd4a87e3496e, type: 2}
   counterSlots:

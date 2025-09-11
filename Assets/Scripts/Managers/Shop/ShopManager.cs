@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -25,7 +26,8 @@ public class ShopManager : MonoBehaviour
     public ShopMode CurrentMode { get; private set; } = ShopMode.None;
 
     [SerializeField] private List<ShopAvailableCardList> shopAvailableCardList;
-
+    
+    private ShopSelectCardSO currentShopCardSO;
 
     private void Awake()
     {
@@ -41,17 +43,32 @@ public class ShopManager : MonoBehaviour
     private void Start()
     {
         ShopUIManager.Instance.OnShopCardClicked += ShopUIManager_OnShopCardClicked;
+        ShopUIManager.Instance.OnBuyConfirmed += ShopUIManager_OnBuyConfirmed;
     }
 
-    private void ShopUIManager_OnShopCardClicked(ShopCardUI card)
+    private void ShopUIManager_OnShopCardClicked(ShopCardUI cardParam)
     {
+        var cardParam_shopSelectedCard = cardParam.GetShopSelectCardSO();
         switch (CurrentMode)
         {
-            case ShopMode.Buy: ShopUIManager.Instance.EnterPlacementMode(null);
+            case ShopMode.Buy: 
+                if (CurrencyManager.Instance.CanAfford(cardParam_shopSelectedCard.CardPriceInCoins))
+                {
+                    ShopUIManager.Instance.EnterReplacementMode(cardParam, cardParam_shopSelectedCard.prefab);
+                } else
+                {
+                    ShopUIManager.Instance.ShowLowBalanceMessage();
+                }
                 break;
-            case ShopMode.Upgrades: 
-                UpgradeManager.Instance.ApplyNextUpgrade(card.CounterType);
-                ShopUIManager.Instance.UpgradeButtonClick(); //reset upgrade card list
+            case ShopMode.Upgrades:
+                if (CurrencyManager.Instance.CanAfford(cardParam_shopSelectedCard.CardPriceInCoins))
+                {
+                    UpgradeManager.Instance.ApplyNextUpgrade(cardParam.CounterType);
+                    ShopUIManager.Instance.UpgradeButtonClick(); //reset upgrade card list
+                } else
+                {
+                    ShopUIManager.Instance.ShowLowBalanceMessage();
+                }
                 break;
             case ShopMode.Helpers: 
                 break;
@@ -123,6 +140,15 @@ public class ShopManager : MonoBehaviour
         }
 
         
+    }
+
+    public void ShopUIManager_OnBuyConfirmed(ShopCardUI cardParam, Transform selectedCounterTransform)
+    {
+        var shopCardSO = cardParam.GetShopSelectCardSO();
+        CurrencyManager.Instance.Spend(shopCardSO.CardPriceInCoins);
+        //var GridManager.Instance.GetGameObjectFromWorldPositin(selectedCounter.transform.position);
+        
+
     }
 
 

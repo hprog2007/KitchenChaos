@@ -8,6 +8,8 @@ public class ScenePopupController : MonoBehaviour
 
     private LevelSelectorIconData levelSelectorIconData;
 
+    private bool shopMode;
+
     public void ShowPopup(Vector3 position)
     {
         popupPanel.SetActive(true);
@@ -45,14 +47,24 @@ public class ScenePopupController : MonoBehaviour
 
     public void OnStartGame()
     {
+        shopMode = false;
         HidePopup();
-        SceneManager.LoadScene(levelSelectorIconData.sceneType.ToString());
+        //SceneManager.LoadScene(levelSelectorIconData.sceneType.ToString());
+        SceneTransitionService.Instance.Load(levelSelectorIconData.sceneType.ToString(), new StartGameParams
+        {
+            startInShopMode = false
+        });
     }
 
     public void OnShop()
     {
+        shopMode=true;
         HidePopup();
-        SceneManager.LoadScene(levelSelectorIconData.sceneType.ToString());
+        //SceneManager.LoadScene(levelSelectorIconData.sceneType.ToString());
+        SceneTransitionService.Instance.Load(levelSelectorIconData.sceneType.ToString(), new StartGameParams
+        {
+            startInShopMode = true
+        });
 
     }
 

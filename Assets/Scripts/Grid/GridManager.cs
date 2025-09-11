@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
+
 #if UNITY_EDITOR
 using UnityEditor; // for Handles (labels)
 #endif
@@ -42,13 +44,8 @@ public class GridManager : MonoBehaviour
         }
         Instance = this;
         InitializeGrid(gridSize, cellSize);
-        PlaceExistingCounters();
+        FillGridBySceneCounters();
 
-    }
-
-    private void Start()
-    {
-        
     }
 
     public void InitializeGrid(Vector2Int size, float cellSize)
@@ -91,6 +88,11 @@ public class GridManager : MonoBehaviour
         return null;
     }
 
+    public GameObject GetGameObjectFromWorldPositin(Vector3 position){
+        var gridCell = GetCellFromWorldPosition(position);
+        return gridCell.placedObject.gameObject;
+    }
+
 
     public List<GridCell> GetValidPlacementCells(GameObject prefab)
     {
@@ -128,8 +130,10 @@ public class GridManager : MonoBehaviour
         return null;
     }
 
-    void PlaceExistingCounters()
+    //Put all active counters in grid cells
+    private void FillGridBySceneCounters()
     {
+        // list of active counters in current scene
         BaseCounter[] counters = Object.FindObjectsByType(
                     typeof(BaseCounter),
                     findObjectsInactive: FindObjectsInactive.Exclude,
@@ -140,7 +144,7 @@ public class GridManager : MonoBehaviour
         foreach (BaseCounter counter in counters)
         {
             Vector3 pos = counter.transform.position;
-            int x = Mathf.RoundToInt((pos.x - originPosition.x) / cellSize);
+            int x = Mathf.RoundToInt((pos.x - originPosition.x) / cellSize); //originPosition is location of the left down corner
             int z = Mathf.RoundToInt((pos.z - originPosition.z) / cellSize);
 
             GridCell cell = GetCellAt(x, z);
@@ -149,6 +153,22 @@ public class GridManager : MonoBehaviour
                 cell.isOccupied = true;
                 cell.placedObject = counter.gameObject;
             }
+        }
+    }
+
+    public void FillGridCellByCounter(BaseCounter counterParam)
+    {
+        Vector3 counterPosition = counterParam.transform.position;
+
+        var gridCell = GetCellFromWorldPosition(counterPosition);        
+
+        int x = Mathf.RoundToInt((counterPosition.x - originPosition.x) / cellSize); //originPosition is location of the left down corner
+        int z = Mathf.RoundToInt((counterPosition.z - originPosition.z) / cellSize);
+
+        GridCell cell = GetCellAt(x, z);
+        if (cell != null)
+        {
+            cell.placedObject = counterParam.gameObject;
         }
     }
 

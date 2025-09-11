@@ -10,7 +10,10 @@ public class ScreenMessagesUI : MonoBehaviour
     public static ScreenMessagesUI Instance { get; private set; }
 
     [SerializeField] private GameObject messagePanel;
-    [SerializeField] private TextMeshProUGUI textMesh; 
+    [SerializeField] private TextMeshProUGUI textMesh;
+    [SerializeField] private Button btnYes;
+    [SerializeField] private Button btnNo;
+
 
     private void Awake()
     {
@@ -23,9 +26,11 @@ public class ScreenMessagesUI : MonoBehaviour
         Instance = this;
 
         messagePanel.SetActive(false);
+
+
     }
 
-    public void ShowMessage(string message, int duration, bool HideOnClick = false, float fontSize = 50)
+    public void ShowMessage(string message, int duration = 3, bool HideOnClick = false, float fontSize = 50)
     {
        
         textMesh.text = message;
@@ -37,14 +42,19 @@ public class ScreenMessagesUI : MonoBehaviour
             StartCoroutine(DisplayMessageForDuration(duration));
         } else
         {
-            var button = messagePanel.GetComponent<Button>();
-            if (button.onClick != null)
-            {
-                button.onClick.RemoveAllListeners();
-            }
-            button.onClick.AddListener(HideMessage);
+            BindClickToHide();
         }
     }   
+
+    private void BindClickToHide()
+    {
+        var button = messagePanel.GetComponent<Button>();
+        if (button.onClick != null)
+        {
+            button.onClick.RemoveAllListeners();
+        }
+        button.onClick.AddListener(HideMessage);
+    }
 
     private IEnumerator DisplayMessageForDuration(int duration)
     {
@@ -56,11 +66,35 @@ public class ScreenMessagesUI : MonoBehaviour
 
     public void HideMessage()
     {
-        transform.DOScale(0f, .5f).SetEase(Ease.Flash).onComplete = 
+        transform.DOScale(0f, .5f).SetEase(Ease.OutQuad).onComplete = 
             () => {
                     messagePanel.SetActive(false);
                     transform.localScale = Vector3.one;
                   };
         
+    }
+
+    public bool ShowConfirmMessage(string message)
+    {
+        textMesh.text = message;
+        messagePanel.SetActive(true);
+
+        BindClickToHide();
+
+        return true;
+    }
+
+    private void BindToYesNoButtons()
+    {
+        var buttonYes = btnYes.GetComponent<Button>();
+        var buttonNo = btnNo.GetComponent<Button>();
+        buttonYes.onClick.RemoveAllListeners();
+        buttonNo.onClick.RemoveAllListeners();
+
+        //if (button.onClick != null)
+        //{
+        //    button.onClick.RemoveAllListeners();
+        //}
+        //buttonYes.onClick.AddListener(() => { return true; });
     }
 }

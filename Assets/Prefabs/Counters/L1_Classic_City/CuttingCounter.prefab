@@ -237,9 +237,6 @@ PrefabInstance:
       addedObject: {fileID: 15202044967549090}
     - targetCorrespondingSourceObject: {fileID: 3119169884294168604, guid: 8e0bf65effcbff843b6cf06759e12bea, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8790555899270976154}
-    - targetCorrespondingSourceObject: {fileID: 3119169884294168604, guid: 8e0bf65effcbff843b6cf06759e12bea, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 3943423571436024049}
   m_SourcePrefab: {fileID: 100100000, guid: 8e0bf65effcbff843b6cf06759e12bea, type: 3}
 --- !u!1 &2035676284526546372 stripped
@@ -267,19 +264,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 34cafbd9dda3a92448ef479c3423ea35, type: 2}
   - {fileID: 11400000, guid: e15d363bc598245409c61c2b3339291f, type: 2}
   - {fileID: 11400000, guid: e2e12fa1a3ea12c408d9801a6d430eeb, type: 2}
---- !u!114 &8790555899270976154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2035676284526546372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17ec5fcdd1c7ab24b8223c7248040a45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Upgrade
-  upgradeData: {fileID: 11400000, guid: f08798d6942893d48a80fcdb069461fb, type: 2}
 --- !u!114 &3943423571436024049
 MonoBehaviour:
   m_ObjectHideFlags: 0
