@@ -283,3 +283,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counterTopPoint: {fileID: 6702859333901409551}
+  prefabKey: TrashCounter
+  counterType: 13

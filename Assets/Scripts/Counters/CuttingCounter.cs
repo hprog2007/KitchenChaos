@@ -28,6 +28,11 @@ public class CuttingCounter : BaseCounter, IHasProgress {
         UpgradeManager.OnAnyUpgradeApplied += Upgrade_OnAnyUpgradeApplied;
     }
 
+    private void OnDestroy()
+    {
+        UpgradeManager.OnAnyUpgradeApplied -= Upgrade_OnAnyUpgradeApplied;
+    }
+
     private void Upgrade_OnAnyUpgradeApplied(CounterType counterType)
     {
         if (counterType != CounterType.CuttingCounter)

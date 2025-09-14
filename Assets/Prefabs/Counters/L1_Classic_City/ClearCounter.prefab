@@ -314,6 +314,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counterTopPoint: {fileID: 7337388660472219706}
+  prefabKey: ClearCounter
+  counterType: 1
 --- !u!114 &3956186154901679132
 MonoBehaviour:
   m_ObjectHideFlags: 0

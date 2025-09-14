@@ -57,6 +57,14 @@ PrefabInstance:
       value: ContainerCounter_ToastBread
       objectReference: {fileID: 0}
     - target: {fileID: 5341116582413198076, guid: 361c4c2a278b40c43b226c8b1552b949, type: 3}
+      propertyPath: prefabKey
+      value: ContainerCounter_ToastBread
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341116582413198076, guid: 361c4c2a278b40c43b226c8b1552b949, type: 3}
+      propertyPath: counterType
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341116582413198076, guid: 361c4c2a278b40c43b226c8b1552b949, type: 3}
       propertyPath: kitchenObjectSO
       value: 
       objectReference: {fileID: 11400000, guid: 37aa0cbdb467aea46a228099d798ee5b, type: 2}

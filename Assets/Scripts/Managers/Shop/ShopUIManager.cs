@@ -83,6 +83,23 @@ public class ShopUIManager : MonoBehaviour
         confirmingState = false;
 
         //****** event bind
+        
+    }
+
+    private void Start()
+    {
+        StartCoroutine(WaitAndConsume()); //skip one frame then consume StartGameParams
+    }
+
+    private IEnumerator WaitAndConsume()
+    {
+        // Option 1: wait a frame so Awake() on SceneTransitionService runs
+        yield return null;
+
+        // Option 2: if needed, poll until it's ready
+        while (SceneTransitionService.Instance == null)
+            yield return null;
+
         var p = SceneTransitionService.Instance.Consume<StartGameParams>();
         if (p != null && p.startInShopMode)
         {
@@ -128,7 +145,7 @@ public class ShopUIManager : MonoBehaviour
         newCounterTransform.localScale = Vector3.zero;
 
         //Replace newCounter in cell grid
-        GridManager.Instance.FillGridCellByCounter(newCounter);
+        GridManager.Instance.FillGridCellByCounter(newCounterTransform.GetComponent<BaseCounter>());
 
         // run animation and wait for it to finish
         yield return StartCoroutine(AnimationManager.Instance.PlayMagicReplaceByRotation(selCounterTransofrm, newCounterTransform));

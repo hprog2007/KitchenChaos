@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fa950692c50ae14c9cc1adac94cc8e3, type: 3}
+  m_Name: PrefabRegistry
+  m_EditorClassIdentifier: Assembly-CSharp::PrefabRegistry
+  entries:
+  - id: ClearCounter
+    prefab: {fileID: 6373752865828727040, guid: f426b64c19648f440a4bb29b5f7e55aa, type: 3}
+  - id: ContainerCounter_CheeseBlock
+    prefab: {fileID: 4989755169840311877, guid: a3a91721b35d6f243a204dc824e2d06f, type: 3}
+  - id: ContainerCounter_Lettuce
+    prefab: {fileID: 5946125838639958592, guid: 994db48b54ebae14cb80af4225edffb6, type: 3}
+  - id: ContainerCounter_ToastBread
+    prefab: {fileID: 3645865608551925047, guid: 3f441a5baed14ec4c8eb8270ca18be0c, type: 3}
+  - id: ContainerCounter_Tomato
+    prefab: {fileID: 5771350687519931413, guid: b5637bc1ad35d404584d662520d93b56, type: 3}
+  - id: CuttingCounter
+    prefab: {fileID: 2035676284526546372, guid: bf5c66e5c66a84448bac9e83e46d8f65, type: 3}
+  - id: DeliveryCounter
+    prefab: {fileID: 6178431620146472461, guid: d28b4132e6d21f245a8ae58bbdcde733, type: 3}
+  - id: PlatesCounter
+    prefab: {fileID: 76883396629061819, guid: b4463f4c802f6054fbee4104869e64fa, type: 3}
+  - id: ToasterCounter
+    prefab: {fileID: 5472477355437014727, guid: e9b4312bacfbd3b4e9fb123cb1979cb8, type: 3}
+  - id: TrashCounter
+    prefab: {fileID: 6963389003646024757, guid: 7ac026ce11d03e4498e8fbe983e9cd31, type: 3}

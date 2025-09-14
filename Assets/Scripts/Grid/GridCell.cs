@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+[Serializable]
 public class GridCell
 {
     public Vector2Int coordinates;

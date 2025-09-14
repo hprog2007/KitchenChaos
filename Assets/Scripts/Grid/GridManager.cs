@@ -1,14 +1,41 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
+using Newtonsoft.Json;
+using System.Linq;
+
 
 #if UNITY_EDITOR
 using UnityEditor; // for Handles (labels)
 #endif
 
+[System.Serializable]
+public struct TransformData
+{
+    public Vector3 position;
+    public Quaternion rotation;
+    public Vector3 localScale;
+}
+
+[System.Serializable]
+public struct GridItemDTO
+{
+    public string kind;          // "counter" | "helper" | "decor" ... (type discriminator)
+    public string prefabKey;     // must match PrefabRegistry entry
+    public int cellX, cellY;     // or a single cellIndex if you prefer
+    public TransformData transform;
+
+    // version for migrations
+    public int version;
+
+    // object-specific payload as JSON (health, level, inventory, timers, etc.)
+    public string customJson;    // nullable/empty OK
+}
+
 public class GridManager : MonoBehaviour
 {
     public static GridManager Instance;
+
+    [SerializeField] private PrefabRegistry registry;
 
     [Header("Grid Settings")]
     public Vector2Int gridSize;
@@ -43,8 +70,9 @@ public class GridManager : MonoBehaviour
             return;
         }
         Instance = this;
+        
         InitializeGrid(gridSize, cellSize);
-        FillGridBySceneCounters();
+        
 
     }
 
@@ -131,10 +159,10 @@ public class GridManager : MonoBehaviour
     }
 
     //Put all active counters in grid cells
-    private void FillGridBySceneCounters()
+    public void FillGridBySceneCounters()
     {
         // list of active counters in current scene
-        BaseCounter[] counters = Object.FindObjectsByType(
+        BaseCounter[] counters = UnityEngine.Object.FindObjectsByType(
                     typeof(BaseCounter),
                     findObjectsInactive: FindObjectsInactive.Exclude,
                     FindObjectsSortMode.None
@@ -151,11 +179,13 @@ public class GridManager : MonoBehaviour
             if (cell != null)
             {
                 cell.isOccupied = true;
+                cell.isWalkable = false;
                 cell.placedObject = counter.gameObject;
             }
         }
     }
 
+    //Fill one grid cell by counter
     public void FillGridCellByCounter(BaseCounter counterParam)
     {
         Vector3 counterPosition = counterParam.transform.position;
@@ -170,6 +200,102 @@ public class GridManager : MonoBehaviour
         {
             cell.placedObject = counterParam.gameObject;
         }
+    }
+
+    //used for Save/Load
+    public GridCell[,] GetGridCells() => grid;
+
+    //used for Save/Load
+    public void SetGridCells(GridCell[,] gridCellsParam) => grid = gridCellsParam;
+
+    public IEnumerable<GridCell> GetAllOccupiedCells()
+    {
+        // Iterates once, allocates only the iterator
+        for (int x = 0; x < gridSize.x; x++)
+            for (int y = 0; y < gridSize.y; y++)
+                if (grid[x, y].isOccupied)
+                    yield return grid[x, y];
+    }
+
+    public List<GridItemDTO> BuildSnapshot()
+    {
+        var list = new List<GridItemDTO>();
+
+        foreach (var cell in GetAllOccupiedCells())
+        {
+            var go = cell.placedObject;
+            if (go == null) continue;
+
+            var payloadProvider = go.GetComponent<ISavePayloadProvider>();
+            if (payloadProvider == null) continue;
+
+            var payloadObj = payloadProvider.CapturePayload();
+            var customJson = payloadObj != null ? JsonConvert.SerializeObject(payloadObj) : null;
+
+            var t = go.transform;
+
+            list.Add(new GridItemDTO
+            {
+                kind = payloadProvider.GetKind(),
+                prefabKey = payloadProvider.GetPrefabKey(),
+                cellX = cell.coordinates.x,
+                cellY = cell.coordinates.y,
+                transform = new TransformData { position = t.position, rotation = t.rotation, localScale = t.localScale },
+                version = 1,
+                customJson = customJson
+            });
+        }
+
+        return list;
+    }
+
+    public void RestoreFromSnapshot(IEnumerable<GridItemDTO> items)
+    {
+        InitializeGrid(gridSize, cellSize);// reset grid
+
+        foreach (var dto in items)
+        {
+            var prefab = registry.GetPrefab(dto.prefabKey);
+            if (prefab == null)
+            {
+                Debug.LogWarning($"No prefab for key '{dto.prefabKey}'");
+                continue;
+            }
+
+            var go = Instantiate(prefab);
+            var t = go.transform;
+            t.position = dto.transform.position;
+            t.rotation = dto.transform.rotation;
+            t.localScale = dto.transform.localScale;
+
+             grid[dto.cellX, dto.cellY].placedObject = go; // your own method
+             grid[dto.cellX, dto.cellY].isWalkable = false;
+             grid[dto.cellX, dto.cellY].isOccupied = true;
+
+            if (!string.IsNullOrEmpty(dto.customJson))
+            {
+                var payloadProvider = go.GetComponent<ISavePayloadProvider>();
+                if (payloadProvider != null)
+                {
+                    // Decide the target type based on dto.kind or prefab
+                    var targetType = ResolvePayloadType(dto.kind, go);
+                    var payloadObj = JsonConvert.DeserializeObject(dto.customJson, targetType);
+                    payloadProvider.RestorePayload(payloadObj);
+                }
+            }
+        }
+    }
+
+    private System.Type ResolvePayloadType(string kind, GameObject go)
+    {
+        // simplest: switch on kind
+        // or: read a component that exposes Type, or store payloadType in registry
+        return kind switch
+        {
+            "counter" => typeof(CounterSaveData),
+            //"helper" => typeof(HelperSaveData),
+            _ => typeof(object)
+        };
     }
 
     // =======================

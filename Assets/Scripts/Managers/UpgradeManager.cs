@@ -9,7 +9,7 @@ public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager Instance {  get; private set; }
 
-    [SerializeField] private List<UpgradeData> upgradeDataList; // Reference to ScriptableObject
+    [SerializeField] private List<UpgradeData> upgradeDataList; // Reference to ScriptableObject    
 
     // Static event to notify when any upgrade is applied
     public static event System.Action<CounterType> OnAnyUpgradeStarted;
@@ -26,16 +26,6 @@ public class UpgradeManager : MonoBehaviour
 
         Instance = this;
 
-        InitUpgrades();
-        
-    }
-
-    private void InitUpgrades()
-    {
-        foreach (var upgradeData in upgradeDataList)
-        {
-            LoadUpgradeState(upgradeData.CounterType);
-        }
     }
 
     // Properties to access current upgrade stats
@@ -121,21 +111,18 @@ public class UpgradeManager : MonoBehaviour
         var upgradeData = upgradeDataList.FirstOrDefault(a => a.CounterType == counterType);
         var currentUpgradeCost = GetNextUpgradePrice(counterType);
         var upgradeLevelExist = UpgradeLevelExist(counterType);
-        var canAfford = CurrencyManager.Instance.CanAfford(currentUpgradeCost);
+        
 
-        if (upgradeLevelExist && canAfford)
+        if (upgradeLevelExist)
         {
             OnAnyUpgradeStarted?.Invoke(counterType);
 
             upgradeData.CurrentLevel++;
             ApplyUpgrade(upgradeData);
-            Debug.Log($"Upgraded {upgradeData.CounterTitle} to level {upgradeData.CurrentLevel}");
-
-            // Spend money
-            CurrencyManager.Instance.Spend(currentUpgradeCost);
+            Debug.Log($"Upgraded {upgradeData.CounterTitle} to level {upgradeData.CurrentLevel}");            
 
             // Save upgrade state
-            SaveUpgradeState(counterType);
+            LevelManager.Instance.SaveLevel();
 
             ScreenMessagesUI.Instance.ShowMessage($"All {upgradeData.CounterTitle}s upgraded to level {upgradeData.CurrentLevel}", 3);
 
@@ -148,15 +135,15 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    private void ApplyUpgrade(UpgradeData upgradeData)
+    public void ApplyUpgrade(UpgradeData upgradeData)
     {
         if (upgradeData.CurrentLevel < upgradeData.levels.Length)
         {
             switch (upgradeData.CounterType)
             {
-                case CounterType.CuttingCounter: 
-                    FindAnyObjectByType<CuttingCounter>().SetSpeed(upgradeData.CurrentLevel);
-                    FindAnyObjectByType<CuttingCounter>().SetCapacity(upgradeData.CurrentLevel);
+                case CounterType.CuttingCounter:
+                    FindAnyObjectByType<CuttingCounter>().SetSpeed(upgradeData.levels[upgradeData.CurrentLevel].speed);
+                    FindAnyObjectByType<CuttingCounter>().SetCapacity(upgradeData.levels[upgradeData.CurrentLevel].capacity);
                     break;
                 case CounterType.Containers:
                     FindAnyObjectByType<ContainerCounter>().SetSpeed(upgradeData.CurrentLevel);
@@ -173,10 +160,12 @@ public class UpgradeManager : MonoBehaviour
         {
             upgradeData.CurrentLevel = 0;
             ApplyUpgrade(upgradeData);
-            SaveUpgradeState(upgradeData.CounterType);
+            LevelManager.Instance.SaveLevel();
         }
     }
-
+    
+    /* moved to LevelManager
+     * 
     // Save load
     public void SaveUpgradeState(CounterType counterType)
     {
@@ -193,7 +182,14 @@ public class UpgradeManager : MonoBehaviour
 
         ApplyUpgrade(upgradeData);
     }
+    */
 
-    
+    //used for Save/Load
+    public List<UpgradeData> GetUpgradeDataList() => upgradeDataList;
+
+    //used for Save/Load
+    public void SetUpgradeDataList(List<UpgradeData> upgradeDataListParam) => upgradeDataList = upgradeDataListParam;
+
+
 
 }

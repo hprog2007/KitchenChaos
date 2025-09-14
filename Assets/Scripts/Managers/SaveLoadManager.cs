@@ -1,33 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
-
-[System.Serializable]
-public class SaveData
-{
-    public int coins;
-    public List<CounterType> countersOwned;
-    public Dictionary<CounterType, int> counterLevels;
-    public List<string> helpersOwned;
-    public Dictionary<string, int> helperLevels;
-}
-
-/*
-****** Recommended save structure  *******
-
-json
-{
-  "coins": 1200,
-  "countersOwned": ["CuttingCounter", "OvenCounter"],
-  "counterLevels": {
-    "CuttingCounter": 2,
-    "OvenCounter": 1
-  },
-  "helpersOwned": ["PlateBot"],
-  "helperLevels": {
-    "PlateBot": 2
-  }
-}
-*/
+using System.IO;
 
 /*
  
@@ -48,39 +20,32 @@ This prevents progress loss on crashes or closures.
 
 public static class SaveLoadManager
 {
-    private static string saveKey = "KitchenChaosSave";
+    private const string DirName = "Saves";
+    private const string FileName = "KitchenChaos_V1";
+    private static string SaveDir => System.IO.Path.Combine(Application.persistentDataPath, DirName);
+    private static string SavePathAndFileName => System.IO.Path.Combine(SaveDir, $"{FileName}.bin");
 
-    public static void SaveGame(int coins, List<CounterType> countersOwned, List<string> helpersOwned)
+    public static void SaveGame(GameSnapshot gameSnapshot)
     {
-        SaveData data = new SaveData();
-        data.coins = coins;
-        data.countersOwned = countersOwned;
-        data.counterLevels = new Dictionary<CounterType, int>(); // UpgradeManager.Instance.GetAllLevels();
-        data.helpersOwned = helpersOwned;
-        data.helperLevels = HelperBotsManager.GetAllLevels();
+        if (!Directory.Exists(SaveDir))
+        {
+            Directory.CreateDirectory(SaveDir);
+        }
 
-        string json = JsonUtility.ToJson(data);
-        PlayerPrefs.SetString(saveKey, json);
-        PlayerPrefs.Save();
+        string json = JsonUtility.ToJson(gameSnapshot);
+
+        File.WriteAllText(SavePathAndFileName, json);
 
         Debug.Log("Game saved");
     }
 
-    public static SaveData LoadGame()
+    public static GameSnapshot LoadGame()
     {
-        if (!PlayerPrefs.HasKey(saveKey))
+        if (!File.Exists(SavePathAndFileName))
             return null;
 
-        string json = PlayerPrefs.GetString(saveKey);
-        SaveData data = JsonUtility.FromJson<SaveData>(json);
-
-        // Restore counter levels
-        //foreach (var pair in data.counterLevels)
-        //    UpgradeManager.Instance.SetLevel(pair.Key, pair.Value);
-
-        // Restore helper levels
-        foreach (var pair in data.helperLevels)
-            HelperBotsManager.SetLevel(pair.Key, pair.Value);
+        var json = File.ReadAllText(SavePathAndFileName);
+        var data = JsonUtility.FromJson<GameSnapshot>(json);
 
         Debug.Log("Game loaded");
         return data;

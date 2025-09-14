@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aee97be6c0755f0488563b8a505743e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridManager
+  registry: {fileID: 11400000, guid: c69acf197deb3d84f8135823ce6a612a, type: 2}
   gridSize: {x: 10, y: 7}
   cellSize: 1.5
   originPosition: {x: -6, y: 0, z: -5.5}
@@ -26277,6 +26278,7 @@ Transform:
   - {fileID: 630424031}
   - {fileID: 358427884}
   - {fileID: 97516393}
+  - {fileID: 1694196421}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1677090337
@@ -26445,7 +26447,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CurrencyManager
   startingCoins: 1000000
-  autoSave: 1
 --- !u!4 &1677943842
 Transform:
   m_ObjectHideFlags: 0
@@ -26615,6 +26616,51 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f426b64c19648f440a4bb29b5f7e55aa, type: 3}
+--- !u!1 &1694196420
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1694196421}
+  - component: {fileID: 1694196422}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1694196421
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694196420}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1614013559}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1694196422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694196420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4140380189212164d9c348ed94c9c4ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  handBuildCounters: {fileID: 552255167}
 --- !u!1 &1716551419
 GameObject:
   m_ObjectHideFlags: 0

@@ -947,6 +947,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ToasterCounter
   counterTopPoint: {fileID: 8526896582820716541}
+  prefabKey: ToasterCounter
+  counterType: 15
   toastingRecipeSOArray:
   - {fileID: 11400000, guid: 618d7660fcb860146bdb8abcd087a596, type: 2}
   burningRecipeSOArray:

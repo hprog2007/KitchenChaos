@@ -257,6 +257,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counterTopPoint: {fileID: 2443086941832359166}
+  prefabKey: CuttingCounter
+  counterType: 9
   upgradeParticleEffect: {fileID: 4718145502144409607, guid: 7b9572088b8a0ac4d8e06a26e83f4839, type: 3}
   counterUpgradeFXObject: {fileID: 3943423571436024049}
   cutKitchenObjectSOArray:

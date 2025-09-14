@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrayCounter
   counterTopPoint: {fileID: 4374859322879312257}
+  counterType: 14
   trayKitchenObjectSO: {fileID: 11400000, guid: 7a85ec6942a108146b9d11679b43c8c9, type: 2}
 --- !u!4 &4374859322879312257 stripped
 Transform:

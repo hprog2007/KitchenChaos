@@ -2,26 +2,26 @@ using System.Collections.Generic;
 
 public static class HelperBotsManager
 {
-    private static Dictionary<string, int> helperLevels = new();
+    private static Dictionary<HelperType, int> helperLevels = new();
 
-    public static int GetLevel(string helperName)
+    public static int GetLevel(HelperType helperParam)
     {
-        if (!helperLevels.ContainsKey(helperName))
-            helperLevels[helperName] = 1;
-        return helperLevels[helperName];
+        if (!helperLevels.ContainsKey(helperParam))
+            helperLevels[helperParam] = 1;
+        return helperLevels[helperParam];
     }
 
-    public static void Upgrade(string helperName)
+    public static void Upgrade(HelperType helperParam)
     {
-        helperLevels[helperName] = GetLevel(helperName) + 1;
+        helperLevels[helperParam] = GetLevel(helperParam) + 1;
     }
 
-    public static void SetLevel(string helperName, int level)
+    public static void SetLevel(HelperType helperParam, int level)
     {
-        helperLevels[helperName] = level;
+        helperLevels[helperParam] = level;
     }
 
-    public static Dictionary<string, int> GetAllLevels()
+    public static Dictionary<HelperType, int> GetAllLevels()
     {
         return helperLevels;
     }

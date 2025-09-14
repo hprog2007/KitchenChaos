@@ -57,6 +57,14 @@ PrefabInstance:
       value: ContainerCounter_CheeseBlock
       objectReference: {fileID: 0}
     - target: {fileID: 5341116582413198076, guid: 361c4c2a278b40c43b226c8b1552b949, type: 3}
+      propertyPath: prefabKey
+      value: ContainerCounter_CheeseBlock
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341116582413198076, guid: 361c4c2a278b40c43b226c8b1552b949, type: 3}
+      propertyPath: counterType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341116582413198076, guid: 361c4c2a278b40c43b226c8b1552b949, type: 3}
       propertyPath: kitchenObjectSO
       value: 
       objectReference: {fileID: 11400000, guid: 8cd03d518184130429bd855efe0cef32, type: 2}

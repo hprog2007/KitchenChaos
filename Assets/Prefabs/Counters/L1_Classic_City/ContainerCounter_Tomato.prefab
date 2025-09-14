@@ -56,6 +56,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ContainerCounter_Tomato
       objectReference: {fileID: 0}
+    - target: {fileID: 5341116582413198076, guid: 361c4c2a278b40c43b226c8b1552b949, type: 3}
+      propertyPath: prefabKey
+      value: ContainerCounter_Tomato
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341116582413198076, guid: 361c4c2a278b40c43b226c8b1552b949, type: 3}
+      propertyPath: counterType
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -929,6 +929,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counterTopPoint: {fileID: 7501176979566839607}
+  prefabKey: DeliveryCounter
+  counterType: 10
 --- !u!4 &7501176979566839607 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1652326357650579750, guid: 8e0bf65effcbff843b6cf06759e12bea, type: 3}

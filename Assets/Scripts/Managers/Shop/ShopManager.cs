@@ -64,6 +64,9 @@ public class ShopManager : MonoBehaviour
                 if (CurrencyManager.Instance.CanAfford(cardParam_shopSelectedCard.CardPriceInCoins))
                 {
                     UpgradeManager.Instance.ApplyNextUpgrade(cardParam.CounterType);
+                    // Spend money
+                    CurrencyManager.Instance.Spend(cardParam_shopSelectedCard.CardPriceInCoins);
+                    LevelManager.Instance.SaveLevel();
                     ShopUIManager.Instance.UpgradeButtonClick(); //reset upgrade card list
                 } else
                 {
@@ -146,8 +149,10 @@ public class ShopManager : MonoBehaviour
     {
         var shopCardSO = cardParam.GetShopSelectCardSO();
         CurrencyManager.Instance.Spend(shopCardSO.CardPriceInCoins);
+        LevelManager.Instance.SaveLevel();
+
         //var GridManager.Instance.GetGameObjectFromWorldPositin(selectedCounter.transform.position);
-        
+
 
     }
 

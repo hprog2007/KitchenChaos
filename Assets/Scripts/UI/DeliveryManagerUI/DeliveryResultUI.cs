@@ -30,6 +30,12 @@ public class DeliveryResultUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    private void OnDestroy()
+    {
+        DeliveryManager.instance.OnRecipeSuccess -= DeliveryManager_OnRecipeSuccess;
+        DeliveryManager.instance.OnRecipeFailed -= DeliveryManager_OnRecipeFailed;
+    }
+
     private void DeliveryManager_OnRecipeFailed(object sender, System.EventArgs e) {
         gameObject.SetActive(true);
         animator.SetTrigger(POPUP);

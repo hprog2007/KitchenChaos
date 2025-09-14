@@ -113,6 +113,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counterTopPoint: {fileID: 4374859322879312257}
+  prefabKey: PlatesCounter
+  counterType: 11
   plateKitchenObjectSO: {fileID: 11400000, guid: 404d546299a522c42973814158b11d2a, type: 2}
 --- !u!4 &4374859322879312257 stripped
 Transform:

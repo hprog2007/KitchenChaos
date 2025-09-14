@@ -1,9 +1,25 @@
 using System;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class BaseCounter : MonoBehaviour, IKitchenObjectParent {
-    
+[System.Serializable]
+public class CounterSaveData
+{
+    //public int currentLevel;
+    //public int storedItems;
+    public string counterType; // optional: for diagnostics
+}
+
+public class BaseCounter : MonoBehaviour, IKitchenObjectParent, ISavePayloadProvider {
+
+    [SerializeField] private Transform counterTopPoint;
+
+    private KitchenObject kitchenObject;
+
+    [SerializeField] private string prefabKey;        // set in prefab
+    [SerializeField] private CounterType counterType;
+    public CounterType CounterType => counterType;
+
     protected float speed = 1.0f; // Default speed (multiplier)
     protected int capacity = 1;    // Default capacity (e.g., items held)    
 
@@ -17,10 +33,6 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent {
     public static void ResetStaticData() {
         OnAnyObjectPlacedHere = null;
     }
-
-    [SerializeField] private Transform counterTopPoint;
-
-    private KitchenObject kitchenObject;
 
     public virtual void Interact(Player player) {
         Debug.LogError("BaseCounter.Interact();");
@@ -89,4 +101,38 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent {
     // Expose speed and capacity for other systems
     public float GetSpeed() => speed;
     public int GetCapacity() => capacity;
+
+    public object CapturePayload()
+    {
+        return new CounterSaveData
+        {
+           counterType = counterType.ToString()
+        };
+    }
+
+    public void RestorePayload(object payload)
+    {
+        if (payload == null) { Debug.LogError("Payload is null"); return; }
+
+        CounterSaveData d = payload as CounterSaveData;
+
+        if (d == null && payload is JObject jo)
+            d = jo.ToObject<CounterSaveData>();   // convert JObject to your POCO
+
+        if (d == null)
+        {
+            Debug.LogError($"Unexpected payload type: {payload.GetType().FullName}");
+            return;
+        }
+
+        // apply fields
+        if (System.Enum.TryParse<CounterType>(d.counterType, out var ct))
+            counterType = ct;
+        else
+            Debug.LogWarning($"Could not parse CounterType '{d.counterType}'");
+    }
+
+    public string GetPrefabKey() => prefabKey;
+    public string GetKind() => "Counter";
+
 }
