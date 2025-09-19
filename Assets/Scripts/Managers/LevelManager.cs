@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,7 +12,7 @@ public class GameSnapshot
     public SceneType scene;
     public int coins;
     public List<GridItemDTO> GridItems;
-    public List<UpgradeData> UpgradeDataList;
+    public List<UpgradeDTO> UpgradeDTOList;
 }
 
 
@@ -20,6 +21,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance {  get; private set; }
 
     [SerializeField] private Transform handBuildCounters;
+    [SerializeField] private SceneConfigSO SceneConfigSO;
 
     private void Awake()
     {
@@ -41,21 +43,21 @@ public class LevelManager : MonoBehaviour
         gameSnapShot.scene = (SceneType)System.Enum.Parse(typeof(SceneType), SceneManager.GetActiveScene().name);
         gameSnapShot.coins = CurrencyManager.Instance.Coins;
         gameSnapShot.GridItems = GridManager.Instance.BuildSnapshot();
-        gameSnapShot.UpgradeDataList = UpgradeManager.Instance.GetUpgradeDataList();
+        gameSnapShot.UpgradeDTOList = UpgradeManager.Instance.BuildUpgradeDTOList();
         SaveLoadManager.SaveGame(gameSnapShot);
     }
 
     public void LoadLevel()
     {
         var gameSnapShot = SaveLoadManager.LoadGame();
+        
+        //if no save exists then build the grid based on current scene
         if (gameSnapShot == null)
         {
             GridManager.Instance.FillGridBySceneCounters();
             return;
         }
 
-
-        CurrencyManager.Instance.SetCoins(gameSnapShot.coins);
         if (gameSnapShot.GridItems.Count == 0)
         {
             GridManager.Instance.FillGridBySceneCounters();
@@ -63,38 +65,25 @@ public class LevelManager : MonoBehaviour
         else
         {
             GridManager.Instance.RestoreFromSnapshot(gameSnapShot.GridItems);
-            Destroy(handBuildCounters.gameObject);
+            Destroy(handBuildCounters.gameObject); // destroy counters that are manually placed in editor
         }
-        
-        UpgradeManager.Instance.SetUpgradeDataList(gameSnapShot.UpgradeDataList);
 
-        
 
-        //InstantiateCounter(gameSnapShot.grid);
+        CurrencyManager.Instance.SetCoins(gameSnapShot.coins);
+
+        //Restore upgrade current levels
+        UpgradeManager.Instance.RestoreFromSnapshot(gameSnapShot.UpgradeDTOList);
+
     }    
 
-    public void uuu()
+    public SceneType GetActiveSceneType()
     {
-
+        return (SceneType)Enum.Parse(typeof(SceneType), SceneManager.GetActiveScene().name);
     }
 
-    /*
-    private void InstantiateCounter(GridCell[,] gridCells)
+    public int GetMinRequired(CounterType counterTypeParam)
     {
-        foreach (var cell in gridCells)
-        {
-            var selCounterTransofrm = cell.placedObject.transform;
-
-            //instantiate new counter
-            Transform newCounterTransform = Instantiate(selCounterTransofrm.transform, selCounterTransofrm.parent);
-            newCounterTransform.transform.position = selCounterTransofrm.transform.position;
-            newCounterTransform.transform.rotation = selCounterTransofrm.transform.rotation;
-            newCounterTransform.localScale = selCounterTransofrm.transform.localScale;
-
-            //Replace newCounter in cell grid
-            GridManager.Instance.FillGridCellByCounter((BaseCounter)cell.placedObject.GetComponent<BaseCounter>());
-        }
+         var min = SceneConfigSO.MinRequiredCounters.FirstOrDefault(m => m.CounterType == counterTypeParam);
+         return min.CounterCount;
     }
-    */
-    
 }

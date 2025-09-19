@@ -1,11 +1,8 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
-using static Unity.Collections.AllocatorManager;
 
 public class DeliveryManagerSingleUI : MonoBehaviour
 {

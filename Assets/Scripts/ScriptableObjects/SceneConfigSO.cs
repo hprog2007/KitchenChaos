@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -13,12 +15,20 @@ public class CounterSlotData
 public class SceneConfigSO : ScriptableObject
 {
     public SceneType sceneType;
-    public Sprite sceneDisplayImage;
-    public Material shopUITheme;
+    //public Sprite sceneDisplayImage;
+    //public Material shopUITheme;
 
     public CounterSlotData[] counterSlots; // replaces defaultCounters
-    public CounterType[] newCountersIntroducedHere;
-    public HelperSO[] allowedHelpers;
+    //public CounterType[] newCountersIntroducedHere;
+    //public HelperSO[] allowedHelpers;
 
-    public float priceMultiplier;
+    //public float priceMultiplier;
+    [Serializable]
+    public struct RequiredCounters 
+    {
+        public CounterType CounterType;
+        public int CounterCount;
+    }
+
+    public List<RequiredCounters> MinRequiredCounters;
 }

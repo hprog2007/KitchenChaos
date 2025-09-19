@@ -53,4 +53,8 @@ public class CurrencyManager : MonoBehaviour
         OnCoinsChanged?.Invoke(coins);
     }
 
+    public string GetActivePriceUnit()
+    {
+        return "$";
+    }
 }

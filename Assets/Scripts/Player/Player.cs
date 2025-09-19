@@ -101,7 +101,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent {
         float playerHeight = 2f;
         
         Vector3 capsuleTop = transform.position + Vector3.up * playerHeight;
-        bool canMove = !Physics.CapsuleCast(transform.position, capsuleTop, playerRadius, moveDir, moveDistance);
+        bool canMove = !Physics.CapsuleCast(transform.position, capsuleTop, playerRadius, moveDir, moveDistance, countersLayerMask);
 
         if (!canMove)
         {
@@ -109,7 +109,8 @@ public class Player : MonoBehaviour, IKitchenObjectParent {
 
             //attempt to move in x direction
             Vector3 movingDirX = new Vector3(moveDir.x, 0, 0).normalized;
-            canMove = (moveDir.x < -.5f|| moveDir.x > +.5f) && !Physics.CapsuleCast(transform.position, capsuleTop, playerRadius, movingDirX, moveDistance);
+            canMove = (moveDir.x < -.5f|| moveDir.x > +.5f)  
+                && !Physics.CapsuleCast(transform.position, capsuleTop, playerRadius, movingDirX, moveDistance, countersLayerMask);
 
             if (canMove)
             {
@@ -122,7 +123,8 @@ public class Player : MonoBehaviour, IKitchenObjectParent {
 
                 //try to move in z direction
                 Vector3 movingDirZ = new Vector3(0, 0, moveDir.z).normalized;
-                canMove = (moveDir.z < -.5f || moveDir.z > +.5f) && !Physics.CapsuleCast(transform.position, capsuleTop, playerRadius, movingDirZ, moveDistance);
+                canMove = (moveDir.z < -.5f || moveDir.z > +.5f) 
+                    && !Physics.CapsuleCast(transform.position, capsuleTop, playerRadius, movingDirZ, moveDistance, countersLayerMask);
 
                 if (canMove)
                 {

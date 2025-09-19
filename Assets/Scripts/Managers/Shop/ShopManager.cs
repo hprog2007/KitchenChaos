@@ -66,6 +66,7 @@ public class ShopManager : MonoBehaviour
                     UpgradeManager.Instance.ApplyNextUpgrade(cardParam.CounterType);
                     // Spend money
                     CurrencyManager.Instance.Spend(cardParam_shopSelectedCard.CardPriceInCoins);
+                    
                     LevelManager.Instance.SaveLevel();
                     ShopUIManager.Instance.UpgradeButtonClick(); //reset upgrade card list
                 } else
@@ -113,11 +114,20 @@ public class ShopManager : MonoBehaviour
         switch(shopModeParam)
         {
             case ShopMode.Buy:
-                return shopAvailableCardList.FirstOrDefault(a => a.shopMode == shopModeParam);
+                return shopAvailableCardList.FirstOrDefault(
+                            a => a.shopMode == shopModeParam 
+                            && a.sceneType == LevelManager.Instance.GetActiveSceneType());
                 break;
             case ShopMode.Upgrades:
-                var buyList = shopAvailableCardList.FirstOrDefault(a => a.shopMode == ShopMode.Buy);
-                var upgradeCardList = shopAvailableCardList.FirstOrDefault(a => a.shopMode == ShopMode.Upgrades);
+                var buyList = shopAvailableCardList.FirstOrDefault(
+                                    a => a.shopMode == ShopMode.Buy
+                                    && a.sceneType == LevelManager.Instance.GetActiveSceneType());
+
+                var upgradeCardList = shopAvailableCardList.FirstOrDefault(
+                                            a => a.shopMode == ShopMode.Upgrades
+                                            && a.sceneType == LevelManager.Instance.GetActiveSceneType());
+
+                // Create available upgrade cards based on buy list
                 upgradeCardList.shopCardList = new List<ShopSelectCardSO>();
 
                 foreach (var card in buyList.shopCardList)
@@ -130,16 +140,24 @@ public class ShopManager : MonoBehaviour
                 return upgradeCardList;
                 break;
             case ShopMode.Helpers:
-                return shopAvailableCardList.FirstOrDefault(a => a.shopMode == shopModeParam);
+                return shopAvailableCardList.FirstOrDefault(
+                            a => a.shopMode == shopModeParam
+                            && a.sceneType == LevelManager.Instance.GetActiveSceneType());
                 break;
             case ShopMode.Cosmetics:
-                return shopAvailableCardList.FirstOrDefault(a => a.shopMode == shopModeParam);
+                return shopAvailableCardList.FirstOrDefault(
+                            a => a.shopMode == shopModeParam
+                            && a.sceneType == LevelManager.Instance.GetActiveSceneType());
                 break;
             case ShopMode.Coins:
-                return shopAvailableCardList.FirstOrDefault(a => a.shopMode == shopModeParam);
+                return shopAvailableCardList.FirstOrDefault(
+                            a => a.shopMode == shopModeParam
+                            && a.sceneType == LevelManager.Instance.GetActiveSceneType());
                 break;
             default:
-                return shopAvailableCardList.FirstOrDefault(a => a.shopMode == ShopMode.Buy); //default
+                return shopAvailableCardList.FirstOrDefault(
+                            a => a.shopMode == ShopMode.Buy
+                            && a.sceneType == LevelManager.Instance.GetActiveSceneType()); //default
         }
 
         

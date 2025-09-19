@@ -33,7 +33,7 @@ public class ShopUIManager : MonoBehaviour
     [SerializeField] private Vector2 normalHotspot = new Vector2(0, 0);
     [SerializeField] private Vector2 selectHotspot = new Vector2(6, 2);
     
-    
+    //*********Confirming Timer
     [SerializeField] private float confirmingTimerMax = 3f;
     [SerializeField] private Transform circleProgressBarUI;
 
@@ -48,11 +48,13 @@ public class ShopUIManager : MonoBehaviour
     public UnityEvent OnCosmeticsButtonClicked;
     public UnityEvent OnCoinsButtonClicked;
     public UnityEvent OnOpenShop;
+    public UnityEvent OnCloseShop;
 
     // Cursor
     private enum CursorState { Normal, Hand, Grabbing }
     private CursorState currentCursor;
     
+    // replace newCounter with selectedCounter
     private bool replacementMode;
     private BaseCounter selectedCounter;
     private BaseCounter newCounter; //counter player bought
@@ -88,9 +90,50 @@ public class ShopUIManager : MonoBehaviour
 
     private void Start()
     {
+        GameInput.Instance.ClickDownEvent += GameInput_OnScreenMouseDown;
+        GameInput.Instance.ClickUpEvent += GameInput_OnScreenMouseUp;
+
         StartCoroutine(WaitAndConsume()); //skip one frame then consume StartGameParams
     }
 
+    private void OnDestroy()
+    {
+        GameInput.Instance.ClickDownEvent -= GameInput_OnScreenMouseDown;
+        GameInput.Instance.ClickUpEvent -= GameInput_OnScreenMouseUp; 
+    }    
+
+    private void Update()
+    {
+        if (!ShopManager.Instance.IsShopOpen()) 
+            return;
+
+        
+
+        if (confirmingState)
+        {
+            confirmingTimer -= Time.deltaTime;
+            if (confirmingTimer <= 0 && !replacementCanceled)
+            {
+                confirmingState = false;
+                
+                //replace counters by animation
+                StartCoroutine(ReplaceCounterRoutine());
+                
+            }
+        }
+    }
+
+    private void GameInput_OnScreenMouseUp(Vector2 mousePositionParam)
+    {
+        ApplyCursor(CursorState.Hand);
+    }
+
+    private void GameInput_OnScreenMouseDown(Vector2 mousePositionParam)
+    {
+        ScreenClick(mousePositionParam);
+    }
+
+    //wait one frame to use SceneTransitionService StartGameParams
     private IEnumerator WaitAndConsume()
     {
         // Option 1: wait a frame so Awake() on SceneTransitionService runs
@@ -104,33 +147,6 @@ public class ShopUIManager : MonoBehaviour
         if (p != null && p.startInShopMode)
         {
             OpenShop();
-        }
-    }
-
-    private void Update()
-    {
-        if (!ShopManager.Instance.IsShopOpen()) 
-            return;
-
-        if (Input.GetMouseButtonDown(0)) // left click
-        {
-            ScreenClick();
-        }
-        else if (Input.GetMouseButtonUp(0)) {
-            ApplyCursor(CursorState.Hand);
-        }
-
-        if (confirmingState)
-        {
-            confirmingTimer -= Time.deltaTime;
-            if (confirmingTimer <= 0 && !replacementCanceled)
-            {
-                confirmingState = false;
-                
-                //replace counters by animation
-                StartCoroutine(ReplaceCounterRoutine());
-                
-            }
         }
     }
 
@@ -177,12 +193,12 @@ public class ShopUIManager : MonoBehaviour
         return null;
     }
 
-    private void ScreenClick()
+    private void ScreenClick(Vector2 mousePositionParam)
     {
         ApplyCursor(CursorState.Grabbing);
 
         //Detect click on objects using Raycast
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(mousePositionParam);
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, counterLayerMask))
         {
             if (hit.transform.TryGetComponent(out BaseCounter counter))
@@ -213,18 +229,23 @@ public class ShopUIManager : MonoBehaviour
     private void CountersClick(BaseCounter counterParam)
     {
         if (replacementMode)
-        { 
-            selectedCounter = counterParam;
-            if (IsCounterSelected(counterParam))
+        {
+            // check for minimum requirements
+            var minRequiredCount = LevelManager.Instance.GetMinRequired(counterParam.CounterType);
+            if (GridManager.Instance.GetCountByType(counterParam.gameObject) == minRequiredCount)
             {
-                confirmingTimer = confirmingTimerMax;
-                confirmingState = true;
-                replacementCanceled = false;
-                DisableCounterPointer();
-                circleProgressBarUI.gameObject.SetActive(true);
-                CircleProgressBarUI.Instance.Setup(counterParam.transform.position, confirmingTimerMax);
+                ScreenMessagesUI.Instance.ShowMessage($"You need this counter to play the game and you can't replace it!");
+                return;
             }
-            else
+
+            if (counterParam.CounterType == newCounter.CounterType)
+            {
+                ScreenMessagesUI.Instance.ShowMessage($"This counter type is the same type you bought!");
+                return;
+            }
+
+            selectedCounter = counterParam;
+            if (!IsCounterSelected(counterParam))
             {
                 confirmingState = false;
                 // Set selected counter
@@ -232,8 +253,20 @@ public class ShopUIManager : MonoBehaviour
 
                 // set pointer position
                 var gridCell = GridManager.Instance.GetCellFromWorldPosition(counterParam.transform.position);
-                var t = EnableCounterPointer();
-                AnimationManager.Instance.PlayCounterPointer(t, gridCell.coordinates.x, gridCell.coordinates.y);
+                var pointerTransform = EnableCounterPointer();
+                AnimationManager.Instance.PlayCounterPointer(pointerTransform, gridCell.coordinates.x, gridCell.coordinates.y);
+                //ScreenMessagesUI.Instance.ShowFloatingMessage("click again to confirm replacement. "
+                //    , Vector3.zero
+                //    , 3f);
+            }
+            else // counter already selected
+            {
+                confirmingTimer = confirmingTimerMax;
+                confirmingState = true;
+                replacementCanceled = false;
+                DisableCounterPointer();
+                circleProgressBarUI.gameObject.SetActive(true);
+                CircleProgressBarUI.Instance.Setup(counterParam.transform.position, confirmingTimerMax);
             }
         }
         
@@ -350,8 +383,7 @@ public class ShopUIManager : MonoBehaviour
         
         HideShopPanels();
         
-        ScreenMessagesUI.Instance.ShowMessage("Select a counter to replace. \\n " +
-            "click on the selected counter to confirm replacement. ", 3, false, 40f);
+        ScreenMessagesUI.Instance.ShowMessage("Double click a counter to replace.", 3, false, 40f, 150f);
 
         // Set selected counter
         var gridCell = GridManager.Instance.GetCellAt(1, 6);

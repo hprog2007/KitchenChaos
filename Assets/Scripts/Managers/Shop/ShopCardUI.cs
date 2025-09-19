@@ -13,8 +13,11 @@ public class ShopCardUI : MonoBehaviour
     public TMP_Text CardTitle;
     public Image CardImage;
     public TMP_Text CardDescription;
+    public Image CoinImage;
     public TMP_Text CardPrice;
     public CounterType CounterType;
+
+
     private ShopSelectCardSO shopSelectCardSO;
 
     private void Awake()
@@ -30,7 +33,16 @@ public class ShopCardUI : MonoBehaviour
         CardTitle.text = cardSO.CardTitle;
         CardImage.sprite = cardSO.CardImage;
         CardDescription.text = cardSO.CardDescription;
-        CardPrice.text = cardSO.CardPriceInCoins.ToString();
+
+        if (shopModeParam == ShopMode.Coins)
+        {
+            CardPrice.text = CurrencyManager.Instance.GetActivePriceUnit() + cardSO.CardPriceInCoins.ToString();
+            CoinImage.enabled = false;
+        } else
+        {
+            CardPrice.text = cardSO.CardPriceInCoins.ToString();
+            CoinImage.enabled = true;
+        }
         //CardImage.preserveAspect = true;
         //CardImage.type = Image.Type.Simple;
         //CardTitle.fontSize = 22;

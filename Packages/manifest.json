@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.annulusgames.enhanced-on-screen-stick": "https://github.com/AnnulusGames/EnhancedOnScreenStick.git?path=Assets/EnhancedOnScreenStick",
     "com.unity.2d.enhancers": "1.0.0",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.assistant": "1.0.0-pre.8",
@@ -8,6 +9,7 @@
     "com.unity.ai.navigation": "2.0.8",
     "com.unity.cinemachine": "3.1.1",
     "com.unity.collab-proxy": "2.8.2",
+    "com.unity.device-simulator.devices": "1.0.0",
     "com.unity.ide.rider": "3.0.36",
     "com.unity.ide.visualstudio": "2.0.23",
     "com.unity.inputsystem": "1.14.2",

@@ -298,6 +298,26 @@ public class GridManager : MonoBehaviour
         };
     }
 
+    
+    public int GetCountByType(GameObject gameObjectParam)
+    {
+        var countOfGameObject = 0;
+
+        if (gameObjectParam.TryGetComponent<BaseCounter>(out BaseCounter baseCounter))
+        {
+
+            foreach (var gridcell in grid)
+            {
+                if (gridcell.placedObject != null && gridcell.placedObject.GetComponent<BaseCounter>().CounterType == baseCounter.CounterType)
+                {
+                    countOfGameObject++;
+                }
+            }
+        }
+        return countOfGameObject;
+    }
+
+    #region Scene view grid drawing
     // =======================
     // Scene view grid drawing
     // =======================
@@ -390,4 +410,6 @@ public class GridManager : MonoBehaviour
             }
         }
     }
+
+    #endregion
 }

@@ -6,17 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenuScene.unity
-    guid: e60d4112d0f3a1e47b9627372939e8e1
-  - enabled: 1
     path: Assets/Scenes/Level_Selection_Map.unity
     guid: 5a13ffe13135882448e44f332a518ddb
+  - enabled: 1
+    path: Assets/Scenes/MainMenuScene.unity
+    guid: e60d4112d0f3a1e47b9627372939e8e1
   - enabled: 1
     path: Assets/Scenes/KitchenLevels/L1_Classic_City_Scene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
     path: Assets/Scenes/KitchenLevels/L2_Rooftop_Garden_Scene.unity
-    guid: 562e4694ac11da54092b8e7d52a40628
+    guid: 3a479c191b8bfb24184106d1a4d89e70
   - enabled: 1
     path: Assets/Scenes/KitchenLevels/L3_Food_Truck_Scene.unity
     guid: 70704c51f9cf54a448f8b66c83d8ea0a

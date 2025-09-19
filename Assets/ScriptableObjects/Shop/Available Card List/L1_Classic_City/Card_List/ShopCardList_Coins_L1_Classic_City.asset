@@ -15,4 +15,8 @@ MonoBehaviour:
   sceneType: 2
   shopMode: 5
   shopCardList:
-  - {fileID: 11400000, guid: d665ab01b47cd3a41bf56849fa981aa6, type: 2}
+  - {fileID: 11400000, guid: bd98ae6f0b92945479d43227ba658be3, type: 2}
+  - {fileID: 11400000, guid: 47e5474645162bb42986456e821aa889, type: 2}
+  - {fileID: 11400000, guid: b5a2f808991cc8b47beb953562c61c8a, type: 2}
+  - {fileID: 11400000, guid: d7624b0005a7a22409a1373dee5e4a8c, type: 2}
+  - {fileID: 11400000, guid: 18a1e53ce27fd4f43a4d870004bab297, type: 2}

@@ -166,7 +166,7 @@ public class CounterUpgradeFXObject : MonoBehaviour
     // -------------------- Public API --------------------
 
     [ContextMenu("Test Upgrade")]
-    public void Upgrade()
+    public void UpgradeAnimation()
     {
         counterValue++;
         StartAnimation();
@@ -415,7 +415,7 @@ public class CounterUpgradeFXObjectEditor : Editor
         {
             if (GUILayout.Button("Test Upgrade", GUILayout.Height(28)))
             {
-                fx.Upgrade();
+                fx.UpgradeAnimation();
             }
             if (GUILayout.Button("Flash Only", GUILayout.Height(28)))
             {

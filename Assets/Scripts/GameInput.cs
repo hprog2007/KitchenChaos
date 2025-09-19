@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class GameInput : MonoBehaviour {
 
@@ -14,6 +15,8 @@ public class GameInput : MonoBehaviour {
     public event EventHandler OnInteractAlternateAction;
     public event EventHandler OnPauseAction;
     public event EventHandler OnBindingRebind;
+    public event System.Action<Vector2> ClickDownEvent;
+    public event System.Action<Vector2> ClickUpEvent;
 
     public enum Binding {
         Move_Up,
@@ -25,7 +28,8 @@ public class GameInput : MonoBehaviour {
         Pause,
         Gamepad_Interact,
         Gamepad_InteractAlternate,
-        Gamepad_Pause
+        Gamepad_Pause,
+        ScreenClick
     }
 
     private PlayerInputActions playerInputActions;
@@ -40,16 +44,38 @@ public class GameInput : MonoBehaviour {
         }
 
         playerInputActions.Player.Enable();
+        playerInputActions.Screen.Enable();
 
         playerInputActions.Player.Interact.performed += Interact_performed;
         playerInputActions.Player.InteractAlternate.performed += InteractAlternate_performed;
         playerInputActions.Player.Pause.performed += Pause_performed;
+        playerInputActions.Screen.ScreenClick.performed += OnClickPerformed;
+        playerInputActions.Screen.ScreenClick.canceled += OnClickCanceled;
+    }
+
+    // Mouse down (performed)
+    private void OnClickPerformed(InputAction.CallbackContext context)
+    {
+        if (context.started || context.performed) // started = down, performed = hold
+        {
+            Vector2 mousePos = playerInputActions.Screen.MousePosition.ReadValue<Vector2>();
+            ClickDownEvent?.Invoke(mousePos);
+        }
+    }
+
+    // Mouse up (canceled)
+    private void OnClickCanceled(InputAction.CallbackContext context)
+    {
+        Vector2 mousePos = playerInputActions.Screen.MousePosition.ReadValue<Vector2>();
+        ClickUpEvent?.Invoke(mousePos);
     }
 
     private void OnDestroy() {
         playerInputActions.Player.Interact.performed -= Interact_performed;
         playerInputActions.Player.InteractAlternate.performed -= InteractAlternate_performed;
         playerInputActions.Player.Pause.performed -= Pause_performed;
+        playerInputActions.Screen.ScreenClick.performed -= OnClickPerformed;
+        playerInputActions.Screen.ScreenClick.canceled -= OnClickCanceled;
 
         playerInputActions.Dispose();
     }

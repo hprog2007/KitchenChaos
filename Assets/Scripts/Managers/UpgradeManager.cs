@@ -3,7 +3,18 @@ using UnityEngine;
 using System.Linq;
 using static UpgradeData;
 using Unity.VisualScripting;
+using System;
 
+
+[Serializable]
+public class UpgradeDTO
+{
+    public CounterType CounterType;
+    
+    public string CounterTypeTitle;
+
+    public int CurrentLevel;
+}
 
 public class UpgradeManager : MonoBehaviour
 {
@@ -121,12 +132,10 @@ public class UpgradeManager : MonoBehaviour
             ApplyUpgrade(upgradeData);
             Debug.Log($"Upgraded {upgradeData.CounterTitle} to level {upgradeData.CurrentLevel}");            
 
-            // Save upgrade state
-            LevelManager.Instance.SaveLevel();
-
             ScreenMessagesUI.Instance.ShowMessage($"All {upgradeData.CounterTitle}s upgraded to level {upgradeData.CurrentLevel}", 3);
 
             // Notify all listeners (e.g., CuttingCounter, UI) about the upgrade
+            //used for particel effect and animation when upgrading
             OnAnyUpgradeApplied?.Invoke(counterType);
         }
         else
@@ -139,19 +148,24 @@ public class UpgradeManager : MonoBehaviour
     {
         if (upgradeData.CurrentLevel < upgradeData.levels.Length)
         {
-            switch (upgradeData.CounterType)
+            var matchingCounters = GetCountersByType(upgradeData.CounterType);
+
+            foreach (var counter in matchingCounters)
             {
-                case CounterType.CuttingCounter:
-                    FindAnyObjectByType<CuttingCounter>().SetSpeed(upgradeData.levels[upgradeData.CurrentLevel].speed);
-                    FindAnyObjectByType<CuttingCounter>().SetCapacity(upgradeData.levels[upgradeData.CurrentLevel].capacity);
-                    break;
-                case CounterType.Containers:
-                    FindAnyObjectByType<ContainerCounter>().SetSpeed(upgradeData.CurrentLevel);
-                    FindAnyObjectByType<ContainerCounter>().SetCapacity(upgradeData.CurrentLevel);
-                    break;
+                counter.SetSpeed(upgradeData.levels[upgradeData.CurrentLevel].speed);
+                counter.SetCapacity(upgradeData.levels[upgradeData.CurrentLevel].capacity);
             }
         }
     }   
+
+    //Get Counters By Type
+    public BaseCounter[] GetCountersByType(CounterType counterTypeParam)
+    {
+        BaseCounter[] allCounters = FindObjectsByType<BaseCounter>( FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        return  allCounters
+            .Where(c => c.CounterType == counterTypeParam)
+            .ToArray();
+    }
 
     // Optional: Reset to base level
     public void ResetUpgrades()
@@ -163,33 +177,62 @@ public class UpgradeManager : MonoBehaviour
             LevelManager.Instance.SaveLevel();
         }
     }
-    
-    /* moved to LevelManager
-     * 
-    // Save load
-    public void SaveUpgradeState(CounterType counterType)
-    {
-        var upgradeData = upgradeDataList.FirstOrDefault(a => a.CounterType == counterType);
 
-        PlayerPrefs.SetInt(counterType.ToString() + "_UpgradeLevel", upgradeData.CurrentLevel);
+    /// <summary>
+    /// Builds a list of UpgradeDTOs from the serialized UpgradeData list.
+    /// </summary>
+    public List<UpgradeDTO> BuildUpgradeDTOList()
+    {
+        var dtoList = new List<UpgradeDTO>();
+
+        foreach (var data in upgradeDataList)
+        {
+            if (data == null) continue; // Safety check
+
+            UpgradeDTO dto = new UpgradeDTO
+            {
+                CounterType = data.CounterType,
+                CounterTypeTitle = data.CounterType.ToString(),
+                CurrentLevel = data.CurrentLevel,
+            };
+
+            dtoList.Add(dto);
+        }
+
+        return dtoList;
     }
 
-    public void LoadUpgradeState(CounterType counterType)
+    /// <summary>
+    /// Restores UpgradeData ScriptableObjects from a snapshot of UpgradeDTOs.
+    /// </summary>
+    public void RestoreFromSnapshot(IEnumerable<UpgradeDTO> items)
     {
-        var upgradeData = upgradeDataList.FirstOrDefault(a => a.CounterType == counterType);
+        if (items == null) return;
 
-        upgradeData.CurrentLevel = PlayerPrefs.GetInt(counterType.ToString() + "_UpgradeLevel", 0);
+        // Build a lookup for quick CounterType -> DTO mapping
+        Dictionary<CounterType, UpgradeDTO> dtoMap =
+            items.ToDictionary(dto => dto.CounterType, dto => dto);
 
-        ApplyUpgrade(upgradeData);
-    }
-    */
+        foreach (var data in upgradeDataList)
+        {
+            if (data == null) continue;
 
-    //used for Save/Load
-    public List<UpgradeData> GetUpgradeDataList() => upgradeDataList;
+            // Find a matching DTO by CounterType
+            if (dtoMap.TryGetValue(data.CounterType, out UpgradeDTO dto))
+            {
+                // Update simple fields
+                data.CurrentLevel = dto.CurrentLevel;   
+                ApplyUpgrade(data);
 
-    //used for Save/Load
-    public void SetUpgradeDataList(List<UpgradeData> upgradeDataListParam) => upgradeDataList = upgradeDataListParam;
+#if UNITY_EDITOR
+                // Mark ScriptableObject dirty so Unity saves it in Editor mode
+                UnityEditor.EditorUtility.SetDirty(data);
+#endif
+            }
+        } //for
 
 
+
+    } //Restore from snapshot
 
 }

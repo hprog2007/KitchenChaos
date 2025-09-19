@@ -330,12 +330,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a56948b7717dae942b2329b7e1bdc13d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopCardUI
+  button: {fileID: 0}
   NewBadge: {fileID: 2976677261113337367}
   UpgradeBadge: {fileID: 2353080411996525362}
   CardTitle: {fileID: 8473480014994558665}
   CardImage: {fileID: 3256035018743375008}
   CardDescription: {fileID: 3256633353268300925}
+  CoinImage: {fileID: 4071437186229354467}
   CardPrice: {fileID: 7774368422598651537}
+  CounterType: 0
 --- !u!114 &2922895829844205458
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -54,7 +54,7 @@ public class CuttingCounter : BaseCounter, IHasProgress {
         }
 
         // visual effect for counter or ...
-        counterUpgradeFXObject.Upgrade();
+        counterUpgradeFXObject.UpgradeAnimation();
     }
 
     public void UpgradeCuttingCounter()

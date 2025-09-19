@@ -13,7 +13,8 @@ public class ScreenMessagesUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textMesh;
     [SerializeField] private Button btnYes;
     [SerializeField] private Button btnNo;
-
+    [SerializeField] private RectTransform floatingMessagePanel;
+    [SerializeField] private TextMeshProUGUI floatingMessage;
 
     private void Awake()
     {
@@ -26,15 +27,16 @@ public class ScreenMessagesUI : MonoBehaviour
         Instance = this;
 
         messagePanel.SetActive(false);
-
+        floatingMessagePanel.gameObject.SetActive(false);
 
     }
 
-    public void ShowMessage(string message, int duration = 3, bool HideOnClick = false, float fontSize = 50)
+    public void ShowMessage(string message, int duration = 3, bool HideOnClick = false, float fontSize = 40, float messagePanelHeight = 200f )
     {
-       
         textMesh.text = message;
         textMesh.fontSizeMax = fontSize;
+        var messageRect = messagePanel.GetComponent<RectTransform>();
+        messageRect.sizeDelta = new Vector2(messageRect.sizeDelta.x, messagePanelHeight);
         messagePanel.SetActive(true);
 
         if (!HideOnClick)
@@ -46,6 +48,23 @@ public class ScreenMessagesUI : MonoBehaviour
         }
     }   
 
+    public void ShowFloatingMessage(string messageParam, Vector3 messagePositionParam, float duration)
+    {
+        floatingMessage.text = messageParam;
+        floatingMessagePanel.anchoredPosition = messagePositionParam;
+        floatingMessagePanel.localScale = new Vector3(floatingMessagePanel.localScale.x, 0, floatingMessagePanel.localScale.z);
+        floatingMessagePanel.gameObject.SetActive(true);
+        AnimationManager.Instance.PlayScaleY(floatingMessagePanel, 1f, duration, () => 
+            {
+                AnimationManager.Instance.PlayScaleY(floatingMessagePanel, 0f , duration, () => 
+                    { floatingMessagePanel.gameObject.SetActive(false); });
+            });
+    }
+
+    public void HideFloatingMessage()
+    {
+        
+    }
     private void BindClickToHide()
     {
         var button = messagePanel.GetComponent<Button>();
@@ -53,18 +72,18 @@ public class ScreenMessagesUI : MonoBehaviour
         {
             button.onClick.RemoveAllListeners();
         }
-        button.onClick.AddListener(HideMessage);
+        button.onClick.AddListener(HideMessagePanel);
     }
 
     private IEnumerator DisplayMessageForDuration(int duration)
     {
         yield return new WaitForSeconds(duration);
 
-        HideMessage();
+        HideMessagePanel();
 
     }
 
-    public void HideMessage()
+    public void HideMessagePanel()
     {
         transform.DOScale(0f, .5f).SetEase(Ease.OutQuad).onComplete = 
             () => {

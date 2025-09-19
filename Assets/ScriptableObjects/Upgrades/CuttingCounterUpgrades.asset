@@ -15,7 +15,7 @@ MonoBehaviour:
   Counter: {fileID: 15202044967549090, guid: bf5c66e5c66a84448bac9e83e46d8f65, type: 3}
   CounterType: 9
   CounterTitle: Cutting Counter
-  CurrentLevel: 0
+  CurrentLevel: 4
   levels:
   - speed: 1
     capacity: 1
