@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Level_Selection_Map.unity
     guid: 5a13ffe13135882448e44f332a518ddb
   - enabled: 1
+    path: Assets/Scenes/KitchenLevels/L0_Loading_Scene.unity
+    guid: f6087749ca63d244fbdddca754d557eb
+  - enabled: 1
+    path: Assets/Scenes/LoadingScene.unity
+    guid: 02dbdd9c3a63a5f47a1e30a3985f6ce8
+  - enabled: 1
     path: Assets/Scenes/MainMenuScene.unity
     guid: e60d4112d0f3a1e47b9627372939e8e1
   - enabled: 1
@@ -35,9 +41,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/KitchenLevels/L8_Mountain_Cabin_Scene.unity
     guid: 53a7be08f73306e4383e745013c88bb4
-  - enabled: 1
-    path: Assets/Scenes/LoadingScene.unity
-    guid: 02dbdd9c3a63a5f47a1e30a3985f6ce8
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 580ffd2db93b6164b8fa37a5dfac1e86, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

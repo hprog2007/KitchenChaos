@@ -330,7 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a56948b7717dae942b2329b7e1bdc13d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopCardUI
-  button: {fileID: 0}
+  button: {fileID: 1931100707254713978}
   NewBadge: {fileID: 2976677261113337367}
   UpgradeBadge: {fileID: 2353080411996525362}
   CardTitle: {fileID: 8473480014994558665}

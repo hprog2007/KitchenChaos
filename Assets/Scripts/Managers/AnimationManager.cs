@@ -6,7 +6,9 @@ using UnityEngine;
 
 public class AnimationManager : MonoBehaviour
 {
-    public static AnimationManager Instance;    
+    public static AnimationManager Instance;
+
+    readonly Dictionary<Transform, Tween> _floatTweens = new();
 
     private void Awake()
     {
@@ -58,12 +60,34 @@ public class AnimationManager : MonoBehaviour
     {
         foreach (Transform t in transformListParam)
         {
-            var rt = t.GetComponent<RectTransform>();
-            rt.DOLocalMove(rt.anchoredPosition + Vector2.up * Mathf.Sin(Time.time * 2f) * 10f, 2f);
-            //yield return new WaitForSeconds(1f);
-            rt.DOLocalMove(rt.anchoredPosition + Vector2.up * Mathf.Sin(Time.time * 2f) * 10f, 2f);
+            // If exists, skip (or kill & recreate if you changed settings)
+            if (_floatTweens.TryGetValue(t, out var tw) && tw.IsActive()) continue;
+
+            // Create once
+            var basePos = t.localPosition;
+            tw = t.DOLocalMove(basePos + new Vector3(0f, 20f, 0f), 1.2f)
+                .SetEase(Ease.InOutSine)
+                .SetLoops(-1, LoopType.Yoyo)
+                .SetAutoKill(false)         // keep it alive for reuse
+                .SetRecyclable(true)        // allow pooling
+                .SetLink(t.gameObject);     // auto-kill when object is destroyed
+
+            _floatTweens[t] = tw;
+
+            //var rt = t.GetComponent<RectTransform>();
+            //rt.DOLocalMove(rt.anchoredPosition + Vector2.up * Mathf.Sin(Time.time * 2f) * 10f, 2f);
+            //rt.DOLocalMove(rt.anchoredPosition + Vector2.up * Mathf.Sin(Time.time * 2f) * 10f, 2f);
         }
         
+    }
+
+    public void StopFloating(Transform t)
+    {
+        if (_floatTweens.TryGetValue(t, out var tw) && tw.IsActive())
+        {
+            tw.Kill();
+            _floatTweens.Remove(t);
+        }
     }
 
     public void PlayScaleY(Transform floatingPanel, float endValue, float duration = 3f, Action onCompleteAction = null)

@@ -191,4 +191,15 @@ public class GameInput : MonoBehaviour {
 
 
     }
+
+    public void DisablePlayerInput()
+    {
+        playerInputActions.Player.Disable();
+    }
+
+    public void EnablePlayerInput()
+    {
+        playerInputActions.Player.Enable();
+    }
+
 }

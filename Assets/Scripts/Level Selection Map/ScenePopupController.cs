@@ -49,13 +49,17 @@ public class ScenePopupController : MonoBehaviour
     {
         shopMode = false;
         HidePopup();
-        //SceneManager.LoadScene(levelSelectorIconData.sceneType.ToString());
+        
         if (levelSelectorIconData.sceneType == SceneType.L1_Classic_City_Scene)
         {
-            SceneTransitionService.Instance.Load(levelSelectorIconData.sceneType.ToString(), new StartGameParams
+            var p = new StartGameParams
             {
                 startInShopMode = false
-            });
+            };
+           
+            SceneTransitionService.Instance.LoadWithLoading(levelSelectorIconData.sceneType.ToString(), p, 10f);
+
+            //SceneTransitionService.Instance.Load(levelSelectorIconData.sceneType.ToString());
         } else
         {
             //Locked for now
@@ -66,14 +70,15 @@ public class ScenePopupController : MonoBehaviour
     {
         shopMode=true;
         HidePopup();
-        //SceneManager.LoadScene(levelSelectorIconData.sceneType.ToString());
 
         if (levelSelectorIconData.sceneType == SceneType.L1_Classic_City_Scene)
         {
-            SceneTransitionService.Instance.Load(levelSelectorIconData.sceneType.ToString(), new StartGameParams
+            var p = new StartGameParams
             {
                 startInShopMode = true
-            });
+            };
+            //SceneTransitionService.Instance.LoadWithLoading(levelSelectorIconData.sceneType.ToString(), p, 0.35f);
+            SceneTransitionService.Instance.Load(levelSelectorIconData.sceneType.ToString());
         } else
         {
             //locked

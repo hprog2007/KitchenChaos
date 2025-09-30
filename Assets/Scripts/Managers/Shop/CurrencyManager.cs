@@ -24,7 +24,7 @@ public class CurrencyManager : MonoBehaviour
         coins = startingCoins;
     }
 
-    public int Coins => coins;
+    public int GetCoinsBalance() => coins;
 
     public void Add(int amount)
     {

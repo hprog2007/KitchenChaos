@@ -35,13 +35,20 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        CurrencyManager.Instance.OnCoinsAdded += CurrencyManager_OnCoinsAdded;
         LoadLevel();
     }
+
+    private void CurrencyManager_OnCoinsAdded(int newBalance)
+    {
+        SaveLoadManager.SaveCoins(newBalance);
+    }
+
     public void SaveLevel()
     {
         var gameSnapShot = new GameSnapshot();
         gameSnapShot.scene = (SceneType)System.Enum.Parse(typeof(SceneType), SceneManager.GetActiveScene().name);
-        gameSnapShot.coins = CurrencyManager.Instance.Coins;
+        gameSnapShot.coins = CurrencyManager.Instance.GetCoinsBalance();
         gameSnapShot.GridItems = GridManager.Instance.BuildSnapshot();
         gameSnapShot.UpgradeDTOList = UpgradeManager.Instance.BuildUpgradeDTOList();
         SaveLoadManager.SaveGame(gameSnapShot);

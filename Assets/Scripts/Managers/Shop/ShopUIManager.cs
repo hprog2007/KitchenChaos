@@ -123,16 +123,6 @@ public class ShopUIManager : MonoBehaviour
         }
     }
 
-    private void GameInput_OnScreenMouseUp(Vector2 mousePositionParam)
-    {
-        ApplyCursor(CursorState.Hand);
-    }
-
-    private void GameInput_OnScreenMouseDown(Vector2 mousePositionParam)
-    {
-        ScreenClick(mousePositionParam);
-    }
-
     //wait one frame to use SceneTransitionService StartGameParams
     private IEnumerator WaitAndConsume()
     {
@@ -149,6 +139,18 @@ public class ShopUIManager : MonoBehaviour
             OpenShop();
         }
     }
+
+    private void GameInput_OnScreenMouseUp(Vector2 mousePositionParam)
+    {
+        ApplyCursor(CursorState.Hand);
+    }
+
+    private void GameInput_OnScreenMouseDown(Vector2 mousePositionParam)
+    {
+        ScreenClick(mousePositionParam);
+    }
+
+    
 
     private IEnumerator ReplaceCounterRoutine()
     {

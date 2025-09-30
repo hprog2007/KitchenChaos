@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 public class ShopCardUI : MonoBehaviour
@@ -19,12 +20,18 @@ public class ShopCardUI : MonoBehaviour
 
 
     private ShopSelectCardSO shopSelectCardSO;
+    
+    private CosmeticItemSO cosmeticItemSO;
 
     private void Awake()
     {
         if (button ==  null) button = GetComponent<Button>();
         button.onClick.AddListener(() => ShopUIManager.Instance.ShopCardClick(this));
     }
+
+    public ShopSelectCardSO GetShopSelectCardSO() => shopSelectCardSO;
+
+    public CosmeticItemSO GetCosmeticItemSO() => cosmeticItemSO;
 
     public void SetupNew(ShopSelectCardSO cardSO, ShopMode shopModeParam)
     {
@@ -65,6 +72,47 @@ public class ShopCardUI : MonoBehaviour
         CardPrice.text = UpgradeManager.Instance.GetNextUpgradePrice(counterType).ToString();
     }
 
-    public ShopSelectCardSO GetShopSelectCardSO() => shopSelectCardSO;
+    public void SetupNew(CosmeticItemSO cosmeticParam)
+    {
+        cosmeticItemSO = cosmeticParam;
+
+        CardTitle.text = cosmeticParam.displayName;
+        CardDescription.text = cosmeticParam.description;
+
+        // Price formatting
+        switch (cosmeticParam.currency)
+        {
+            case CurrencyType.Coins:
+                CardPrice.text = cosmeticParam.price.ToString();
+                CoinImage.enabled = true; // already showing unit, hide coin icon
+                break;
+            case CurrencyType.Gems:
+                CardPrice.text = cosmeticParam.price.ToString();
+                CoinImage.enabled = true;  // use this Image as "gem" icon if you want
+                break;
+            default:
+                CardPrice.text = "Free";
+                CoinImage.enabled = false;
+                break;
+        }
+
+        // Load icon
+        if (cosmeticParam.icon.RuntimeKeyIsValid())
+        {
+            cosmeticParam.icon.LoadAssetAsync().Completed += OnIconLoaded;
+        }
+
+        NewBadge.enabled = true;
+        UpgradeBadge.enabled = false;
+    }
+
+    private void OnIconLoaded(AsyncOperationHandle<Sprite> handle)
+    {
+        if (handle.Status == AsyncOperationStatus.Succeeded)
+        {
+            CardImage.sprite = handle.Result;
+            CardImage.preserveAspect = true;
+        }
+    }
 
 }

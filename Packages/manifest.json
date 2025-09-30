@@ -3,6 +3,7 @@
     "com.annulusgames.enhanced-on-screen-stick": "https://github.com/AnnulusGames/EnhancedOnScreenStick.git?path=Assets/EnhancedOnScreenStick",
     "com.unity.2d.enhancers": "1.0.0",
     "com.unity.2d.sprite": "1.0.0",
+    "com.unity.addressables": "2.7.3",
     "com.unity.ai.assistant": "1.0.0-pre.8",
     "com.unity.ai.generators": "1.0.0-pre.15",
     "com.unity.ai.inference": "2.2.1",

@@ -50,4 +50,37 @@ public static class SaveLoadManager
         Debug.Log("Game loaded");
         return data;
     }
+
+    public static void SaveCoins(int newBalance)
+    {
+        // Ensure directory exists
+        if (!Directory.Exists(SaveDir))
+        { 
+            Directory.CreateDirectory(SaveDir);
+        }
+
+        GameSnapshot snapshot;
+
+        if (File.Exists(SavePathAndFileName))
+        {
+            // Read existing snapshot
+            var json = File.ReadAllText(SavePathAndFileName);
+            snapshot = string.IsNullOrEmpty(json)
+                ? new GameSnapshot()
+                : JsonUtility.FromJson<GameSnapshot>(json) ?? new GameSnapshot();
+        }
+        else
+        {
+            // No save yet; start a fresh one (minimal)
+            snapshot = new GameSnapshot();
+        }
+
+        // Only update coins
+        snapshot.coins = newBalance;
+
+        // Write back
+        var outJson = JsonUtility.ToJson(snapshot);
+        File.WriteAllText(SavePathAndFileName, outJson);
+        Debug.Log("Coins saved");
+    }
 }

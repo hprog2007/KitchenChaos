@@ -9,5 +9,6 @@ public enum SceneType
     L5_Luxury_Modern_Scene,
     L6_Underground_Chef_Scene,
     L7_Village_Bakery_Scene,
-    L8_Mountain_Cabin_Scene
+    L8_Mountain_Cabin_Scene,
+    L0_Loading_Scene
 }

@@ -44,7 +44,7 @@ public class OptionsUI : MonoBehaviour {
             UpdateVisual();
         });
         musicButton.onClick.AddListener(() => {
-            MusicManager.Instance.ChangeVolume();
+            MusicService.Instance.ChangeVolume();
             UpdateVisual();
         });
         closeButton.onClick.AddListener(() => {
@@ -79,7 +79,7 @@ public class OptionsUI : MonoBehaviour {
 
     private void UpdateVisual() {
         soundEffectsText.text = "Sound Effects: " + MathF.Round(SoundManager.Instance.GetVolume() * 10f);
-        musicText.text = "Music: " + MathF.Round(MusicManager.Instance.GetVolume() * 10f);
+        musicText.text = "Music: " + MathF.Round(MusicService.Instance.GetVolume() * 10f);
         
         moveUpText.text = GameInput.Instance.GetBindingText(GameInput.Binding.Move_Up);
         moveDownText.text = GameInput.Instance.GetBindingText(GameInput.Binding.Move_Down);

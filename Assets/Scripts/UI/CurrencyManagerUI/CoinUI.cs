@@ -10,11 +10,11 @@ public class CoinUI : MonoBehaviour
     private void Start()
     {
         // Initialize
-        HandleChanged(CurrencyManager.Instance != null ? CurrencyManager.Instance.Coins : 0);
+        CurrencyManager_OnCoinsChanged(CurrencyManager.Instance != null ? CurrencyManager.Instance.GetCoinsBalance() : 0);
 
         if (CurrencyManager.Instance != null)
         {
-            CurrencyManager.Instance.OnCoinsChanged += HandleChanged;
+            CurrencyManager.Instance.OnCoinsChanged += CurrencyManager_OnCoinsChanged;
             CurrencyManager.Instance.OnCoinsAdded += CoinsAdded;
 
         }
@@ -35,10 +35,10 @@ public class CoinUI : MonoBehaviour
     void OnDisable()
     {
         if (CurrencyManager.Instance != null)
-            CurrencyManager.Instance.OnCoinsChanged -= HandleChanged;
+            CurrencyManager.Instance.OnCoinsChanged -= CurrencyManager_OnCoinsChanged;
     }
 
-    void HandleChanged(int value)
+    void CurrencyManager_OnCoinsChanged(int value)
     {
         if (coinText != null) coinText.text = $"{value}";
     }
