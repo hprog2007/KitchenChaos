@@ -189,7 +189,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1837727254}
+        - m_Target: {fileID: 2105415406}
           m_TargetAssemblyTypeName: ScenePopupController, Assembly-CSharp
           m_MethodName: ShowPopupAtIcon
           m_Mode: 2
@@ -539,7 +539,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1837727254}
+        - m_Target: {fileID: 2105415406}
           m_TargetAssemblyTypeName: ScenePopupController, Assembly-CSharp
           m_MethodName: ShowPopupAtIcon
           m_Mode: 2
@@ -771,7 +771,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1837727254}
+        - m_Target: {fileID: 2105415406}
           m_TargetAssemblyTypeName: ScenePopupController, Assembly-CSharp
           m_MethodName: ShowPopupAtIcon
           m_Mode: 2
@@ -945,7 +945,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1837727254}
+        - m_Target: {fileID: 2105415406}
           m_TargetAssemblyTypeName: ScenePopupController, Assembly-CSharp
           m_MethodName: ShowPopupAtIcon
           m_Mode: 2
@@ -1376,7 +1376,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1837727254}
+        - m_Target: {fileID: 2105415406}
           m_TargetAssemblyTypeName: ScenePopupController, Assembly-CSharp
           m_MethodName: ShowPopupAtIcon
           m_Mode: 2
@@ -1432,6 +1432,7 @@ Transform:
   m_Children:
   - {fileID: 1463996143}
   - {fileID: 285715321}
+  - {fileID: 2105415405}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1447133162
@@ -1579,7 +1580,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1837727254}
+        - m_Target: {fileID: 2105415406}
           m_TargetAssemblyTypeName: ScenePopupController, Assembly-CSharp
           m_MethodName: ShowPopupAtIcon
           m_Mode: 2
@@ -1753,7 +1754,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1837727254}
+      - m_Target: {fileID: 2105415406}
         m_TargetAssemblyTypeName: ScenePopupController, Assembly-CSharp
         m_MethodName: OnObjectives
         m_Mode: 1
@@ -1907,7 +1908,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1837727254}
+      - m_Target: {fileID: 2105415406}
         m_TargetAssemblyTypeName: ScenePopupController, Assembly-CSharp
         m_MethodName: OnStartGame
         m_Mode: 1
@@ -2154,7 +2155,6 @@ GameObject:
   - component: {fileID: 1837727257}
   - component: {fileID: 1837727256}
   - component: {fileID: 1837727255}
-  - component: {fileID: 1837727254}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -2184,20 +2184,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -390}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 1}
---- !u!114 &1837727254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1837727252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85649409dee95cd4f8c3802085032f3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ScenePopupController
-  popupPanel: {fileID: 1837727252}
-  popupRectTransform: {fileID: 1837727253}
 --- !u!114 &1837727255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2563,7 +2549,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1837727254}
+        - m_Target: {fileID: 2105415406}
           m_TargetAssemblyTypeName: ScenePopupController, Assembly-CSharp
           m_MethodName: ShowPopupAtIcon
           m_Mode: 2
@@ -2917,7 +2903,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1837727254}
+      - m_Target: {fileID: 2105415406}
         m_TargetAssemblyTypeName: ScenePopupController, Assembly-CSharp
         m_MethodName: OnShop
         m_Mode: 1
@@ -3042,6 +3028,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2095035438}
   m_CullTransparentMesh: 1
+--- !u!1 &2105415404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2105415405}
+  - component: {fileID: 2105415406}
+  m_Layer: 0
+  m_Name: ScenePopupController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2105415405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105415404}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1415644941}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2105415406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105415404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85649409dee95cd4f8c3802085032f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScenePopupController
+  popupPanel: {fileID: 1837727252}
+  popupRectTransform: {fileID: 1837727253}
 --- !u!222 &2556420255197212023
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3163,7 +3195,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1837727254}
+        - m_Target: {fileID: 2105415406}
           m_TargetAssemblyTypeName: ScenePopupController, Assembly-CSharp
           m_MethodName: ShowPopupAtIcon
           m_Mode: 2

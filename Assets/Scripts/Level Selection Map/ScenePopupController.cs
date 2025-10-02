@@ -57,7 +57,8 @@ public class ScenePopupController : MonoBehaviour
                 startInShopMode = false
             };
            
-            SceneTransitionService.Instance.LoadWithLoading(levelSelectorIconData.sceneType.ToString(), p, 10f);
+            
+            SceneTransitionService.Instance.LoadWithLoading(levelSelectorIconData.sceneType, p, 3.5f);
 
             //SceneTransitionService.Instance.Load(levelSelectorIconData.sceneType.ToString());
         } else
@@ -77,8 +78,10 @@ public class ScenePopupController : MonoBehaviour
             {
                 startInShopMode = true
             };
-            //SceneTransitionService.Instance.LoadWithLoading(levelSelectorIconData.sceneType.ToString(), p, 0.35f);
-            SceneTransitionService.Instance.Load(levelSelectorIconData.sceneType.ToString());
+
+            SceneTransitionService.Instance.LoadWithLoading(levelSelectorIconData.sceneType, p, 3.5f);
+
+            //SceneTransitionService.Instance.Load(levelSelectorIconData.sceneType.ToString());
         } else
         {
             //locked

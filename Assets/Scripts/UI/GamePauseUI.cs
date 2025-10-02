@@ -13,7 +13,9 @@ public class GamePauseUI : MonoBehaviour {
         });
         
         mainMenuButton.onClick.AddListener(() => {
-            SceneLoader.Load(SceneLoader.Scene.Level_Selection_Map);
+            //SceneLoader.Load(SceneLoader.Scene.Level_Selection_Map);
+            Time.timeScale = 1f; //this is made zero when game paused
+            SceneTransitionService.Instance.LoadWithLoading(SceneType.Level_Selection_Map);
         });
 
         optionsButton.onClick.AddListener(() => {

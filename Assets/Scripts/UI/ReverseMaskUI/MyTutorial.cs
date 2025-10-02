@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using EnhancedOnScreenControls;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.OnScreen;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -19,26 +22,61 @@ public class MyTutorial : MonoBehaviour
 {
     [SerializeField] private GameObject mobileHUD;
     public Animator animator;
-    public CanvasGroup tutorialUI;
-    public RectTransform reverseMaskRect;
-    public Image CutOutImage;
+    public CanvasGroup tutorialCanvasGroup;
+    //public RectTransform reverseMaskRect;
+    //public Image CutOutImage;
     public TextMeshProUGUI textUGUI;
+    public GameObject skipButton;
 
-    private void Start()
+    private void OnEnable()
     {
-        //disable click while in tutorial
-        //mobileHUD.SetActive(false);
-        tutorialUI.blocksRaycasts = false;
-        tutorialUI.interactable = false;
-        GameInput.Instance.DisablePlayerInput();
-        
+        ToggleInteractionEnabled(false);
+
         GameInput.Instance.ClickDownEvent += GameInput_ClickDownEvent;
-        animator.Play("L1_Containers");
+        Time.timeScale = 1f;
+        animator.Play("L1_Containers", 0, 0f);
+        animator.Update(0f);
     }
 
     private void OnDisable()
     {
         GameInput.Instance.ClickDownEvent -= GameInput_ClickDownEvent;
+    }
+
+    private void ToggleInteractionEnabled(bool enableParam)
+    {
+        skipButton.SetActive(enableParam);
+
+        tutorialCanvasGroup.blocksRaycasts = enableParam;
+        tutorialCanvasGroup.interactable = enableParam;
+
+        if (enableParam)
+        {
+            GameInput.Instance.EnablePlayerInput();
+        }
+        else
+        {
+            GameInput.Instance.DisablePlayerInput();
+        }
+            
+
+        //disable action buttons click event
+        var events = mobileHUD.GetComponentsInChildren<EventTrigger>();
+        foreach (EventTrigger e in events)
+        {
+            e.enabled = enableParam;
+        }
+
+        //disable buttons
+        var screenButtons = mobileHUD.GetComponentsInChildren<OnScreenButton>();
+        foreach (OnScreenButton screenButton in screenButtons)
+        {
+            screenButton.enabled = enableParam;
+        }
+
+        //disable joystick
+        var joy = mobileHUD.GetComponentInChildren<EnhancedOnScreenStick>();
+        joy.enabled = enableParam;
     }
 
     private void GameInput_ClickDownEvent(Vector2 clickPos)
@@ -54,9 +92,7 @@ public class MyTutorial : MonoBehaviour
 
     public void EnableSkipTutorial()
     {
-        tutorialUI.blocksRaycasts = true;
-        tutorialUI.interactable = true;
-        GameInput.Instance.EnablePlayerInput();
+        ToggleInteractionEnabled(true);
     }
 
     public void SkipTutorial()

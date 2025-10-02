@@ -18,6 +18,8 @@ public class AnimationManager : MonoBehaviour
             return;
         }
         Instance = this;
+
+        DontDestroyOnLoad(gameObject);
     }
 
     //Pointer that is above counters in shop buy mode

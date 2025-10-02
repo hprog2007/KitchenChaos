@@ -17,6 +17,7 @@ public class LevelSelectionMap : MonoBehaviour
     {
         if (_started) return;
         _started = true;
+        Time.timeScale = 1f;
         AnimationManager.Instance.PlayFloatingUpDown(mapIconsList);
     }
 }

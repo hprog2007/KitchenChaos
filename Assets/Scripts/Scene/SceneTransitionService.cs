@@ -17,7 +17,7 @@ public class SceneTransitionService : MonoBehaviour
     private readonly Dictionary<Type, object> _mailbox = new();
 
     // ------------ PENDING REQUEST ------------
-    private string _pendingTargetScene;
+    private SceneType _pendingTargetScene;
     private Action<float> _loadingProgressCallback; // set by Loading scene
     private float _minShowSeconds = 0.35f;          // small polish pause to reach 100%
     public float MinShowSeconds => _minShowSeconds;
@@ -49,7 +49,7 @@ public class SceneTransitionService : MonoBehaviour
     }
 
     // --------- NEW: ASYNC FLOW WITH LOADING SCENE ---------
-    public void LoadWithLoading(string targetScene, object payload = null, float minShowSeconds = 0.35f)
+    public void LoadWithLoading(SceneType targetScene, object payload = null, float minShowSeconds = 0.35f)
     {
         if (payload != null) _mailbox[payload.GetType()] = payload;        
         _pendingTargetScene = targetScene;
@@ -62,11 +62,12 @@ public class SceneTransitionService : MonoBehaviour
     /// Called by LoadingSceneController.Start()
     public void BeginAsyncLoad(Action<float> onProgress)
     {
-        if (string.IsNullOrEmpty(_pendingTargetScene))
+        if (_pendingTargetScene == SceneType.None)
         {
             Debug.LogError("[SceneTransitionService] No pending target scene. Did you call LoadWithLoading?");
             return;
         }
+
         _loadingProgressCallback = onProgress;
         StartCoroutine(Co_LoadTarget());
     }
@@ -75,7 +76,7 @@ public class SceneTransitionService : MonoBehaviour
     // SceneTransitionService.cs (core coroutine)
     private IEnumerator Co_LoadTarget()
     {
-        var op = SceneManager.LoadSceneAsync(_pendingTargetScene, LoadSceneMode.Single);
+        var op = SceneManager.LoadSceneAsync(_pendingTargetScene.ToString(), LoadSceneMode.Single);
         op.allowSceneActivation = false;
 
         float minSeconds = Mathf.Max(0f, _minShowSeconds);   // set this via LoadWithLoading(..., 10f)
@@ -103,10 +104,10 @@ public class SceneTransitionService : MonoBehaviour
         yield return null;
 
 
-        MusicService.Instance.PlayMusicForLevel((SceneType)Enum.Parse(typeof(SceneType), _pendingTargetScene));
+        MusicService.Instance.PlayMusicForLevel(_pendingTargetScene);
 
         op.allowSceneActivation = true;  // Single mode: instantly switches, no manual unload needed
-        _pendingTargetScene = null;
+        _pendingTargetScene = SceneType.None;
     }
 
 
